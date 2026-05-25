@@ -42,9 +42,13 @@ const SPEC_ROWS: Array<{ key: string; label: string; icon: any; format?: (v: any
 ];
 
 export function ProductSpecsSection({ specs }: { specs: Specs }) {
-  const info: Array<{ icone?: string; texto: string }> | undefined = specs.informacoesTecnicas;
+  // Try to find technical info in different possible field names
+  let info: Array<{ icone?: string; texto?: string; label?: string; value?: any }> | undefined = 
+    specs.informacoesTecnicas || specs.info_tecnica;
 
-  // Preferred path: render the supplier's exact SVG icons + raw text
+  const inmetroUrl = specs.inmetro || specs.inmetro_url;
+
+  // If we have the array format, let's normalize it
   if (Array.isArray(info) && info.length > 0) {
     return (
       <section className="mt-12 bg-muted/25 py-8 md:py-10 relative left-1/2 right-1/2 -mx-[50vw] w-screen">
@@ -57,34 +61,72 @@ export function ProductSpecsSection({ specs }: { specs: Specs }) {
           <div className="lg:grid lg:grid-cols-[1fr_auto] lg:gap-8">
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-7">
               {info.map((item, idx) => {
-                const [labelRaw, ...rest] = item.texto.split(":");
-                const value = rest.join(":").trim();
+                let label = "";
+                let value = "";
+                let icone = item.icone;
+
+                if (item.texto) {
+                  const [labelRaw, ...rest] = item.texto.split(":");
+                  label = labelRaw;
+                  value = rest.join(":").trim();
+                } else if (item.label) {
+                  label = item.label;
+                  value = String(item.value || "");
+                }
+
+                // If no icon provided, try to find a matching one from SPEC_ROWS
+                if (!icone) {
+                  const match = SPEC_ROWS.find(row => 
+                    label.toLowerCase().includes(row.label.toLowerCase()) || 
+                    row.label.toLowerCase().includes(label.toLowerCase()) ||
+                    (row.key && label.toLowerCase().includes(row.key.toLowerCase()))
+                  );
+                  if (match) {
+                    const Icon = match.icon;
+                    return (
+                      <div key={idx} className="flex items-center gap-3">
+                        <div className="shrink-0 w-10 h-10 rounded-full border-2 border-safety-orange/40 flex items-center justify-center">
+                          <Icon className="h-5 w-5 text-safety-orange" />
+                        </div>
+                        <div className="text-sm leading-tight">
+                          <div className="text-muted-foreground">{label}:</div>
+                          <div className="font-bold text-foreground">{value || "—"}</div>
+                        </div>
+                      </div>
+                    );
+                  }
+                }
+
                 return (
                   <div key={idx} className="flex items-center gap-3">
-                    {item.icone ? (
+                    {icone ? (
                       <img
-                        src={item.icone}
+                        src={icone}
                         alt=""
                         className="shrink-0 h-[35px] w-[35px] object-contain"
                         loading="lazy"
                       />
-                    ) : null}
+                    ) : (
+                      <div className="shrink-0 w-[35px] h-[35px] rounded-full bg-industrial-blue/10 flex items-center justify-center">
+                        <Tag className="h-4 w-4 text-industrial-blue" />
+                      </div>
+                    )}
                     <div className="text-sm leading-tight">
-                      <div className="text-muted-foreground">{labelRaw}:</div>
+                      <div className="text-muted-foreground">{label}:</div>
                       <div className="font-bold text-foreground">{value || "—"}</div>
                     </div>
                   </div>
                 );
               })}
             </div>
-            {specs.inmetro && (
+            {inmetroUrl && (
               <div className="mt-8 pt-6 border-t lg:mt-0 lg:pt-0 lg:border-t-0 lg:pl-4 lg:w-[240px]">
                 <h3 className="font-black text-industrial-blue dark:text-primary text-sm uppercase tracking-wide mb-3">
                   Etiqueta Inmetro
                 </h3>
-                <a href={specs.inmetro} target="_blank" rel="noopener noreferrer" className="inline-block">
+                <a href={inmetroUrl} target="_blank" rel="noopener noreferrer" className="inline-block">
                   <img
-                    src={specs.inmetro}
+                    src={inmetroUrl}
                     alt="Etiqueta Inmetro"
                     loading="lazy"
                     className="w-full h-auto rounded-lg border bg-white max-w-[224px]"

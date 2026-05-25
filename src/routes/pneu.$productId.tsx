@@ -129,8 +129,29 @@ function ProductDetail() {
   };
 
   const inStock = (product.stock ?? 0) > 0;
-  const specs = (product.specs ?? {}) as Record<string, string | number>;
-  const specEntries = Object.entries(specs);
+  const specs = (product.specs ?? {}) as Record<string, any>;
+  const specEntries = Object.entries(specs).filter(([k]) => k !== "info_tecnica" && k !== "informacoesTecnicas" && k !== "veiculos_por_marca");
+
+  // Extract Inmetro values from technical info if not present in root
+  const infoTecnica = (specs.info_tecnica || specs.informacoesTecnicas) as any[];
+  let consumo = specs.consumo;
+  let aderencia = specs.aderencia;
+  let ruido_db = specs.ruido_db;
+
+  if (Array.isArray(infoTecnica)) {
+    infoTecnica.forEach(item => {
+      const label = (item.label || item.texto || "").toLowerCase();
+      const value = String(item.value || (item.texto?.split(":")[1] || "")).trim();
+      
+      if (label.includes("consumo") || label.includes("rolamento")) {
+        consumo = consumo || value;
+      } else if (label.includes("aderência") || label.includes("pista molhada")) {
+        aderencia = aderencia || value;
+      } else if (label.includes("ruído") || label.includes("db")) {
+        ruido_db = ruido_db || value.replace(/\D/g, "");
+      }
+    });
+  }
 
   // Build canonical spec rows (always show what we have)
   const baseRows: Array<[string, string | number | null | undefined]> = [
@@ -139,7 +160,7 @@ function ProductDetail() {
     ["SKU", product.sku],
     ["Código de barras", product.gtin],
   ];
-  const rows = [...baseRows, ...specEntries].filter(([, v]) => v !== null && v !== undefined && v !== "");
+  const rows = [...baseRows, ...specEntries].filter(([, v]) => v !== null && v !== undefined && v !== "" && typeof v !== "object");
 
   return (
     <div className="container px-4 mx-auto py-4 md:py-6">
@@ -174,16 +195,16 @@ function ProductDetail() {
               onError={onProductImageError}
                className="h-full w-full object-contain" loading="eager" width="600" height="600"
             />
-            {((specs as any).consumo || (specs as any).aderencia || (specs as any).ruido_db) && (
+            {(consumo || aderencia || ruido_db) && (
               <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
-                {(specs as any).consumo && (
-                  <EtiquetaBadge src="/etiquetas/consumo.webp" alt="Consumo" value={(specs as any).consumo} width="48" height="64" />
+                {consumo && (
+                  <EtiquetaBadge src="/etiquetas/consumo.webp" alt="Consumo" value={consumo} width="48" height="64" />
                 )}
-                {(specs as any).aderencia && (
-                  <EtiquetaBadge src="/etiquetas/aderencia.webp" alt="Aderência" value={(specs as any).aderencia} width="48" height="64" />
+                {aderencia && (
+                  <EtiquetaBadge src="/etiquetas/aderencia.webp" alt="Aderência" value={aderencia} width="48" height="64" />
                 )}
-                {(specs as any).ruido_db && (
-                  <EtiquetaBadge src="/etiquetas/ruido-alto.webp" alt="Ruído" value={String((specs as any).ruido_db)} suffix="dB" width="48" height="64" />
+                {ruido_db && (
+                  <EtiquetaBadge src="/etiquetas/ruido-alto.webp" alt="Ruído" value={String(ruido_db)} suffix="dB" width="48" height="64" />
                 )}
               </div>
             )}
