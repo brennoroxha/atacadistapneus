@@ -110,22 +110,24 @@ function HeroBannerCarousel() {
         <CarouselContent className="ml-0">
           {banners.map((b, i) => (
             <CarouselItem key={i} className="pl-0">
-              <img
-                src={b.srcMobile}
-                alt={b.alt}
-                className="block md:hidden w-full h-auto"
-                loading={i === 0 ? "eager" : "lazy"}
-                width="768"
-                height="500"
-              />
-              <img
-                src={b.src}
-                alt={b.alt}
-                className="hidden md:block w-full h-auto"
-                loading={i === 0 ? "eager" : "lazy"}
-                width="1920"
-                height="600"
-              />
+              <div className="relative w-full" style={{ aspectRatio: "1920/600" }}>
+                <img
+                  src={b.src}
+                  alt={b.alt}
+                  className="absolute inset-0 w-full h-full object-cover hidden md:block"
+                  loading={i === 0 ? "eager" : "lazy"}
+                  width="1920"
+                  height="600"
+                />
+                <img
+                  src={b.srcMobile}
+                  alt={b.alt}
+                  className="absolute inset-0 w-full h-full object-cover block md:hidden"
+                  loading={i === 0 ? "eager" : "lazy"}
+                  width="768"
+                  height="500"
+                />
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>
