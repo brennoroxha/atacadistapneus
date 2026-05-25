@@ -285,3 +285,78 @@ export function WarrantySection({ garantia }: { garantia?: string }) {
     </CollapsibleSection>
   );
 }
+
+// ============================================================
+// Especificações (clean table layout — Lider Auto Center style)
+// ============================================================
+export function EspecificacoesTable({
+  product,
+  specs,
+}: {
+  product: { name: string; gtin?: string | null; categories?: { name?: string } | null };
+  specs: Specs;
+}) {
+  // Parse medida (e.g. "185/70R13") into largura / perfil / aro
+  const medida: string = String(specs.medida || "");
+  const match = medida.match(/^(\d{2,3})\/(\d{2})R(\d{1,2})/i);
+  const largura = match?.[1] || specs.largura || specs.largura_mm || "";
+  const perfil = match?.[2] || specs.perfil || "";
+  const aro = match?.[3] || specs.aro || "";
+  const marca = String(specs.marca || specs.brand || "").toUpperCase();
+  const categoria = product.categories?.name || (aro ? `Pneus Aro ${aro}` : "");
+  const gtin = product.gtin || specs.gtin || specs.ean || "";
+
+  const rows: Array<[string, string | number]> = [];
+  if (marca) rows.push(["Marca", marca]);
+  if (largura) rows.push(["Largura", String(largura)]);
+  if (perfil) rows.push(["Perfil", String(perfil)]);
+  if (aro) rows.push(["Aro", `${aro}"`]);
+  if (categoria) rows.push(["Categoria", categoria]);
+  if (gtin) rows.push(["GTIN/EAN", String(gtin)]);
+
+  if (rows.length === 0) return null;
+
+  return (
+    <section className="mt-10 space-y-8">
+      {/* Especificações */}
+      <div>
+        <div className="flex items-center gap-2 mb-3">
+          <span className="block w-1 h-5 bg-safety-orange rounded" />
+          <h2 className="font-black text-industrial-blue dark:text-primary text-lg">Especificações</h2>
+        </div>
+        <div className="rounded-lg border bg-card overflow-hidden">
+          <table className="w-full text-sm">
+            <tbody>
+              {rows.map(([k, v], i) => (
+                <tr key={k} className={i % 2 === 0 ? "bg-background" : "bg-muted/30"}>
+                  <td className="px-4 py-3 text-industrial-blue/80 dark:text-primary/80">{k}</td>
+                  <td className="px-4 py-3 text-right font-bold text-foreground">{v}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Especificações técnicas */}
+      {gtin && (
+        <div>
+          <div className="flex items-center gap-2 mb-3">
+            <span className="block w-1 h-5 bg-safety-orange rounded" />
+            <h2 className="font-black text-industrial-blue dark:text-primary text-lg">Especificações técnicas</h2>
+          </div>
+          <div className="rounded-lg border bg-card p-4 max-w-md">
+            <div className="flex items-center gap-2 mb-3 text-safety-orange font-bold text-sm">
+              <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border-2 border-safety-orange text-[10px]">i</span>
+              DADOS TÉCNICOS
+            </div>
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-muted-foreground">GTIN/EAN</span>
+              <span className="font-bold text-foreground">{gtin}</span>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}

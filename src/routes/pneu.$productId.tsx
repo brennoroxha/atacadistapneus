@@ -20,7 +20,7 @@ import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { generateMetadata } from "@/lib/seo";
 import { FormattedDescription } from "@/components/FormattedDescription";
-import { ProductSpecsSection, AdditionalInfoSection, VehiclesSection, WarrantySection, DescriptionSection } from "@/components/ProductSpecsSection";
+import { ProductSpecsSection, AdditionalInfoSection, VehiclesSection, WarrantySection, DescriptionSection, EspecificacoesTable } from "@/components/ProductSpecsSection";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getBrandLogo } from "@/lib/brand-logo";
 
@@ -302,12 +302,8 @@ function ProductDetail() {
 
       <ProductSpecsSection specs={specs} />
 
-      {/* Description */}
-      <DescriptionSection defaultOpen={true}>
-        <div className="max-w-none prose prose-sm prose-slate">
-          <FormattedDescription text={product.description || "Nenhuma descrição disponível para este produto."} />
-        </div>
-      </DescriptionSection>
+      <EspecificacoesTable product={product} specs={specs} />
+
 
       <AdditionalInfoSection texto={(specs as any).informacaoAdicional} />
       <VehiclesSection veiculos={(specs as any).veiculos} />
