@@ -8,14 +8,15 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { Newsletter } from "@/components/Newsletter";
+import React, { Suspense, lazy } from "react";
+const Header = lazy(() => import("@/components/Header").then(m => ({ default: m.Header })));
+const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
+const Newsletter = lazy(() => import("@/components/Newsletter").then(m => ({ default: m.Newsletter })));
 import bannerFreteBrasil from "@/assets/banner-frete-gratis-brasil.webp";
 import { Toaster } from "@/components/ui/sonner";
 import { CookieBanner } from "@/components/CookieBanner";
 import { MobileBottomNav } from "@/components/MobileBottomNav";
-import { CartDrawer } from "@/components/CartDrawer";
+const CartDrawer = lazy(() => import("@/components/CartDrawer").then(m => ({ default: m.CartDrawer })));
 
 import appCss from "../styles.css?url";
 
@@ -156,20 +157,25 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex flex-col min-h-screen">
-        {!isCheckout && <Header />}
+        <Suspense fallback={<div className="h-20 bg-white" />}>
+          {!isCheckout && <Header />}
+        </Suspense>
         <main className={isCheckout ? "flex-1" : "flex-1"}>
           <Outlet />
         </main>
         {!isCheckout && (
           <>
-            <img src={bannerFreteBrasil} alt="Frete grátis para todo o Brasil" className="block w-full h-auto" loading="lazy" />
-            <Newsletter />
-            <Footer />
-            
+            <img src={bannerFreteBrasil} alt="Frete grátis para todo o Brasil" className="block w-full h-auto" loading="lazy" width="1920" height="150" />
+            <Suspense fallback={<div className="h-40 bg-neutral-200" />}>
+              <Newsletter />
+              <Footer />
+            </Suspense>
           </>
         )}
         <CookieBanner />
-        <CartDrawer />
+        <Suspense fallback={null}>
+          <CartDrawer />
+        </Suspense>
       </div>
       <Toaster position="top-right" closeButton />
     </QueryClientProvider>

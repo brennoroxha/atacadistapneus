@@ -178,7 +178,7 @@ function OrderSummary({
             {items.map((item) => (
               <div key={item.id} className="flex gap-3">
                 <div className="h-14 w-14 rounded border bg-muted overflow-hidden shrink-0">
-                  <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
+                  <img src={item.image.replace(/\.(png|jpg|jpeg)$/i, '.webp')} alt={item.name} className="h-full w-full object-cover" loading="lazy" width="56" height="56" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-bold text-black line-clamp-2 leading-snug">
