@@ -4,7 +4,7 @@ export const Route = createFileRoute("/api/public/sitemap")({
   server: {
     handlers: {
       GET: async () => {
-        const baseUrl = process.env.PUBLIC_URL || "https://construmais.com.br";
+        const baseUrl = process.env.PUBLIC_URL || "https://atacadistapneus.lovable.app";
         const pages = [
           "",
           "/products",

@@ -39,11 +39,11 @@ export const Route = createFileRoute("/")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebSite",
-            "name": "ConstruMais",
-            "url": "https://construmais.com.br",
+            "name": "Atacadista Pneus",
+            "url": "https://atacadistapneus.lovable.app",
             "potentialAction": {
               "@type": "SearchAction",
-              "target": "https://construmais.com.br/products?q={search_term_string}",
+              "target": "https://atacadistapneus.lovable.app/products?q={search_term_string}",
               "query-input": "required name=search_term_string"
             }
           })

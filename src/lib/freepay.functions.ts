@@ -49,7 +49,7 @@ export const createPixPayment = createServerFn({ method: "POST" })
     const body = {
       amount: data.amount,
       payment_method: "pix",
-      metadata: { source: "construmais-checkout" },
+      metadata: { source: "atacadistapneus-checkout" },
       customer: {
         name: data.customer.name,
         email: data.customer.email,

@@ -4,8 +4,8 @@ import { CreditCard, Banknote, QrCode, Landmark } from "lucide-react";
 export const Route = createFileRoute("/payment-methods")({
   head: () => ({
     meta: [
-      { name: "title", content: "Formas de Pagamento | ConstruMais" },
-      { name: "description", content: "Conheça todas as formas de pagamento aceitas na ConstruMais: cartão, PIX, boleto e mais." },
+      { name: "title", content: "Formas de Pagamento | Atacadista Pneus" },
+      { name: "description", content: "Conheça todas as formas de pagamento aceitas na Atacadista Pneus: cartão, PIX, boleto e mais." },
     ],
   }),
   component: () => (
