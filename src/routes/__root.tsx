@@ -92,8 +92,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "theme-color", content: "#0e1629" },
       { name: "twitter:title", content: "Atacadista Pneus - Pneus Atacado e Varejo" },
       { name: "twitter:description", content: "A maior loja de pneus do Brasil. Atacado e varejo com os melhores preços e entrega rápida." },
-      { property: "og:image", content: "https://atacadistapneus.com/logo.webp" },
-      { name: "twitter:image", content: "https://atacadistapneus.com/logo.webp" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/P1BGVl6n13e77OYjLdHoAVwk1Nv2/social-images/social-1779680339725-ChatGPT_Image_24_de_mai._de_2026,_23_00_01.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/P1BGVl6n13e77OYjLdHoAVwk1Nv2/social-images/social-1779680339725-ChatGPT_Image_24_de_mai._de_2026,_23_00_01.webp" },
     ],
     links: [
       {
