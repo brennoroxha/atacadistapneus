@@ -66,8 +66,8 @@ function ShippingPolicyPage() {
 
       <div className="info-box">
         <p>Dúvidas sobre seu envio? Entre em contato:</p>
-        <p>E-mail: contato@comercialferragens.site</p>
-        <p>Telefone/WhatsApp: 49 99847-8577</p>
+        <p>E-mail: contato@atacadistapneus.com.br</p>
+        <p>Telefone/WhatsApp: 75 99999-9999</p>
       </div>
     </LegalPage>
   );
