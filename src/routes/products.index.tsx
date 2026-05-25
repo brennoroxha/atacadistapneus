@@ -375,7 +375,22 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
     </Accordion>
   );
 
-  // Parse slug like "tipo-carros-camionete-aro-13" => { tipo: "Carro/Camionete", aro: "13" }
+  // Find the current category info (name and whether it's tire-related)
+  const currentCategoryInfo = useMemo(() => {
+    if (!category || !categories) return null;
+    const cat = categories.find((c: any) => c.slug === category);
+    if (!cat) return null;
+    // Walk up parent chain to find the root
+    let root = cat;
+    while (root.parent_id) {
+      const parent = categories.find((c: any) => c.id === root.parent_id);
+      if (!parent) break;
+      root = parent;
+    }
+    return { cat, root, isTire: root.slug === "pneus" };
+  }, [category, categories]);
+
+  // Parse slug like "tipo-carros-camionete-aro-13" for tire-specific breadcrumb
   const parsedCategory = (() => {
     if (!category) return null;
     const aroMatch = category.match(/-aro-(\d+)/);
@@ -391,12 +406,26 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
     return { tipo, aro: aroNum };
   })();
 
+  // Compute page title and breadcrumb label
+  const pageTitle = (() => {
+    if (q) return `Busca: "${q}"`;
+    if (currentCategoryInfo) {
+      if (currentCategoryInfo.isTire) {
+        return parsedCategory?.aro ? `Pneus Aro ${parsedCategory.aro}` : `Pneus ${parsedCategory?.tipo ?? ""}`.trim();
+      }
+      return currentCategoryInfo.cat.name;
+    }
+    return "Todos os Produtos";
+  })();
+
+  const breadcrumbLabel = currentCategoryInfo?.cat?.name ?? "Produtos";
+
   return (
     <div className="container px-4 mx-auto py-6">
       <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-muted-foreground mb-8">
         <Link to="/" className="hover:text-safety-orange flex items-center"><Home className="h-3.5 w-3.5" /></Link>
         <ChevronRight className="h-3 w-3" />
-        {parsedCategory ? (
+        {currentCategoryInfo?.isTire && parsedCategory ? (
           <>
             <Link to="/products" className="hover:text-safety-orange text-industrial-blue">
               Pneus {parsedCategory.tipo}
@@ -409,14 +438,20 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
             )}
           </>
         ) : (
-          <Link to="/products" className="hover:text-safety-orange text-industrial-blue">Pneus</Link>
+          <span className="text-industrial-blue">{breadcrumbLabel}</span>
+        )}
+        {q && (
+          <>
+            <ChevronRight className="h-3 w-3" />
+            <span className="text-safety-orange">Busca: "{q}"</span>
+          </>
         )}
       </div>
 
       {/* Page title */}
       <div className="mb-6 text-center">
         <h1 className="text-2xl lg:text-3xl font-black tracking-tight text-foreground">
-          {parsedCategory?.aro ? `Pneus Aro ${parsedCategory.aro}` : "Pneus Todos"}
+          {pageTitle}
         </h1>
       </div>
 
