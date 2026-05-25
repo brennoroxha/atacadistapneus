@@ -178,15 +178,11 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
 
   const facets = allFacetsData ?? { aros: [], alturas: [], larguras: [], marcas: [] };
 
-  // Apply spec filters client-side
+  // We now filter mostly on server-side via useQuery above. 
+  // Client-side filter remains for Marca/Runflat which are not handled by server query yet.
   const filtered = useMemo(() => {
     const list = (products ?? []).filter((p: any) => {
       const s = p.specs ?? {};
-      const m = parseMedida(s.medida);
-      const aroVal = String(s.aro ?? m.aro ?? "");
-      if (aro?.length && !aro.includes(aroVal)) return false;
-      if (altura?.length && !altura.includes(m.altura)) return false;
-      if (largura?.length && !largura.includes(m.largura)) return false;
       if (marca?.length && !marca.includes(String(s.marca ?? ""))) return false;
       if (runflat === "sim" && !s.runflat) return false;
       if (runflat === "nao" && s.runflat) return false;
