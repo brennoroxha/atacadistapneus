@@ -152,7 +152,6 @@ export function ProductSpecsSection({ specs }: { specs: Specs }) {
         {rows.map(({ key, label, svg, format }) => (
           <div key={key} className="flex items-start gap-3">
             <img src={specIcon(svg)} alt="" className="shrink-0 h-[40px] w-[40px] object-contain" loading="lazy" />
-            </div>
             <div className="text-sm leading-tight pt-1">
               <div className="text-muted-foreground">{label}:</div>
               <div className="font-bold text-foreground">
