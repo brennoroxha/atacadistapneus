@@ -14,7 +14,7 @@ export const Route = createFileRoute("/terms")({
 function TermsPage() {
   return (
     <LegalPage title="Termos e Condições de Uso">
-      <p className="lead">Bem-vindo à <strong>R&A Atacadista Distribuidora e Recauchutadora de Pneus LTDA</strong>! Os presentes Termos e Condições de Uso ("Termos") regem o acesso e uso do site <strong>https://atacadistapneus.lovable.app</strong> ("Loja"), operado por R&A Atacadista Distribuidora e Recauchutadora de Pneus LTDA, inscrita no CNPJ sob o nº 04.610.006/0004-84, com sede em Avenida Jose Falcao, 75 A, Loja - Queimadinha - Feira de Santana/BA - CEP 44026-100.</p>
+      <p className="lead">Bem-vindo à <strong>R&A Atacadista Distribuidora e Recauchutadora de Pneus LTDA</strong>! Os presentes Termos e Condições de Uso ("Termos") regem o acesso e uso do site <strong>https://atacadistapneus.com</strong> ("Loja"), operado por R&A Atacadista Distribuidora e Recauchutadora de Pneus LTDA, inscrita no CNPJ sob o nº 04.610.006/0004-84, com sede em Avenida Jose Falcao, 75 A, Loja - Queimadinha - Feira de Santana/BA - CEP 44026-100.</p>
 
       <p><strong>AO UTILIZAR A LOJA, VOCÊ DECLARA QUE LEU, ENTENDEU E CONCORDA INTEGRALMENTE COM ESTES TERMOS.</strong> Caso não concorde, favor não utilizar a Loja.</p>
 
