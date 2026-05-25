@@ -216,8 +216,14 @@ function TireSearchByMeasure() {
   };
 
   const handleSearch = () => {
-    const parts = [largura, altura, aro].filter(Boolean).join("/");
-    navigate({ to: "/products", search: parts ? ({ search: parts } as any) : {} });
+    navigate({
+      to: "/products",
+      search: {
+        largura: largura ? [largura] : undefined,
+        altura: altura ? [altura] : undefined,
+        aro: aro ? [aro] : undefined,
+      } as any,
+    });
   };
 
   return (
