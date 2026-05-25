@@ -9,11 +9,11 @@ export function Footer() {
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 mb-10 md:mb-16">
           <div className="space-y-6 text-center md:text-left">
-            <Link to="/" className="inline-flex items-center justify-center md:justify-start w-full md:w-auto" aria-label="Comercial Ferragens">
-              <img src={logo} alt="Comercial Ferragens - Escadas em Alumínio" className="h-[80px] md:h-[100px] w-auto" />
+            <Link to="/" className="inline-flex items-center justify-center md:justify-start w-full md:w-auto" aria-label="Atacadista Pneus">
+              <img src={logo} alt="Atacadista Pneus" className="h-[80px] md:h-[100px] w-auto" />
             </Link>
             <p className="text-black text-sm leading-relaxed">
-              Sua parceira completa em materiais de construção. Qualidade, preço justo e entrega rápida para sua obra não parar.
+              Sua loja especializada em pneus. Atacado e varejo com os melhores preços e entrega rápida.
             </p>
           </div>
 
@@ -41,11 +41,11 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="h-5 w-5 text-safety-orange shrink-0" />
-                <a href="mailto:contato@comercialferragens.site" className="hover:text-industrial-blue break-all">contato@comercialferragens.site</a>
+                <a href="mailto:contato@atacadistapneus.com.br" className="hover:text-industrial-blue break-all">contato@atacadistapneus.com.br</a>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-safety-orange shrink-0" />
-                <span>Rua Júlia Moreira de Souza, 795<br />Gleba Ribeirão Maringá<br />Maringá/PR - CEP 87025-659</span>
+                <span>Avenida Jose Falcao, 75 A, Loja<br />Queimadinha<br />Feira de Santana/BA - CEP 44026-100</span>
               </li>
             </ul>
             <div className="mt-6">
@@ -59,8 +59,8 @@ export function Footer() {
 
         <div className="border-t border-black/20 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-black/70">
           <div className="space-y-1 text-center md:text-left">
-            <p>© 2026 Becher Comercio de Ferragens e Ferramentas LTDA. Todos os direitos reservados.</p>
-            <p>CNPJ: 49.229.087/0001-62 | Rua Júlia Moreira de Souza, 795 - Maringá/PR</p>
+            <p>© 2026 R&A Atacadista Distribuidora e Recauchutadora de Pneus LTDA. Todos os direitos reservados.</p>
+            <p>CNPJ: 04.610.006/0004-84 | Avenida Jose Falcao, 75 A, Loja - Feira de Santana/BA</p>
           </div>
         </div>
       </div>

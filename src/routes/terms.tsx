@@ -4,8 +4,8 @@ import { LegalPage } from "@/components/LegalPage";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Termos e Condições de Uso | Comercial Ferragens" },
-      { name: "description", content: "Termos e condições de uso do site Comercial Ferragens." },
+      { title: "Termos e Condições de Uso | Atacadista Pneus" },
+      { name: "description", content: "Termos e condições de uso do site Atacadista Pneus." },
     ],
   }),
   component: TermsPage,
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/terms")({
 function TermsPage() {
   return (
     <LegalPage title="Termos e Condições de Uso">
-      <p className="lead">Bem-vindo à <strong>Becher Comercio de Ferragens e Ferramentas LTDA</strong>! Os presentes Termos e Condições de Uso ("Termos") regem o acesso e uso do site <strong>https://comercialferragens.site</strong> ("Loja"), operado por Becher Comercio de Ferragens e Ferramentas LTDA, inscrita no CNPJ sob o nº 49.229.087/0001-62, com sede em Rua Júlia Moreira de Souza, nº 795 - Gleba Ribeirão Maringá - Maringá/PR - CEP 87025-659.</p>
+      <p className="lead">Bem-vindo à <strong>R&A Atacadista Distribuidora e Recauchutadora de Pneus LTDA</strong>! Os presentes Termos e Condições de Uso ("Termos") regem o acesso e uso do site <strong>https://atacadistapneus.lovable.app</strong> ("Loja"), operado por R&A Atacadista Distribuidora e Recauchutadora de Pneus LTDA, inscrita no CNPJ sob o nº 04.610.006/0004-84, com sede em Avenida Jose Falcao, 75 A, Loja - Queimadinha - Feira de Santana/BA - CEP 44026-100.</p>
 
       <p><strong>AO UTILIZAR A LOJA, VOCÊ DECLARA QUE LEU, ENTENDEU E CONCORDA INTEGRALMENTE COM ESTES TERMOS.</strong> Caso não concorde, favor não utilizar a Loja.</p>
 
@@ -62,13 +62,13 @@ function TermsPage() {
       <p>O Lojista reserva-se o direito de alterar estes Termos a qualquer momento, publicando a versão revisada na Loja, com a data de atualização. O uso continuado da Loja após a publicação constitui aceitação tácita das alterações.</p>
 
       <h2>12. Foro e Lei Aplicável</h2>
-      <p>Estes Termos são regidos pelas leis da República Federativa do Brasil. Fica eleito o foro da comarca de <strong>Maringá/PR</strong> para dirimir quaisquer controvérsias decorrentes destes Termos, ressalvada a opção do consumidor pelo foro de seu domicílio.</p>
+      <p>Estes Termos são regidos pelas leis da República Federativa do Brasil. Fica eleito o foro da comarca de <strong>Feira de Santana/BA</strong> para dirimir quaisquer controvérsias decorrentes destes Termos, ressalvada a opção do consumidor pelo foro de seu domicílio.</p>
 
       <div className="info-box">
-        <p><strong>Becher Comercio de Ferragens e Ferramentas LTDA</strong></p>
-        <p>CNPJ: 49.229.087/0001-62</p>
-        <p>Endereço: Rua Júlia Moreira de Souza, nº 795 - Gleba Ribeirão Maringá - Maringá/PR - CEP 87025-659</p>
-        <p>E-mail: contato@comercialferragens.site</p>
+        <p><strong>R&A Atacadista Distribuidora e Recauchutadora de Pneus LTDA</strong></p>
+        <p>CNPJ: 04.610.006/0004-84</p>
+        <p>Endereço: Avenida Jose Falcao, 75 A, Loja - Queimadinha - Feira de Santana/BA - CEP 44026-100</p>
+        <p>E-mail: contato@atacadistapneus.com.br</p>
       </div>
     </LegalPage>
   );

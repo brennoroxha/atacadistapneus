@@ -4,8 +4,8 @@ import { LegalPage } from "@/components/LegalPage";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Política de Privacidade (LGPD) | Comercial Ferragens" },
-      { name: "description", content: "Saiba como a Comercial Ferragens trata e protege seus dados pessoais em conformidade com a LGPD." },
+      { title: "Política de Privacidade (LGPD) | Atacadista Pneus" },
+      { name: "description", content: "Saiba como a Atacadista Pneus trata e protege seus dados pessoais em conformidade com a LGPD." },
     ],
   }),
   component: PrivacyPage,
@@ -14,13 +14,13 @@ export const Route = createFileRoute("/privacy")({
 function PrivacyPage() {
   return (
     <LegalPage title="Política de Privacidade">
-      <p className="lead">A <strong>Becher Comercio de Ferragens e Ferramentas LTDA</strong>, com sede na Rua Júlia Moreira de Souza, nº 795 - Gleba Ribeirão Maringá - Maringá/PR - CEP 87025-659, inscrita no CNPJ/MF sob o nº <strong>49.229.087/0001-62</strong> ("Lojista") leva a sua privacidade a sério e zela pela segurança e proteção de dados de todos os seus clientes, parceiros, fornecedores e usuários ("Usuários" ou "você") do site <strong>https://comercialferragens.site</strong> e qualquer outro site, loja ou aplicativo operado pelo Lojista (aqui designados, simplesmente, "Loja").</p>
+      <p className="lead">A <strong>R&A Atacadista Distribuidora e Recauchutadora de Pneus LTDA</strong>, com sede na Avenida Jose Falcao, nº 75 A, Loja - Queimadinha - Feira de Santana/BA - CEP 44026-100, inscrita no CNPJ/MF sob o nº <strong>04.610.006/0004-84</strong> ("Lojista") leva a sua privacidade a sério e zela pela segurança e proteção de dados de todos os seus clientes, parceiros, fornecedores e usuários ("Usuários" ou "você") do site <strong>https://atacadistapneus.lovable.app</strong> e qualquer outro site, loja ou aplicativo operado pelo Lojista (aqui designados, simplesmente, "Loja").</p>
 
       <p>Esta Política de Privacidade ("Política de Privacidade") destina-se a informá-lo sobre o modo como nós utilizamos e divulgamos informações coletadas em suas visitas à nossa Loja e em mensagens que trocamos com você ("Comunicações"). Esta Política de Privacidade aplica-se somente a informações coletadas por meio da Loja.</p>
 
       <div className="alert"><strong>AO ACESSAR A LOJA, ENVIAR COMUNICAÇÕES OU FORNECER QUALQUER TIPO DE DADO PESSOAL, VOCÊ DECLARA ESTAR CIENTE COM RELAÇÃO AOS TERMOS AQUI PREVISTOS E DE ACORDO COM A POLÍTICA DE PRIVACIDADE</strong>, a qual descreve as finalidades e formas de tratamento de seus dados pessoais que você disponibilizar na Loja.</div>
 
-      <p>Esta Política fornece uma visão geral de nossas práticas de privacidade e das escolhas que você pode fazer, bem como direitos que você pode exercer em relação aos Dados Pessoais tratados por nós. Se você tiver alguma dúvida sobre o uso de Dados Pessoais, entre em contato com <strong>contato@comercialferragens.site</strong>.</p>
+      <p>Esta Política fornece uma visão geral de nossas práticas de privacidade e das escolhas que você pode fazer, bem como direitos que você pode exercer em relação aos Dados Pessoais tratados por nós. Se você tiver alguma dúvida sobre o uso de Dados Pessoais, entre em contato com <strong>contato@atacadistapneus.com.br</strong>.</p>
 
       <p>A Política de Privacidade não se aplica a quaisquer aplicativos, produtos, serviços, site ou recursos de mídia social de terceiros que possam ser oferecidos ou acessados por meio da Loja. O acesso a esses links fará com que você deixe a Loja e possa resultar na coleta ou compartilhamento de informações sobre você por terceiros.</p>
 
@@ -117,11 +117,11 @@ function PrivacyPage() {
 
       <h2>12. Encarregado pelo Tratamento de Dados (DPO)</h2>
       <div className="info-box">
-        <p><strong>Razão Social:</strong> Becher Comercio de Ferragens e Ferramentas LTDA</p>
-        <p><strong>CNPJ:</strong> 49.229.087/0001-62</p>
-        <p><strong>Endereço:</strong> Rua Júlia Moreira de Souza, nº 795 - Gleba Ribeirão Maringá - Maringá/PR - CEP 87025-659</p>
-        <p><strong>E-mail:</strong> contato@comercialferragens.site</p>
-        <p><strong>Telefone:</strong> 49 99847-8577</p>
+        <p><strong>Razão Social:</strong> R&A Atacadista Distribuidora e Recauchutadora de Pneus LTDA</p>
+        <p><strong>CNPJ:</strong> 04.610.006/0004-84</p>
+        <p><strong>Endereço:</strong> Avenida Jose Falcao, nº 75 A, Loja - Queimadinha - Feira de Santana/BA - CEP 44026-100</p>
+        <p><strong>E-mail:</strong> contato@atacadistapneus.com.br</p>
+        <p><strong>Telefone:</strong> 75 99999-9999</p>
       </div>
     </LegalPage>
   );

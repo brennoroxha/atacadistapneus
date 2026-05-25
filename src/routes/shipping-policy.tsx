@@ -4,8 +4,8 @@ import { LegalPage } from "@/components/LegalPage";
 export const Route = createFileRoute("/shipping-policy")({
   head: () => ({
     meta: [
-      { title: "Política de Envio | Comercial Ferragens" },
-      { name: "description", content: "Prazos, custos e modalidades de entrega para pedidos da Comercial Ferragens em todo o Brasil." },
+      { title: "Política de Envio | Atacadista Pneus" },
+      { name: "description", content: "Prazos, custos e modalidades de entrega para pedidos da Atacadista Pneus em todo o Brasil." },
     ],
   }),
   component: ShippingPolicyPage,
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/shipping-policy")({
 function ShippingPolicyPage() {
   return (
     <LegalPage title="Política de Envio">
-      <p className="lead">Esta Política de Envio descreve os prazos, custos, modalidades e condições de entrega aplicáveis aos pedidos realizados na Loja da <strong>Becher Comercio de Ferragens e Ferramentas LTDA</strong>.</p>
+      <p className="lead">Esta Política de Envio descreve os prazos, custos, modalidades e condições de entrega aplicáveis aos pedidos realizados na Loja da <strong>R&A Atacadista Distribuidora e Recauchutadora de Pneus LTDA</strong>.</p>
 
       <h2>1. Processamento e Manuseio (Handling Time)</h2>
       <p>Após a confirmação do pagamento, o pedido entra em processo de separação, conferência e embalagem. O prazo de manuseio é de <strong>até 2 dias úteis</strong>. Este prazo é independente do prazo de transporte.</p>
@@ -53,7 +53,7 @@ function ShippingPolicyPage() {
       <p>É de responsabilidade do cliente fornecer endereço completo e correto, incluindo número, complemento, bairro e CEP. Erros de endereço que resultem em devolução do pedido aos remetentes poderão gerar custo adicional para reenvio.</p>
 
       <h2>7. Recebimento da Mercadoria</h2>
-      <p>No ato do recebimento, o cliente deverá conferir a integridade da embalagem. Caso haja qualquer indício de violação, recuse o produto ou registre a ocorrência junto à transportadora e nos comunique imediatamente em <strong>contato@comercialferragens.site</strong>.</p>
+      <p>No ato do recebimento, o cliente deverá conferir a integridade da embalagem. Caso haja qualquer indício de violação, recuse o produto ou registre a ocorrência junto à transportadora e nos comunique imediatamente em <strong>contato@atacadistapneus.com.br</strong>.</p>
 
       <h2>8. Atrasos na Entrega</h2>
       <p>Embora trabalhemos para cumprir os prazos informados, eventuais atrasos podem ocorrer por motivos alheios ao nosso controle (greves, condições climáticas adversas, problemas logísticos da transportadora). Nesses casos, manteremos o cliente informado.</p>
@@ -66,8 +66,8 @@ function ShippingPolicyPage() {
 
       <div className="info-box">
         <p>Dúvidas sobre seu envio? Entre em contato:</p>
-        <p>E-mail: contato@comercialferragens.site</p>
-        <p>Telefone/WhatsApp: 49 99847-8577</p>
+        <p>E-mail: contato@atacadistapneus.com.br</p>
+        <p>Telefone/WhatsApp: 75 99999-9999</p>
       </div>
     </LegalPage>
   );
