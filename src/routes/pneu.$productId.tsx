@@ -229,15 +229,15 @@ function ProductDetail() {
         {/* Info */}
         <div className="flex flex-col space-y-3">
           {getBrandLogo(product.name) && (
-            <img
-              src={getBrandLogo(product.name)!}
-              alt="Marca"
-              className="h-10 w-32 object-contain object-left self-start"
-              loading="lazy"
-              width="128"
-              height="40"
-              onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
-            />
+            <div className="h-10 w-32 flex items-center justify-start mb-2">
+              <img
+                src={getBrandLogo(product.name)!}
+                alt="Marca"
+                className="max-h-full max-w-full object-contain object-left"
+                loading="lazy"
+                onError={(e) => { (e.currentTarget.parentElement as HTMLDivElement).style.display = "none"; }}
+              />
+            </div>
           )}
 
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground leading-tight">
