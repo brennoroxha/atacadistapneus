@@ -11,6 +11,7 @@ const BRAND_MAP: Array<[string, string]> = [
   ["jk-tyre", "https://cdn.iset.io/assets/74944/parceiros/jktyre2.jpg"],
   ["sunset tire", "https://cdn.iset.io/assets/74944/parceiros/sunset2.png"],
   ["sunset", "https://cdn.iset.io/assets/74944/parceiros/sunset2.png"],
+  ["achilles", "https://kssyjenfoxhnkdnhjtdc.supabase.co/storage/v1/object/public/brand-logos/achilles.png"],
   ["aderenza", "https://icakzbsxlmazwlptzcqm.supabase.co/storage/v1/object/public/brand-logos/aderenza.png"],
   ["aeolus", v("aeolus")],
   ["anteo", v("anteo")],
