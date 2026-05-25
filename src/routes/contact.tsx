@@ -91,11 +91,11 @@ function Contact() {
                   <p className="text-sm text-muted-foreground">49 99847-8577</p>
                 </div>
               </a>
-              <a href="mailto:contato@comercialferragens.site" className="flex gap-3 p-5 bg-muted/50 rounded-xl border hover:border-safety-orange transition-colors sm:col-span-2">
+              <a href="mailto:contato@atacadistapneus.com.br" className="flex gap-3 p-5 bg-muted/50 rounded-xl border hover:border-safety-orange transition-colors sm:col-span-2">
                 <Mail className="h-6 w-6 text-safety-orange shrink-0" />
                 <div>
                   <h4 className="font-bold text-xs tracking-widest">E-MAIL</h4>
-                  <p className="text-sm text-muted-foreground break-all">contato@comercialferragens.site</p>
+                  <p className="text-sm text-muted-foreground break-all">contato@atacadistapneus.com.br</p>
                 </div>
               </a>
               <div className="flex gap-3 p-5 bg-muted/50 rounded-xl border sm:col-span-2">

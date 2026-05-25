@@ -44,7 +44,7 @@ function RefundPolicyPage() {
 
       <h2>6. Procedimento para Solicitar Devolução</h2>
       <ol>
-        <li>Envie um e-mail para <strong>contato@comercialferragens.site</strong> com o assunto "Devolução - Pedido nº [Número]";</li>
+        <li>Envie um e-mail para <strong>contato@atacadistapneus.com.br</strong> com o assunto "Devolução - Pedido nº [Número]";</li>
         <li>Informe o número do pedido, motivo da devolução e fotos do produto (caso seja por defeito);</li>
         <li>Aguarde nossa resposta em até <strong>2 dias úteis</strong> com as instruções de postagem;</li>
         <li>Após autorização, embale o produto adequadamente e envie pelos meios indicados;</li>
@@ -76,8 +76,8 @@ function RefundPolicyPage() {
 
       <div className="info-box">
         <p><strong>Atendimento ao Cliente</strong></p>
-        <p>E-mail: contato@comercialferragens.site</p>
-        <p>Telefone/WhatsApp: 49 99847-8577</p>
+        <p>E-mail: contato@atacadistapneus.com.br</p>
+        <p>Telefone/WhatsApp: 75 99999-9999</p>
         <p>Horário: Segunda a Sexta, das 9h às 18h</p>
       </div>
     </LegalPage>
