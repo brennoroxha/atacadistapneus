@@ -14,6 +14,7 @@ import { Route as ShippingPolicyRouteImport } from './routes/shipping-policy'
 import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PaymentMethodsRouteImport } from './routes/payment-methods'
+import { Route as Google9e338cbf9702c676DothtmlRouteImport } from './routes/google9e338cbf9702c676[.]html'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ExchangesRouteImport } from './routes/exchanges'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -58,6 +59,12 @@ const PaymentMethodsRoute = PaymentMethodsRouteImport.update({
   path: '/payment-methods',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Google9e338cbf9702c676DothtmlRoute =
+  Google9e338cbf9702c676DothtmlRouteImport.update({
+    id: '/google9e338cbf9702c676.html',
+    path: '/google9e338cbf9702c676.html',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
@@ -162,6 +169,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/exchanges': typeof ExchangesRoute
   '/faq': typeof FaqRoute
+  '/google9e338cbf9702c676.html': typeof Google9e338cbf9702c676DothtmlRoute
   '/payment-methods': typeof PaymentMethodsRoute
   '/privacy': typeof PrivacyRoute
   '/refund-policy': typeof RefundPolicyRoute
@@ -187,6 +195,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/exchanges': typeof ExchangesRoute
   '/faq': typeof FaqRoute
+  '/google9e338cbf9702c676.html': typeof Google9e338cbf9702c676DothtmlRoute
   '/payment-methods': typeof PaymentMethodsRoute
   '/privacy': typeof PrivacyRoute
   '/refund-policy': typeof RefundPolicyRoute
@@ -213,6 +222,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/exchanges': typeof ExchangesRoute
   '/faq': typeof FaqRoute
+  '/google9e338cbf9702c676.html': typeof Google9e338cbf9702c676DothtmlRoute
   '/payment-methods': typeof PaymentMethodsRoute
   '/privacy': typeof PrivacyRoute
   '/refund-policy': typeof RefundPolicyRoute
@@ -240,6 +250,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/exchanges'
     | '/faq'
+    | '/google9e338cbf9702c676.html'
     | '/payment-methods'
     | '/privacy'
     | '/refund-policy'
@@ -265,6 +276,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/exchanges'
     | '/faq'
+    | '/google9e338cbf9702c676.html'
     | '/payment-methods'
     | '/privacy'
     | '/refund-policy'
@@ -290,6 +302,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/exchanges'
     | '/faq'
+    | '/google9e338cbf9702c676.html'
     | '/payment-methods'
     | '/privacy'
     | '/refund-policy'
@@ -316,6 +329,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   ExchangesRoute: typeof ExchangesRoute
   FaqRoute: typeof FaqRoute
+  Google9e338cbf9702c676DothtmlRoute: typeof Google9e338cbf9702c676DothtmlRoute
   PaymentMethodsRoute: typeof PaymentMethodsRoute
   PrivacyRoute: typeof PrivacyRoute
   RefundPolicyRoute: typeof RefundPolicyRoute
@@ -367,6 +381,13 @@ declare module '@tanstack/react-router' {
       path: '/payment-methods'
       fullPath: '/payment-methods'
       preLoaderRoute: typeof PaymentMethodsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/google9e338cbf9702c676.html': {
+      id: '/google9e338cbf9702c676.html'
+      path: '/google9e338cbf9702c676.html'
+      fullPath: '/google9e338cbf9702c676.html'
+      preLoaderRoute: typeof Google9e338cbf9702c676DothtmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -508,6 +529,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   ExchangesRoute: ExchangesRoute,
   FaqRoute: FaqRoute,
+  Google9e338cbf9702c676DothtmlRoute: Google9e338cbf9702c676DothtmlRoute,
   PaymentMethodsRoute: PaymentMethodsRoute,
   PrivacyRoute: PrivacyRoute,
   RefundPolicyRoute: RefundPolicyRoute,
