@@ -272,7 +272,7 @@ function ProductDetail() {
           </Button>
 
           {/* Veículos Aplicáveis */}
-          {Array.isArray((specs as any).veiculos) && (specs as any).veiculos.length > 0 && (
+          {((Array.isArray((specs as any).veiculos) && (specs as any).veiculos.length > 0) || (typeof (specs as any).veiculos === "string" && (specs as any).veiculos.trim().length > 0)) && (
             <button
               type="button"
               onClick={() => {
