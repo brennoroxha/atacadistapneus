@@ -142,8 +142,8 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
       }
       
       if (q) {
-        const terms = q.trim().split(/\s+/).filter(t => t.length > 1);
-        terms.forEach(term => {
+        const terms = q.trim().split(/\s+/).filter((t: string) => t.length > 1);
+        terms.forEach((term: string) => {
           query = query.or(`name.ilike.%${term}%,description.ilike.%${term}%,gtin.ilike.%${term}%`);
         });
       }
