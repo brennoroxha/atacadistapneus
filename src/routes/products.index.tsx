@@ -466,12 +466,13 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
                   >
                     <div className="relative shrink flex flex-col">
                       {brandLogo && (
-                        <div className="w-full">
+                        <div className="w-full h-10 flex items-center justify-center bg-white px-2 pt-2 pb-1">
                           <img
                             src={brandLogo}
                             alt="Marca"
-                            className="w-full h-auto block" loading="lazy" width="200" height="50"
-                            onError={(e) => ((e.currentTarget.style.display = "none"))}
+                            className="max-h-full max-w-full object-contain"
+                            loading="lazy"
+                            onError={(e) => ((e.currentTarget.parentElement!.style.display = "none"))}
                           />
                         </div>
                       )}
