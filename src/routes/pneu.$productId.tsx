@@ -182,8 +182,10 @@ function ProductDetail() {
             <img
               src={getBrandLogo(product.name)!}
               alt="Marca"
+              className="h-10 w-32 object-contain object-left self-start"
               loading="lazy"
-              className="h-10 w-32 object-contain object-left self-start" loading="lazy" width="128" height="40"
+              width="128"
+              height="40"
               onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
             />
           )}
@@ -304,9 +306,12 @@ function ProductDetail() {
                   <img
                     src={getProductImageUrl(p.images?.[0])}
                     alt={p.name}
-                    loading="lazy" decoding="async"
+                    loading="lazy"
+                    decoding="async"
                     onError={onProductImageError}
                     className="w-full h-full object-contain transition-transform group-hover:scale-105"
+                    width="400"
+                    height="400"
                   />
                 </div>
                 <div className="p-4 space-y-2">

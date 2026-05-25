@@ -330,9 +330,11 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
               <img
                 src={getBrandLogo(product.name)!}
                 alt="Marca"
+                className="w-full h-auto block"
                 loading="lazy"
-                        className="w-full h-auto block" loading="lazy" width="200" height="50"
-                        onError={(e) => ((e.currentTarget.style.display = "none"))}
+                width="200"
+                height="50"
+                onError={(e) => ((e.currentTarget.style.display = "none"))}
               />
             </div>
           )}
@@ -340,9 +342,12 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
             <img
               src={getProductImageUrl(product.images?.[0])}
               alt={product.name}
-              loading="lazy" decoding="async"
+              loading="lazy"
+              decoding="async"
               onError={onProductImageError}
-                      className="h-full w-full object-contain scale-[1.15] transition-transform duration-500 group-hover:scale-[1.25]"
+              className="h-full w-full object-contain scale-[1.15] transition-transform duration-500 group-hover:scale-[1.25]"
+              width="400"
+              height="400"
                       width="400" height="400"
             />
             <div className="absolute right-1 top-2 flex flex-col gap-1 pointer-events-none z-10">
