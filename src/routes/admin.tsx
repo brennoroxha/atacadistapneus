@@ -217,7 +217,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
       <header className="bg-white border-b">
         <div className="container max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-xl sm:text-2xl font-black tracking-tight text-industrial-blue">
-            Painel Comercial Ferragens
+            Painel Atacadista Pneus
           </h1>
           <div className="flex items-center gap-2">
             <Button size="sm" variant="outline" onClick={() => navigate({ to: "/admin-watermark" })}>

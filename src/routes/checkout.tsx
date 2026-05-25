@@ -491,8 +491,8 @@ function Checkout() {
     <div className="bg-muted/30 min-h-screen">
       <header className="bg-background border-b text-foreground">
         <div className="container max-w-xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link to="/" className="inline-flex items-center" aria-label="Comercial Ferragens">
-            <img src={logo} alt="Comercial Ferragens" className="h-[3.125rem] w-auto" />
+          <Link to="/" className="inline-flex items-center" aria-label="Atacadista Pneus">
+            <img src={logo} alt="Atacadista Pneus" className="h-[3.125rem] w-auto" />
           </Link>
           <div className="flex items-center gap-2 text-xs font-bold">
             <Lock className="h-4 w-4" />
