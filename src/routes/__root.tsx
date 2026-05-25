@@ -166,7 +166,7 @@ function RootComponent() {
         </main>
         {!isCheckout && (
           <>
-            <img src={bannerFreteBrasil} alt="Frete grátis para todo o Brasil" className="block w-full h-auto" loading="lazy" width="1920" height="150" />
+            <img src={bannerFreteBrasil} alt="Frete grátis para todo o Brasil" className="hidden md:block w-full h-auto" loading="lazy" width="1920" height="150" />
             <Suspense fallback={<div className="h-40 bg-neutral-200" />}>
               <Newsletter />
               <Footer />
