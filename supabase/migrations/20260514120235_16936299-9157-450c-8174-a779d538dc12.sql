@@ -1,0 +1,2 @@
+UPDATE categories SET name = 'Carro/Camionete' WHERE name = 'Carros e Camionete';
+UPDATE categories SET name = 'Pneus Aro 16' WHERE name = 'Aro 16' AND parent_id = (SELECT id FROM categories WHERE name = 'Carro/Camionete' LIMIT 1);

@@ -1,0 +1,16 @@
+UPDATE categories SET parent_id='0178e916-5e39-4eba-8e2b-892615da031d' WHERE id='cc4a438f-babf-4554-a583-f1e41524f41a';
+UPDATE categories SET parent_id='ba4243cc-18e7-46ed-8b20-487eabf2a8d7' WHERE id='de3d8ad7-abc4-4013-8c9e-29deb7063a0e';
+UPDATE categories SET parent_id='ba4243cc-18e7-46ed-8b20-487eabf2a8d7' WHERE id='2110f143-8e8a-4a3b-bae4-6b347cee7899';
+UPDATE categories SET parent_id='ba4243cc-18e7-46ed-8b20-487eabf2a8d7' WHERE id='8a56042b-5749-4af7-ae55-43d0d8bd09fe';
+UPDATE categories SET parent_id='ac3dac4d-07f4-4bcb-80db-4ea8ed302bb6' WHERE id='8f1c2534-39e5-438e-ba16-3ab19a3a3c2d';
+UPDATE categories SET parent_id='7802fc32-b549-46ed-bf35-3b7a578eabaa' WHERE id='3021f65a-7e55-4710-98bf-d318529f6375';
+UPDATE categories SET parent_id='a65760f7-566f-402c-80fa-ada0ce4326ab' WHERE id='17139622-2b8f-4069-a68d-1bea09446a06';
+UPDATE categories SET parent_id='ac3dac4d-07f4-4bcb-80db-4ea8ed302bb6' WHERE id='59edbd8f-ef1b-4950-8921-505a7f6a1d16';
+UPDATE categories SET parent_id='199a2630-b241-4826-9f14-786fde481c2b' WHERE id='d0c41409-9456-48d3-8e17-9ce44aa7f0c9';
+UPDATE categories SET parent_id='6ce07c36-7745-438d-830f-04627fa69e19' WHERE id='bb6c94f8-da1b-418a-9b7f-63e8a4d28e3a';
+UPDATE categories SET parent_id='199a2630-b241-4826-9f14-786fde481c2b' WHERE id='1431f837-7874-481b-92ca-41ab3add4af7';
+UPDATE categories SET parent_id='ba4243cc-18e7-46ed-8b20-487eabf2a8d7' WHERE id='cdd0ff88-949b-48eb-b0d9-1237138f6bd3';
+UPDATE categories SET parent_id='ba4243cc-18e7-46ed-8b20-487eabf2a8d7' WHERE id='e72b0806-612d-4259-b152-f059eb473ba5';
+UPDATE categories SET parent_id='199a2630-b241-4826-9f14-786fde481c2b' WHERE id='e3a87d39-6cf1-4071-8cc7-2a6d0ef734db';
+UPDATE categories SET parent_id='ac3dac4d-07f4-4bcb-80db-4ea8ed302bb6' WHERE id='c6357483-91d4-4186-89bc-5556b93f2669';
+UPDATE categories SET parent_id='199a2630-b241-4826-9f14-786fde481c2b' WHERE id='42654d72-f61c-43c3-887c-5911e10dcb45';

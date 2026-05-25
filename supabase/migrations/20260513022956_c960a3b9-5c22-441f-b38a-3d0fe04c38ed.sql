@@ -1,0 +1,1 @@
+ALTER TABLE public.pix_orders ALTER COLUMN freepay_id DROP NOT NULL;

@@ -1,0 +1,1 @@
+UPDATE public.products SET specs = specs || jsonb_build_object('inmetro', 'https://cdn.iset.io/assets/42004/arquivos/etiqueta_atacadao_fe75.jpg') WHERE id='a55b7ee2-142e-4cb0-aff6-91262861302e';
