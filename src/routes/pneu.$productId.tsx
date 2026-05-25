@@ -303,13 +303,11 @@ function ProductDetail() {
       <ProductSpecsSection specs={specs} />
 
       {/* Description */}
-      {product.description && (
-        <DescriptionSection>
-          <div className="max-w-none prose prose-sm prose-slate">
-            <FormattedDescription text={product.description} />
-          </div>
-        </DescriptionSection>
-      )}
+      <DescriptionSection defaultOpen={true}>
+        <div className="max-w-none prose prose-sm prose-slate">
+          <FormattedDescription text={product.description || "Nenhuma descrição disponível para este produto."} />
+        </div>
+      </DescriptionSection>
 
       <AdditionalInfoSection texto={(specs as any).informacaoAdicional} />
       <VehiclesSection veiculos={(specs as any).veiculos} />
