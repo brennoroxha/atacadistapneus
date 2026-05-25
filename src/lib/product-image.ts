@@ -25,15 +25,9 @@ export const PRODUCT_IMAGE_FALLBACK =
  */
 export function getProductImageUrl(input?: string | null): string {
   if (!input) return PRODUCT_IMAGE_FALLBACK;
-  if (/^(https?:|data:)/i.test(input)) {
-    if (input.includes(".jpg") || input.includes(".png") || input.includes(".jpeg")) {
-      return input.replace(/\.(jpg|png|jpeg)/i, ".webp");
-    }
-    return input;
-  }
+  if (/^(https?:|data:)/i.test(input)) return input;
   const fileName = input.replace(/^.*[\\/]/, "");
-  const webpFileName = fileName.replace(/\.(jpg|png|jpeg)/i, ".webp");
-  return `${PRODUCT_IMAGE_BASE_URL}/${webpFileName}`;
+  return `${PRODUCT_IMAGE_BASE_URL}/${fileName}`;
 }
 
 /** Handler de onError para <img> — troca por placeholder sem quebrar layout. */
