@@ -29,9 +29,15 @@ export function InmetroLabel({ consumption, grip, noise, className = "" }: Inmet
     <div className={`w-full max-w-[200px] bg-white border-2 border-gray-200 rounded-lg p-3 shadow-sm ${className}`}>
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between border-b pb-1 mb-1">
-          <span className="text-[10px] font-bold text-gray-500 uppercase tracking-tighter">Etiqueta Inmetro</span>
-          <div className="bg-yellow-400 text-[8px] font-black px-1 rounded">ENERGIA</div>
+          <div className="flex items-center gap-1">
+            <svg viewBox="0 0 100 100" className="w-4 h-4 text-industrial-blue fill-current">
+              <path d="M10,50 A40,40 0 1,1 90,50 A40,40 0 1,1 10,50 Z M40,30 L40,70 M60,30 L60,70 M40,50 L60,50" stroke="currentColor" strokeWidth="8" fill="none" />
+            </svg>
+            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-tighter">Inmetro</span>
+          </div>
+          <div className="bg-yellow-400 text-[8px] font-black px-1 rounded text-black">ENERGIA</div>
         </div>
+
 
         {/* Consumo de Combustível */}
         <div>
