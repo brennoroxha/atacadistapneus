@@ -244,6 +244,12 @@ function ProductDetail() {
             {product.name}
           </h1>
 
+          {product.gtin && (
+            <p className="text-[10px] text-muted-foreground -mt-1">
+              GTIN/EAN: {product.gtin}
+            </p>
+          )}
+
           {product.sku && (
             <p className="text-xs text-muted-foreground">
               SKU: <span className="font-medium text-foreground">{product.sku}</span>
