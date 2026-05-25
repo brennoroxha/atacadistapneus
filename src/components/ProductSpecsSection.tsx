@@ -149,7 +149,7 @@ export function ProductSpecsSection({ specs }: { specs: Specs }) {
     return v !== undefined && v !== null && v !== "";
   });
 
-  if (rows.length === 0) return null;
+  if (rows.length === 0 && !(specs.consumo || specs.aderencia)) return null;
 
   return (
     <section className="mt-12">
