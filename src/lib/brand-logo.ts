@@ -27,6 +27,7 @@ const BRAND_MAP: Array<[string, string]> = [
   ["cooper", v("cooper")],
   ["drc", v("drc")],
   ["durable", "https://www.quepneus.com.br/media/wysiwyg/marcas/durable.jpg"],
+  ["dunlop", "https://kssyjenfoxhnkdnhjtdc.supabase.co/storage/v1/object/public/brand-logos/dunlop.png"],
   ["farroad", v("farroad")],
   ["firemax", "https://cdn.iset.io/assets/74944/parceiros/firemax2.png"],
   ["firestone", v("firestone")],
