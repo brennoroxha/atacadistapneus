@@ -243,9 +243,11 @@ export function brandLogoUrl(marca: string) {
   return `${VEHICLE_LOGO_BUCKET}/vehicle-${slug}.webp`;
 }
 
-export function VehiclesSection({ veiculos }: { veiculos: Array<{ marca: string; modelos: string[] }> }) {
-  if (!veiculos || veiculos.length === 0) return null;
+export function VehiclesSection({ veiculos }: { veiculos: any }) {
+  const list = normalizeVeiculos(veiculos);
+  if (!list || list.length === 0) return null;
   return (
+
     <CollapsibleSection title="Veículos Compatíveis" id="veiculos-compativeis">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {veiculos.map((v) => {
