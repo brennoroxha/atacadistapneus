@@ -171,36 +171,57 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
     enabled: !!categories || !category, // Wait for categories if we need to filter by them
   });
 
-  // Build facets from products matching current category and search
-  const facets = useMemo(() => {
-    const aros = new Set<string>();
-    const alturas = new Set<string>();
-    const larguras = new Set<string>();
-    const marcas = new Set<string>();
-    
-    (products ?? []).forEach((p: any) => {
-      const s = p.specs ?? {};
-      const m = parseMedida(s.medida, p.name);
+  // Build facets from all products matching basic criteria (category and search)
+  const { data: allFacetsData } = useQuery({
+    queryKey: ["all-facets", relevantCategoryIds, q],
+    queryFn: async () => {
+      let query = supabase.from("products").select("name, specs");
       
-      const aroVal = String(s.aro || m.aro || "").trim();
-      const alturaVal = String(s.altura || m.altura || "").trim();
-      const larguraVal = String(s.largura || m.largura || "").trim();
+      if (relevantCategoryIds) {
+        query = query.in("category_id", relevantCategoryIds);
+      }
       
-      if (aroVal) aros.add(aroVal);
-      if (alturaVal) alturas.add(alturaVal);
-      if (larguraVal) larguras.add(larguraVal);
-      if (s.marca) marcas.add(String(s.marca));
-    });
-    
-    const numSort = (a: string, b: string) => parseFloat(a.replace(',', '.')) - parseFloat(b.replace(',', '.'));
-    
-    return {
-      aros: [...aros].sort(numSort),
-      alturas: [...alturas].sort(numSort),
-      larguras: [...larguras].sort(numSort),
-      marcas: [...marcas].sort(),
-    };
-  }, [products]);
+      if (q) {
+        const terms = q.trim().split(/\s+/).filter((t: string) => t.length > 1);
+        terms.forEach((term: string) => {
+          query = query.or(`name.ilike.%${term}%,description.ilike.%${term}%,gtin.ilike.%${term}%`);
+        });
+      }
+      
+      const { data } = await query;
+      
+      const aros = new Set<string>();
+      const alturas = new Set<string>();
+      const larguras = new Set<string>();
+      const marcas = new Set<string>();
+      
+      (data ?? []).forEach((p: any) => {
+        const s = p.specs ?? {};
+        const m = parseMedida(s.medida, p.name);
+        
+        const aroVal = String(s.aro || m.aro || "").trim();
+        const alturaVal = String(s.altura || m.altura || "").trim();
+        const larguraVal = String(s.largura || m.largura || "").trim();
+        
+        if (aroVal) aros.add(aroVal);
+        if (alturaVal) alturas.add(alturaVal);
+        if (larguraVal) larguras.add(larguraVal);
+        if (s.marca) marcas.add(String(s.marca));
+      });
+      
+      const numSort = (a: string, b: string) => parseFloat(a.replace(',', '.')) - parseFloat(b.replace(',', '.'));
+      
+      return {
+        aros: [...aros].sort(numSort),
+        alturas: [...alturas].sort(numSort),
+        larguras: [...larguras].sort(numSort),
+        marcas: [...marcas].sort(),
+      };
+    },
+    enabled: !!categories || !category,
+  });
+
+  const facets = allFacetsData ?? { aros: [], alturas: [], larguras: [], marcas: [] };
 
   // We now filter mostly on server-side via useQuery above. 
   // Client-side filter remains for Marca/Runflat which are not handled by server query yet.
