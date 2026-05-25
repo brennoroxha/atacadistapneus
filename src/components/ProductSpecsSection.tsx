@@ -12,7 +12,7 @@ function specIcon(name: string) {
 // Maps a free-form label keyword → local svg filename slug
 const LABEL_ICON_MAP: Array<{ match: RegExp; svg: string }> = [
   { match: /equipamento original|original/i, svg: "equipamento-original" },
-  { match: /categoria|tipo de uso/i, svg: "tipo-de-uso" },
+  { match: /categoria|tipo de uso|consumo/i, svg: "tipo-de-uso" },
   { match: /terreno/i, svg: "terreno" },
   { match: /índice de carga|indice de carga|\bcarga\b/i, svg: "carga" },
   { match: /índice de velocidade|indice de velocidade|velocidade|\bíndice\b|\bindice\b/i, svg: "indice" },
@@ -28,7 +28,7 @@ const LABEL_ICON_MAP: Array<{ match: RegExp; svg: string }> = [
   { match: /lonas?/i, svg: "quantidade-lonas" },
   { match: /montagem/i, svg: "montagem" },
   { match: /letra/i, svg: "letra" },
-  { match: /sulco/i, svg: "sulco" },
+  { match: /sulco|ruído|ruido/i, svg: "sulco" },
 ];
 
 function iconForLabel(label: string): string | null {
