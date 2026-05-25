@@ -140,8 +140,9 @@ function ProductDetail() {
         <div className="space-y-3">
           <div className="relative aspect-square bg-white rounded-2xl overflow-hidden p-6">
             <img
-              src={product.images?.[activeImage] ?? product.images?.[0]}
+              src={getProductImageUrl(product.images?.[activeImage] ?? product.images?.[0])}
               alt={product.name}
+              onError={onProductImageError}
               className="h-full w-full object-contain"
             />
             {((specs as any).consumo || (specs as any).aderencia || (specs as any).ruido_db) && (
