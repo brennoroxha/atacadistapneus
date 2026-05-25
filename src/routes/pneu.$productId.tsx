@@ -195,16 +195,16 @@ function ProductDetail() {
               onError={onProductImageError}
                className="h-full w-full object-contain" loading="eager" width="600" height="600"
             />
-            {((specs as any).consumo || (specs as any).aderencia || (specs as any).ruido_db) && (
+            {(consumo || aderencia || ruido_db) && (
               <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
-                {(specs as any).consumo && (
-                  <EtiquetaBadge src="/etiquetas/consumo.webp" alt="Consumo" value={(specs as any).consumo} width="48" height="64" />
+                {consumo && (
+                  <EtiquetaBadge src="/etiquetas/consumo.webp" alt="Consumo" value={consumo} width="48" height="64" />
                 )}
-                {(specs as any).aderencia && (
-                  <EtiquetaBadge src="/etiquetas/aderencia.webp" alt="Aderência" value={(specs as any).aderencia} width="48" height="64" />
+                {aderencia && (
+                  <EtiquetaBadge src="/etiquetas/aderencia.webp" alt="Aderência" value={aderencia} width="48" height="64" />
                 )}
-                {(specs as any).ruido_db && (
-                  <EtiquetaBadge src="/etiquetas/ruido-alto.webp" alt="Ruído" value={String((specs as any).ruido_db)} suffix="dB" width="48" height="64" />
+                {ruido_db && (
+                  <EtiquetaBadge src="/etiquetas/ruido-alto.webp" alt="Ruído" value={String(ruido_db)} suffix="dB" width="48" height="64" />
                 )}
               </div>
             )}
