@@ -114,18 +114,12 @@ export function ProductSpecsSection({ specs }: { specs: Specs }) {
                 );
               })}
             </div>
-            {(specs.consumo || specs.aderencia || inmetroUrl) && (
+            {(inmetroUrl || (specs.consumo && specs.aderencia)) && (
               <div className="mt-8 pt-6 border-t lg:mt-0 lg:pt-0 lg:border-t-0 lg:pl-4 lg:w-[240px]">
                 <h3 className="font-black text-industrial-blue dark:text-primary text-sm uppercase tracking-wide mb-3">
                   Etiqueta Inmetro
                 </h3>
-                {specs.consumo || specs.aderencia ? (
-                  <InmetroLabel
-                    consumption={specs.consumo}
-                    grip={specs.aderencia}
-                    noise={Number(specs.ruido_db || 0)}
-                  />
-                ) : (
+                {inmetroUrl ? (
                   <a href={inmetroUrl} target="_blank" rel="noopener noreferrer" className="inline-block">
                     <img
                       src={inmetroUrl}
@@ -134,6 +128,12 @@ export function ProductSpecsSection({ specs }: { specs: Specs }) {
                       className="w-full h-auto rounded-lg border bg-white max-w-[224px]"
                     />
                   </a>
+                ) : (
+                  <InmetroLabel 
+                    consumption={specs.consumo} 
+                    grip={specs.aderencia} 
+                    noise={Number(specs.ruido_db || 0)} 
+                  />
                 )}
               </div>
             )}
