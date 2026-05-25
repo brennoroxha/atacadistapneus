@@ -411,25 +411,6 @@ export function EspecificacoesTable({
         </div>
       </div>
 
-      {/* Especificações técnicas */}
-      {gtin && (
-        <div>
-          <div className="flex items-center gap-2 mb-3">
-            <span className="block w-1 h-5 bg-safety-orange rounded" />
-            <h2 className="font-black text-industrial-blue dark:text-primary text-lg">Especificações técnicas</h2>
-          </div>
-          <div className="rounded-lg border bg-card p-4 max-w-md">
-            <div className="flex items-center gap-2 mb-3 text-safety-orange font-bold text-sm">
-              <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border-2 border-safety-orange text-[10px]">i</span>
-              DADOS TÉCNICOS
-            </div>
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">GTIN/EAN</span>
-              <span className="font-bold text-foreground">{gtin}</span>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
