@@ -149,10 +149,9 @@ export function ProductSpecsSection({ specs }: { specs: Specs }) {
         </h2>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-7">
-        {rows.map(({ key, label, icon: Icon, format }) => (
+        {rows.map(({ key, label, svg, format }) => (
           <div key={key} className="flex items-start gap-3">
-            <div className="shrink-0 w-10 h-10 rounded-full border-2 border-safety-orange/40 flex items-center justify-center">
-              <Icon className="h-5 w-5 text-safety-orange" />
+            <img src={specIcon(svg)} alt="" className="shrink-0 h-[40px] w-[40px] object-contain" loading="lazy" />
             </div>
             <div className="text-sm leading-tight pt-1">
               <div className="text-muted-foreground">{label}:</div>
