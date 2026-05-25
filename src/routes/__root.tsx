@@ -92,14 +92,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "theme-color", content: "#0e1629" },
       { name: "twitter:title", content: "Atacadista Pneus - Pneus Atacado e Varejo" },
       { name: "twitter:description", content: "A maior loja de pneus do Brasil. Atacado e varejo com os melhores preços e entrega rápida." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9a50d2b8-c953-426c-8db6-a1a4536971f6/id-preview-fb2f4db5--cc272ab3-98a1-4680-a00c-61cdff12d863.lovable.app-1778607776498.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9a50d2b8-c953-426c-8db6-a1a4536971f6/id-preview-fb2f4db5--cc272ab3-98a1-4680-a00c-61cdff12d863.lovable.app-1778607776498.png" },
+      { property: "og:image", content: "https://atacadistapneus.com/logo.webp" },
+      { name: "twitter:image", content: "https://atacadistapneus.com/logo.webp" },
     ],
     links: [
       {
         rel: "icon",
-        href: "https://raw.githubusercontent.com/lucide-react/lucide/main/icons/hard-hat.svg",
-        type: "image/svg+xml"
+        href: "/favicon.ico",
+        type: "image/x-icon"
       },
       {
         rel: "stylesheet",
