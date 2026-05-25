@@ -88,42 +88,21 @@ export function ProductSpecsSection({ specs }: { specs: Specs }) {
                   value = String(item.value || "");
                 }
 
-                // If no icon provided, try to find a matching one from SPEC_ROWS
-                if (!icone) {
-                  const match = SPEC_ROWS.find(row => 
-                    label.toLowerCase().includes(row.label.toLowerCase()) || 
-                    row.label.toLowerCase().includes(label.toLowerCase()) ||
-                    (row.key && label.toLowerCase().includes(row.key.toLowerCase()))
-                  );
-                  if (match) {
-                    const Icon = match.icon;
-                    return (
-                      <div key={idx} className="flex items-center gap-3">
-                        <div className="shrink-0 w-10 h-10 rounded-full border-2 border-safety-orange/40 flex items-center justify-center">
-                          <Icon className="h-5 w-5 text-safety-orange" />
-                        </div>
-                        <div className="text-sm leading-tight">
-                          <div className="text-muted-foreground">{label}:</div>
-                          <div className="font-bold text-foreground">{value || "—"}</div>
-                        </div>
-                      </div>
-                    );
-                  }
-                }
+                // Prefer a local svg matched by label; fall back to supplier-provided icone
+                const localSvg = iconForLabel(label);
+                const iconSrc = localSvg || icone;
 
                 return (
                   <div key={idx} className="flex items-center gap-3">
-                    {icone ? (
+                    {iconSrc ? (
                       <img
-                        src={icone}
+                        src={iconSrc}
                         alt=""
-                        className="shrink-0 h-[35px] w-[35px] object-contain"
+                        className="shrink-0 h-[40px] w-[40px] object-contain"
                         loading="lazy"
                       />
                     ) : (
-                      <div className="shrink-0 w-[35px] h-[35px] rounded-full bg-industrial-blue/10 flex items-center justify-center">
-                        <Tag className="h-4 w-4 text-industrial-blue" />
-                      </div>
+                      <div className="shrink-0 w-[40px] h-[40px] rounded-full bg-industrial-blue/10" />
                     )}
                     <div className="text-sm leading-tight">
                       <div className="text-muted-foreground">{label}:</div>
