@@ -116,9 +116,18 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
       if (q) query = query.ilike("name", `%${q}%`);
       if (minPrice) query = query.gte("price", minPrice);
       if (maxPrice) query = query.lte("price", maxPrice);
-      if (aro) query = query.contains("specs", { aro: Array.isArray(aro) ? aro[0] : aro });
-      if (altura) query = query.contains("specs", { altura: Array.isArray(altura) ? altura[0] : altura });
-      if (largura) query = query.contains("specs", { largura: Array.isArray(largura) ? largura[0] : largura });
+      if (aro) {
+        const values = Array.isArray(aro) ? aro : [aro];
+        query = query.filter('specs->>aro', 'in', `(${values.map(v => `"${v}"`).join(',')})`);
+      }
+      if (altura) {
+        const values = Array.isArray(altura) ? altura : [altura];
+        query = query.filter('specs->>altura', 'in', `(${values.map(v => `"${v}"`).join(',')})`);
+      }
+      if (largura) {
+        const values = Array.isArray(largura) ? largura : [largura];
+        query = query.filter('specs->>largura', 'in', `(${values.map(v => `"${v}"`).join(',')})`);
+      }
 
       const { data, error } = await query;
       if (error) throw error;
