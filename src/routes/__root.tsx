@@ -12,7 +12,7 @@ import React, { Suspense, lazy } from "react";
 const Header = lazy(() => import("@/components/Header").then(m => ({ default: m.Header })));
 const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
 const Newsletter = lazy(() => import("@/components/Newsletter").then(m => ({ default: m.Newsletter })));
-import bannerFreteBrasil from "@/assets/banner-frete-gratis-brasil.webp";
+
 import { Toaster } from "@/components/ui/sonner";
 import { CookieBanner } from "@/components/CookieBanner";
 import { MobileBottomNav } from "@/components/MobileBottomNav";
@@ -166,7 +166,7 @@ function RootComponent() {
         </main>
         {!isCheckout && (
           <>
-            <img src={bannerFreteBrasil} alt="Frete grátis para todo o Brasil" className="hidden md:block w-full h-auto" loading="lazy" width="1920" height="150" />
+            
             <Suspense fallback={<div className="h-40 bg-neutral-200" />}>
               <Newsletter />
               <Footer />
