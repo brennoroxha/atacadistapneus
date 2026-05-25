@@ -122,6 +122,23 @@ export function Header() {
                   Todos os Produtos
                 </Link>
                 <MobileCategoryAccordion onNavigate={() => setMobileOpen(false)} />
+                <div className="mt-4 border-t pt-4 flex flex-col">
+                  {[
+                    { slug: "baterias", label: "Baterias" },
+                    { slug: "capacetes", label: "Capacetes" },
+                    { slug: "acessorios-para-moto", label: "Acessórios para Moto" },
+                  ].map((c) => (
+                    <Link
+                      key={c.slug}
+                      to="/products"
+                      search={{ category: c.slug } as any}
+                      onClick={() => setMobileOpen(false)}
+                      className="py-3 text-sm font-bold tracking-wide border-b hover:text-safety-orange"
+                    >
+                      {c.label}
+                    </Link>
+                  ))}
+                </div>
               </div>
               <div className="border-t p-4 grid grid-cols-2 gap-2">
                 <Link to="/contact" onClick={() => setMobileOpen(false)}>
@@ -160,8 +177,17 @@ export function Header() {
 
       {/* Desktop categories bar */}
       <nav className="hidden md:block text-white shadow-md shadow-black/20" style={{ backgroundColor: "#072052" }}>
-        <div className="container flex items-center h-12">
+        <div className="container flex items-center gap-6 h-12">
           <DesktopMegaMenu />
+          <Link to="/products" search={{ category: "baterias" } as any} className="font-bold tracking-wide text-base text-white hover:text-safety-orange transition-colors">
+            Baterias
+          </Link>
+          <Link to="/products" search={{ category: "capacetes" } as any} className="font-bold tracking-wide text-base text-white hover:text-safety-orange transition-colors">
+            Capacetes
+          </Link>
+          <Link to="/products" search={{ category: "acessorios-para-moto" } as any} className="font-bold tracking-wide text-base text-white hover:text-safety-orange transition-colors">
+            Acessórios Moto
+          </Link>
         </div>
       </nav>
     </header>
