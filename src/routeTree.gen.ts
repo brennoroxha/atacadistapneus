@@ -27,7 +27,6 @@ import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsProductIdRouteImport } from './routes/products.$productId'
 import { Route as PneuProductIdRouteImport } from './routes/pneu.$productId'
 import { Route as TipoAroChar123aroChar125RouteImport } from './routes/$tipo.aro-{$aro}'
-import { Route as Google9e338cbf9702c676HtmlIndexRouteImport } from './routes/google9e338cbf9702c676.html/index'
 import { Route as ApiPublicSitemapRouteImport } from './routes/api/public/sitemap'
 import { Route as ApiPublicInmetroBackfillRouteImport } from './routes/api/public/inmetro-backfill'
 import { Route as ApiPublicGoogleShoppingRouteImport } from './routes/api/public/google-shopping'
@@ -125,12 +124,6 @@ const TipoAroChar123aroChar125Route =
     path: '/$tipo/aro-{$aro}',
     getParentRoute: () => rootRouteImport,
   } as any)
-const Google9e338cbf9702c676HtmlIndexRoute =
-  Google9e338cbf9702c676HtmlIndexRouteImport.update({
-    id: '/google9e338cbf9702c676/html/',
-    path: '/google9e338cbf9702c676/html/',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const ApiPublicSitemapRoute = ApiPublicSitemapRouteImport.update({
   id: '/api/public/sitemap',
   path: '/api/public/sitemap',
@@ -183,7 +176,6 @@ export interface FileRoutesByFullPath {
   '/api/public/google-shopping': typeof ApiPublicGoogleShoppingRoute
   '/api/public/inmetro-backfill': typeof ApiPublicInmetroBackfillRoute
   '/api/public/sitemap': typeof ApiPublicSitemapRoute
-  '/google9e338cbf9702c676/html/': typeof Google9e338cbf9702c676HtmlIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -209,7 +201,6 @@ export interface FileRoutesByTo {
   '/api/public/google-shopping': typeof ApiPublicGoogleShoppingRoute
   '/api/public/inmetro-backfill': typeof ApiPublicInmetroBackfillRoute
   '/api/public/sitemap': typeof ApiPublicSitemapRoute
-  '/google9e338cbf9702c676/html': typeof Google9e338cbf9702c676HtmlIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -236,7 +227,6 @@ export interface FileRoutesById {
   '/api/public/google-shopping': typeof ApiPublicGoogleShoppingRoute
   '/api/public/inmetro-backfill': typeof ApiPublicInmetroBackfillRoute
   '/api/public/sitemap': typeof ApiPublicSitemapRoute
-  '/google9e338cbf9702c676/html/': typeof Google9e338cbf9702c676HtmlIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -264,7 +254,6 @@ export interface FileRouteTypes {
     | '/api/public/google-shopping'
     | '/api/public/inmetro-backfill'
     | '/api/public/sitemap'
-    | '/google9e338cbf9702c676/html/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -290,7 +279,6 @@ export interface FileRouteTypes {
     | '/api/public/google-shopping'
     | '/api/public/inmetro-backfill'
     | '/api/public/sitemap'
-    | '/google9e338cbf9702c676/html'
   id:
     | '__root__'
     | '/'
@@ -316,7 +304,6 @@ export interface FileRouteTypes {
     | '/api/public/google-shopping'
     | '/api/public/inmetro-backfill'
     | '/api/public/sitemap'
-    | '/google9e338cbf9702c676/html/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -343,7 +330,6 @@ export interface RootRouteChildren {
   ApiPublicGoogleShoppingRoute: typeof ApiPublicGoogleShoppingRoute
   ApiPublicInmetroBackfillRoute: typeof ApiPublicInmetroBackfillRoute
   ApiPublicSitemapRoute: typeof ApiPublicSitemapRoute
-  Google9e338cbf9702c676HtmlIndexRoute: typeof Google9e338cbf9702c676HtmlIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -474,13 +460,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TipoAroChar123aroChar125RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/google9e338cbf9702c676/html/': {
-      id: '/google9e338cbf9702c676/html/'
-      path: '/google9e338cbf9702c676/html'
-      fullPath: '/google9e338cbf9702c676/html/'
-      preLoaderRoute: typeof Google9e338cbf9702c676HtmlIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/public/sitemap': {
       id: '/api/public/sitemap'
       path: '/api/public/sitemap'
@@ -543,7 +522,6 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicGoogleShoppingRoute: ApiPublicGoogleShoppingRoute,
   ApiPublicInmetroBackfillRoute: ApiPublicInmetroBackfillRoute,
   ApiPublicSitemapRoute: ApiPublicSitemapRoute,
-  Google9e338cbf9702c676HtmlIndexRoute: Google9e338cbf9702c676HtmlIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
