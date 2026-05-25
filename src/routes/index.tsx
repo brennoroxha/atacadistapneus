@@ -92,7 +92,7 @@ function Index() {
       <HeroBannerCarousel />
 
       <TireSearchHero />
-      <ProductSection title="Produtos em Destaque" products={products} loading={productsLoading} onAdd={handleAddToCart} mobileCarousel />
+      <ProductSection title="Produtos em Destaque" products={products} loading={productsLoading} onAdd={handleAddToCart} carousel />
     </div>
   );
 }
