@@ -64,6 +64,7 @@ const BRAND_MAP: Array<[string, string]> = [
   ["vipal", v("vipal")],
   ["vitour", "https://icakzbsxlmazwlptzcqm.supabase.co/storage/v1/object/public/brand-logos/vitour.png"],
   ["westlake", "https://cdn.iset.io/assets/74944/parceiros/logo-westlake2.jpg"],
+  ["windforce", "https://kssyjenfoxhnkdnhjtdc.supabase.co/storage/v1/object/public/brand-logos/windforce.png"],
   ["xbri", v("xbri")],
 ];
 
