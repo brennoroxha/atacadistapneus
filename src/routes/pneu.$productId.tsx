@@ -129,8 +129,29 @@ function ProductDetail() {
   };
 
   const inStock = (product.stock ?? 0) > 0;
-  const specs = (product.specs ?? {}) as Record<string, string | number>;
-  const specEntries = Object.entries(specs);
+  const specs = (product.specs ?? {}) as Record<string, any>;
+  const specEntries = Object.entries(specs).filter(([k]) => k !== "info_tecnica" && k !== "informacoesTecnicas" && k !== "veiculos_por_marca");
+
+  // Extract Inmetro values from technical info if not present in root
+  const infoTecnica = (specs.info_tecnica || specs.informacoesTecnicas) as any[];
+  let consumo = specs.consumo;
+  let aderencia = specs.aderencia;
+  let ruido_db = specs.ruido_db;
+
+  if (Array.isArray(infoTecnica)) {
+    infoTecnica.forEach(item => {
+      const label = (item.label || item.texto || "").toLowerCase();
+      const value = String(item.value || (item.texto?.split(":")[1] || "")).trim();
+      
+      if (label.includes("consumo") || label.includes("rolamento")) {
+        consumo = consumo || value;
+      } else if (label.includes("aderência") || label.includes("pista molhada")) {
+        aderencia = aderencia || value;
+      } else if (label.includes("ruído") || label.includes("db")) {
+        ruido_db = ruido_db || value.replace(/\D/g, "");
+      }
+    });
+  }
 
   // Build canonical spec rows (always show what we have)
   const baseRows: Array<[string, string | number | null | undefined]> = [
@@ -139,7 +160,7 @@ function ProductDetail() {
     ["SKU", product.sku],
     ["Código de barras", product.gtin],
   ];
-  const rows = [...baseRows, ...specEntries].filter(([, v]) => v !== null && v !== undefined && v !== "");
+  const rows = [...baseRows, ...specEntries].filter(([, v]) => v !== null && v !== undefined && v !== "" && typeof v !== "object");
 
   return (
     <div className="container px-4 mx-auto py-4 md:py-6">
