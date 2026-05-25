@@ -453,10 +453,11 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
                         className="relative block aspect-square overflow-hidden bg-white p-2"
                       >
                         <img
-                          src={product.images?.[0]}
+                          src={getProductImageUrl(product.images?.[0])}
                           alt={product.name}
                           loading="lazy"
                           decoding="async"
+                          onError={onProductImageError}
                           className="h-full w-full object-contain scale-[1.15] transition-transform duration-500 group-hover:scale-[1.25]"
                         />
                         <div className="absolute right-1 top-2 flex flex-col gap-1 pointer-events-none z-10">
