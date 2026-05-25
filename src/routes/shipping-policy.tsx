@@ -4,8 +4,8 @@ import { LegalPage } from "@/components/LegalPage";
 export const Route = createFileRoute("/shipping-policy")({
   head: () => ({
     meta: [
-      { title: "Política de Envio | Comercial Ferragens" },
-      { name: "description", content: "Prazos, custos e modalidades de entrega para pedidos da Comercial Ferragens em todo o Brasil." },
+      { title: "Política de Envio | Atacadista Pneus" },
+      { name: "description", content: "Prazos, custos e modalidades de entrega para pedidos da Atacadista Pneus em todo o Brasil." },
     ],
   }),
   component: ShippingPolicyPage,
