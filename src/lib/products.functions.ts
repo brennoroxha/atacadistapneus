@@ -7,7 +7,7 @@ export const getFeaturedProducts = createServerFn({ method: "GET" })
       .from("products")
       .select("*, categories(name)")
       .eq("featured", true)
-      .limit(8);
+      .limit(12);
 
     if (error) throw error;
     return data;
