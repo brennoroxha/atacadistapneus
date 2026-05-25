@@ -92,7 +92,7 @@ function Index() {
       <HeroBannerCarousel />
 
       <TireSearchHero />
-      <ProductSection title="Produtos em Destaque" products={products} loading={productsLoading} onAdd={handleAddToCart} mobileCarousel />
+      <ProductSection title="Produtos em Destaque" products={products} loading={productsLoading} onAdd={handleAddToCart} carousel />
     </div>
   );
 }
@@ -318,16 +318,60 @@ function CategorySection({ title, slug, onAdd, mobileCarousel }: any) {
   return <ProductSection title={title} products={data} loading={isLoading} onAdd={onAdd} mobileCarousel={mobileCarousel} />;
 }
 
-function ProductSection({ title, products, loading, onAdd, mobileCarousel }: any) {
-  const gridClass = mobileCarousel
-    ? "flex gap-3 md:gap-6 overflow-x-auto snap-x snap-mandatory -mx-4 px-[12%] md:px-[18%] lg:px-[12.5%] scrollbar-hide"
-    : "grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6";
-  const itemClass = mobileCarousel
-    ? "snap-center shrink-0 w-[76%] md:w-[32%] lg:w-[24%]"
-    : "";
+function ProductSection({ title, products, loading, onAdd, mobileCarousel, carousel }: any) {
+  const renderProduct = (product: any) => {
+    const fromPrice = product.price * 1.2;
+    const discount = Math.round(((fromPrice - product.price) / fromPrice) * 100);
+    return (
+      <div key={product.id} className={`group flex flex-col bg-white dark:bg-card rounded-lg border overflow-hidden shadow-sm transition-all hover:shadow-md h-full`}>
+        <div className="relative shrink flex flex-col">
+          {getBrandLogo(product.name) && (
+            <div className="w-full">
+              <img
+                src={getBrandLogo(product.name)!}
+                alt="Marca"
+                loading="lazy"
+                className="w-full h-auto block"
+                onError={(e) => ((e.currentTarget.style.display = "none"))}
+              />
+            </div>
+          )}
+          <Link to="/pneu/$productId" params={{ productId: product.slug ?? product.id }} className="relative block aspect-square overflow-hidden bg-white p-2">
+            <img
+              src={getProductImageUrl(product.images?.[0])}
+              alt={product.name}
+              loading="lazy" decoding="async"
+              onError={onProductImageError}
+              className="h-full w-full object-contain scale-[1.15] transition-transform duration-500 group-hover:scale-[1.25]"
+            />
+            <div className="absolute right-1 top-2 flex flex-col gap-1 pointer-events-none z-10">
+              {(product.specs?.consumo || product.specs?.aderencia || product.specs?.ruido_db) && (
+                <>
+                  {product.specs?.consumo && <EtiquetaBadge src="/etiquetas/consumo.webp" alt="Consumo" value={product.specs.consumo} />}
+                  {product.specs?.aderencia && <EtiquetaBadge src="/etiquetas/aderencia.webp" alt="Aderência" value={product.specs.aderencia} />}
+                  {product.specs?.ruido_db && <EtiquetaBadge src="/etiquetas/ruido-alto.webp" alt="Ruído" value={`${product.specs.ruido_db}`} suffix="dB" />}
+                </>
+              )}
+            </div>
+          </Link>
+        </div>
+        <div className="p-3 flex-1 flex flex-col gap-2 min-w-0">
+          <h3 className="font-semibold text-sm leading-snug line-clamp-2 sm:min-h-[2.5rem]">
+            <Link to="/pneu/$productId" params={{ productId: product.slug ?? product.id }} title={product.name}>
+              {product.name}
+            </Link>
+          </h3>
+          <div className="text-xl font-black text-safety-orange tracking-tight leading-none">
+            R$ {product.price.toFixed(2)}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <section className="bg-white py-10 md:py-16">
-      <div className="container">
+    <section className="bg-white py-10 md:py-16 overflow-hidden">
+      <div className="container px-4 md:px-8">
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-8 gap-6">
           <div className="space-y-2">
             {title === "Produtos em Destaque" ? (
@@ -342,62 +386,43 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel }: any
           </div>
         </div>
 
-        <div className={gridClass}>
-          {loading ? (
-            Array(8).fill(0).map((_, i) => (
+        {loading ? (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {Array(4).fill(0).map((_, i) => (
               <div key={i} className="h-[400px] bg-white border animate-pulse rounded-lg"></div>
-            ))
-          ) : (
-            products?.map((product: any) => {
-              const fromPrice = product.price * 1.2;
-              const discount = Math.round(((fromPrice - product.price) / fromPrice) * 100);
-              return (
-              <div key={product.id} className={`group flex flex-col bg-white dark:bg-card rounded-lg border overflow-hidden shadow-sm transition-all hover:shadow-md ${itemClass}`}>
-                <div className="relative shrink flex flex-col">
-                  {getBrandLogo(product.name) && (
-                    <div className="w-full">
-                      <img
-                        src={getBrandLogo(product.name)!}
-                        alt="Marca"
-                        loading="lazy"
-                        className="w-full h-auto block"
-                        onError={(e) => ((e.currentTarget.style.display = "none"))}
-                      />
-                    </div>
-                  )}
-                  <Link to="/pneu/$productId" params={{ productId: product.slug ?? product.id }} className="relative block aspect-square overflow-hidden bg-white p-2">
-                    <img
-                      src={getProductImageUrl(product.images?.[0])}
-                      alt={product.name}
-                      loading="lazy" decoding="async"
-                      onError={onProductImageError}
-                      className="h-full w-full object-contain scale-[1.15] transition-transform duration-500 group-hover:scale-[1.25]"
-                    />
-                    <div className="absolute right-1 top-2 flex flex-col gap-1 pointer-events-none z-10">
-                      {(product.specs?.consumo || product.specs?.aderencia || product.specs?.ruido_db) && (
-                        <>
-                          {product.specs?.consumo && <EtiquetaBadge src="/etiquetas/consumo.webp" alt="Consumo" value={product.specs.consumo} />}
-                          {product.specs?.aderencia && <EtiquetaBadge src="/etiquetas/aderencia.webp" alt="Aderência" value={product.specs.aderencia} />}
-                          {product.specs?.ruido_db && <EtiquetaBadge src="/etiquetas/ruido-alto.webp" alt="Ruído" value={`${product.specs.ruido_db}`} suffix="dB" />}
-                        </>
-                      )}
-                    </div>
-                  </Link>
-                </div>
-                <div className="p-3 flex-1 flex flex-col gap-2 min-w-0">
-                  <h3 className="font-semibold text-sm leading-snug line-clamp-2 sm:min-h-[2.5rem]">
-                    <Link to="/pneu/$productId" params={{ productId: product.slug ?? product.id }} title={product.name}>
-                      {product.name}
-                    </Link>
-                  </h3>
-                  <div className="text-xl font-black text-safety-orange tracking-tight leading-none">
-                    R$ {product.price.toFixed(2)}
-                  </div>
-                </div>
+            ))}
+          </div>
+        ) : carousel ? (
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full relative px-10 md:px-0"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {products?.map((product: any) => (
+                <CarouselItem key={product.id} className="pl-2 md:pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4">
+                  {renderProduct(product)}
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="-left-4 md:-left-12 h-10 w-10" />
+            <CarouselNext className="-right-4 md:-right-12 h-10 w-10" />
+          </Carousel>
+        ) : mobileCarousel ? (
+          <div className="flex gap-3 md:gap-6 overflow-x-auto snap-x snap-mandatory -mx-4 px-[12%] md:px-[18%] lg:px-[12.5%] scrollbar-hide">
+            {products?.map((product: any) => (
+              <div key={product.id} className="snap-center shrink-0 w-[76%] md:w-[32%] lg:w-[24%]">
+                {renderProduct(product)}
               </div>
-            );})
-          )}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+            {products?.map((product: any) => renderProduct(product))}
+          </div>
+        )}
       </div>
     </section>
   );
