@@ -348,7 +348,6 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
               className="h-full w-full object-contain scale-[1.15] transition-transform duration-500 group-hover:scale-[1.25]"
               width="400"
               height="400"
-                      width="400" height="400"
             />
             <div className="absolute right-1 top-2 flex flex-col gap-1 pointer-events-none z-10">
               {(product.specs?.consumo || product.specs?.aderencia || product.specs?.ruido_db) && (
