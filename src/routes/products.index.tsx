@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useSearch, useNavigate, useLocation } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
+import { getProductImageUrl, onProductImageError } from "@/lib/product-image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
