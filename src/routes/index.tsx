@@ -216,8 +216,14 @@ function TireSearchByMeasure() {
   };
 
   const handleSearch = () => {
-    const parts = [largura, altura, aro].filter(Boolean).join("/");
-    navigate({ to: "/products", search: parts ? ({ search: parts } as any) : {} });
+    navigate({
+      to: "/products",
+      search: {
+        largura: largura ? [largura] : undefined,
+        altura: altura ? [altura] : undefined,
+        aro: aro ? [aro] : undefined,
+      } as any,
+    });
   };
 
   return (
@@ -286,8 +292,15 @@ function TireSearchByRim() {
   };
 
   const handleSearch = () => {
-    const parts = [larguraAltura, aro].filter(Boolean).join(" ");
-    navigate({ to: "/products", search: parts ? ({ search: parts } as any) : {} });
+    const [l, h] = larguraAltura.split("/");
+    navigate({
+      to: "/products",
+      search: {
+        aro: aro ? [aro] : undefined,
+        largura: l ? [l] : undefined,
+        altura: h ? [h] : undefined,
+      } as any,
+    });
   };
 
   return (

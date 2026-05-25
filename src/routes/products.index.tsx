@@ -102,7 +102,7 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
   });
 
   const { data: products, isLoading } = useQuery({
-    queryKey: ["products-list", category, q, minPrice, maxPrice],
+    queryKey: ["products-list", category, q, minPrice, maxPrice, aro, altura, largura],
     queryFn: async () => {
       let query = supabase.from("products").select("*, categories(name, slug)");
       if (category) {
@@ -116,45 +116,73 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
       if (q) query = query.ilike("name", `%${q}%`);
       if (minPrice) query = query.gte("price", minPrice);
       if (maxPrice) query = query.lte("price", maxPrice);
+      if (aro) {
+        const values = Array.isArray(aro) ? aro : [aro];
+        query = query.filter('specs->>aro', 'in', `(${values.map(v => `"${v}"`).join(',')})`);
+      }
+      if (altura) {
+        const values = Array.isArray(altura) ? altura : [altura];
+        query = query.filter('specs->>altura', 'in', `(${values.map(v => `"${v}"`).join(',')})`);
+      }
+      if (largura) {
+        const values = Array.isArray(largura) ? largura : [largura];
+        query = query.filter('specs->>largura', 'in', `(${values.map(v => `"${v}"`).join(',')})`);
+      }
+
       const { data, error } = await query;
       if (error) throw error;
       return data ?? [];
     },
   });
 
-  // Build facets from products
-  const facets = useMemo(() => {
-    const aros = new Set<string>();
-    const alturas = new Set<string>();
-    const larguras = new Set<string>();
-    const marcas = new Set<string>();
-    (products ?? []).forEach((p: any) => {
-      const s = p.specs ?? {};
-      const m = parseMedida(s.medida);
-      const aroVal = String(s.aro ?? m.aro ?? "").trim();
-      if (aroVal) aros.add(aroVal);
-      if (m.altura) alturas.add(m.altura);
-      if (m.largura) larguras.add(m.largura);
-      if (s.marca) marcas.add(String(s.marca));
-    });
-    const num = (a: string, b: string) => Number(a) - Number(b);
-    return {
-      aros: [...aros].sort(num),
-      alturas: [...alturas].sort(num),
-      larguras: [...larguras].sort(num),
-      marcas: [...marcas].sort(),
-    };
-  }, [products]);
+  // Build facets from all products matching basic criteria
+  const { data: allFacetsData } = useQuery({
+    queryKey: ["all-facets", category, q],
+    queryFn: async () => {
+      let query = supabase.from("products").select("specs");
+      if (category) {
+        const { data: catData } = await supabase
+          .from("categories")
+          .select("id")
+          .eq("slug", category)
+          .single();
+        if (catData) query = query.eq("category_id", catData.id);
+      }
+      if (q) query = query.ilike("name", `%${q}%`);
+      const { data } = await query;
+      
+      const aros = new Set<string>();
+      const alturas = new Set<string>();
+      const larguras = new Set<string>();
+      const marcas = new Set<string>();
+      
+      (data ?? []).forEach((p: any) => {
+        const s = p.specs ?? {};
+        const m = parseMedida(s.medida);
+        const aroVal = String(s.aro ?? m.aro ?? "").trim();
+        if (aroVal) aros.add(aroVal);
+        if (m.altura) alturas.add(m.altura);
+        if (m.largura) larguras.add(m.largura);
+        if (s.marca) marcas.add(String(s.marca));
+      });
+      
+      const num = (a: string, b: string) => Number(a) - Number(b);
+      return {
+        aros: [...aros].sort(num),
+        alturas: [...alturas].sort(num),
+        larguras: [...larguras].sort(num),
+        marcas: [...marcas].sort(),
+      };
+    }
+  });
 
-  // Apply spec filters client-side
+  const facets = allFacetsData ?? { aros: [], alturas: [], larguras: [], marcas: [] };
+
+  // We now filter mostly on server-side via useQuery above. 
+  // Client-side filter remains for Marca/Runflat which are not handled by server query yet.
   const filtered = useMemo(() => {
     const list = (products ?? []).filter((p: any) => {
       const s = p.specs ?? {};
-      const m = parseMedida(s.medida);
-      const aroVal = String(s.aro ?? m.aro ?? "");
-      if (aro?.length && !aro.includes(aroVal)) return false;
-      if (altura?.length && !altura.includes(m.altura)) return false;
-      if (largura?.length && !largura.includes(m.largura)) return false;
       if (marca?.length && !marca.includes(String(s.marca ?? ""))) return false;
       if (runflat === "sim" && !s.runflat) return false;
       if (runflat === "nao" && s.runflat) return false;
