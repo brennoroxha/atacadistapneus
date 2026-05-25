@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState, useMemo } from "react";
 import { getFeaturedProducts, getCategories, getProductsByCategorySlug } from "@/lib/products.functions";
 import { supabase } from "@/lib/supabase";
+import { getProductImageUrl, onProductImageError } from "@/lib/product-image";
 import { TIRE_SIZES } from "@/lib/tire-sizes";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
