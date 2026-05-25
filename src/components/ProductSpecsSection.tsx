@@ -243,7 +243,45 @@ export function brandLogoUrl(marca: string) {
   return `${VEHICLE_LOGO_BUCKET}/vehicle-${slug}.webp`;
 }
 
+type VeiculoItem = { marca: string; modelos: string[] };
+
+function normalizeVeiculos(input: any): VeiculoItem[] {
+  if (!input) return [];
+  if (Array.isArray(input)) {
+    return input
+      .map((v) => {
+        if (!v) return null;
+        if (typeof v === "string") {
+          const [marca, rest] = v.split(":");
+          if (!marca) return null;
+          return { marca: marca.trim(), modelos: (rest ?? "").split(",").map((s) => s.trim()).filter(Boolean) };
+        }
+        if (typeof v === "object" && v.marca) {
+          const modelos = Array.isArray(v.modelos) ? v.modelos : typeof v.modelos === "string" ? v.modelos.split(",").map((s: string) => s.trim()).filter(Boolean) : [];
+          return { marca: String(v.marca), modelos };
+        }
+        return null;
+      })
+      .filter(Boolean) as VeiculoItem[];
+  }
+  if (typeof input === "string") {
+    return input
+      .split(/\n+/)
+      .map((line) => {
+        const idx = line.indexOf(":");
+        if (idx === -1) return null;
+        const marca = line.slice(0, idx).trim();
+        const modelos = line.slice(idx + 1).split(",").map((s) => s.trim()).filter(Boolean);
+        if (!marca) return null;
+        return { marca, modelos };
+      })
+      .filter(Boolean) as VeiculoItem[];
+  }
+  return [];
+}
+
 export function VehiclesSection({ veiculos }: { veiculos: any }) {
+
   const list = normalizeVeiculos(veiculos);
   if (!list || list.length === 0) return null;
   return (
