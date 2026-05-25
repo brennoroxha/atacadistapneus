@@ -1,44 +1,58 @@
-import {
-  Tag,
-  Mountain,
-  Weight,
-  Gauge,
-  Ruler,
-  ArrowLeftRight,
-  Circle,
-  Hourglass,
-  Droplets,
-  Thermometer,
-  RotateCw,
-  Scale,
-  Shield,
-  Layers,
-  Wrench,
-  Type,
-  ShieldCheck,
-  ChevronDown,
-} from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type Specs = Record<string, any>;
 
-const SPEC_ROWS: Array<{ key: string; label: string; icon: any; format?: (v: any) => string }> = [
-  { key: "categoria", label: "Categoria", icon: Tag },
-  { key: "terreno", label: "Terreno", icon: Mountain },
-  { key: "indice_carga", label: "Índice de carga (por pneu)", icon: Weight },
-  { key: "indice_velocidade", label: "Índice de velocidade", icon: Gauge },
-  { key: "talas_compativeis", label: "Talas compatíveis", icon: ArrowLeftRight },
-  { key: "largura_mm", label: "Largura", icon: Ruler, format: (v) => `${v} mm` },
-  { key: "diametro_mm", label: "Diâmetro", icon: Circle, format: (v) => `${v} mm` },
-  { key: "treadwear", label: "Durabilidade (Treadwear)", icon: Hourglass },
-  { key: "traction", label: "Aderência (Traction)", icon: Droplets },
-  { key: "temperature", label: "Resistência ao aquecimento (Temperature)", icon: Thermometer },
-  { key: "runflat", label: "Runflat", icon: RotateCw, format: (v) => (v ? "Sim" : "Não") },
-  { key: "extra_load", label: "Extra Load", icon: Scale, format: (v) => (v ? "Sim" : "Não") },
-  { key: "protetor_borda", label: "Protetor de borda", icon: Shield, format: (v) => (v ? "Sim" : "Não") },
-  { key: "quantidade_lonas", label: "Quantidade de lonas", icon: Layers, format: (v) => v || "Não Possui" },
-  { key: "montagem", label: "Montagem", icon: Wrench },
-  { key: "letra", label: "Letra", icon: Type },
+// Local SVG icons saved in public/icons/specs/
+const ICON_BASE = "/icons/specs";
+function specIcon(name: string) {
+  return `${ICON_BASE}/icon-${name}.svg`;
+}
+
+// Maps a free-form label keyword → local svg filename slug
+const LABEL_ICON_MAP: Array<{ match: RegExp; svg: string }> = [
+  { match: /equipamento original|original/i, svg: "equipamento-original" },
+  { match: /categoria|tipo de uso/i, svg: "tipo-de-uso" },
+  { match: /terreno/i, svg: "terreno" },
+  { match: /índice de carga|indice de carga|\bcarga\b/i, svg: "carga" },
+  { match: /índice de velocidade|indice de velocidade|velocidade|\bíndice\b|\bindice\b/i, svg: "indice" },
+  { match: /talas?/i, svg: "talas" },
+  { match: /largura/i, svg: "largura" },
+  { match: /diâmetro|diametro/i, svg: "diametro" },
+  { match: /treadwear|durabilidade/i, svg: "durabilidade" },
+  { match: /traction|aderência|aderencia/i, svg: "aderencia" },
+  { match: /temperature|temperatura|aquecimento/i, svg: "temperatura" },
+  { match: /runflat|run.?flat/i, svg: "runflat" },
+  { match: /extra.?load/i, svg: "extra-load" },
+  { match: /protetor/i, svg: "protetor-bordar" },
+  { match: /lonas?/i, svg: "quantidade-lonas" },
+  { match: /montagem/i, svg: "montagem" },
+  { match: /letra/i, svg: "letra" },
+  { match: /sulco/i, svg: "sulco" },
+];
+
+function iconForLabel(label: string): string | null {
+  const m = LABEL_ICON_MAP.find((r) => r.match.test(label));
+  return m ? specIcon(m.svg) : null;
+}
+
+const SPEC_ROWS: Array<{ key: string; label: string; svg: string; format?: (v: any) => string }> = [
+  { key: "categoria", label: "Categoria", svg: "tipo-de-uso" },
+  { key: "terreno", label: "Terreno", svg: "terreno" },
+  { key: "indice_carga", label: "Índice de carga (por pneu)", svg: "carga" },
+  { key: "indice_velocidade", label: "Índice de velocidade", svg: "indice" },
+  { key: "talas_compativeis", label: "Talas compatíveis", svg: "talas" },
+  { key: "largura_mm", label: "Largura", svg: "largura", format: (v) => `${v} mm` },
+  { key: "diametro_mm", label: "Diâmetro", svg: "diametro", format: (v) => `${v} mm` },
+  { key: "treadwear", label: "Durabilidade (Treadwear)", svg: "durabilidade" },
+  { key: "traction", label: "Aderência (Traction)", svg: "aderencia" },
+  { key: "temperature", label: "Resistência ao aquecimento (Temperature)", svg: "temperatura" },
+  { key: "runflat", label: "Runflat", svg: "runflat", format: (v) => (v ? "Sim" : "Não") },
+  { key: "extra_load", label: "Extra Load", svg: "extra-load", format: (v) => (v ? "Sim" : "Não") },
+  { key: "protetor_borda", label: "Protetor de borda", svg: "protetor-bordar", format: (v) => (v ? "Sim" : "Não") },
+  { key: "quantidade_lonas", label: "Quantidade de lonas", svg: "quantidade-lonas", format: (v) => v || "Não Possui" },
+  { key: "montagem", label: "Montagem", svg: "montagem" },
+  { key: "letra", label: "Letra", svg: "letra" },
 ];
 
 export function ProductSpecsSection({ specs }: { specs: Specs }) {
