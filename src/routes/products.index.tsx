@@ -70,11 +70,22 @@ function ProductsListingRoute() {
   return <ProductsListing />;
 }
 
-function parseMedida(m?: string) {
-  if (!m) return { largura: "", altura: "", aro: "" };
-  const match = m.match(/^(\d+)\/(\d+)R(\d+)/i);
-  if (!match) return { largura: "", altura: "", aro: "" };
-  return { largura: match[1], altura: match[2], aro: match[3] };
+function parseMedida(m?: string, name?: string) {
+  const text = ((m || "") + " " + (name || "")).replace(/\s+/g, " ");
+  // Match standard 165/70R13
+  const match = text.match(/(\d{3})\/(\d{2})R(\d{2})/i);
+  if (match) return { largura: match[1], altura: match[2], aro: match[3] };
+  
+  // Match variants like 165/70 13 or 165/70-13
+  const match2 = text.match(/(\d{3})\/(\d{2})[\s\-R](\d{2})/i);
+  if (match2) return { largura: match2[1], altura: match2[2], aro: match2[3] };
+
+  // Match just the components if they appear separately
+  const largura = text.match(/\b(\d{3})\b/)?.[1] || "";
+  const altura = text.match(/\b(\d{2})\b/)?.[1] || "";
+  const aro = text.match(/R(\d{2})\b/i)?.[1] || text.match(/Aro\s*(\d{2})\b/i)?.[1] || "";
+  
+  return { largura, altura, aro };
 }
 
 export function ProductsListing({ categorySlugOverride }: { categorySlugOverride?: string } = {}) {
@@ -101,21 +112,45 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
     },
   });
 
+  // Resolve all category IDs including subcategories
+  const relevantCategoryIds = useMemo(() => {
+    if (!category || !categories) return null;
+    
+    const root = categories.find(c => c.slug === category);
+    if (!root) return null;
+
+    const ids = [root.id];
+    const findChildren = (parentId: string) => {
+      categories.forEach(c => {
+        if (c.parent_id === parentId) {
+          ids.push(c.id);
+          findChildren(c.id);
+        }
+      });
+    };
+    findChildren(root.id);
+    return ids;
+  }, [category, categories]);
+
   const { data: products, isLoading } = useQuery({
-    queryKey: ["products-list", category, q, minPrice, maxPrice, aro, altura, largura],
+    queryKey: ["products-list", relevantCategoryIds, q, minPrice, maxPrice, aro, altura, largura],
     queryFn: async () => {
       let query = supabase.from("products").select("*, categories(name, slug)");
-      if (category) {
-        const { data: catData } = await supabase
-          .from("categories")
-          .select("id")
-          .eq("slug", category)
-          .single();
-        if (catData) query = query.eq("category_id", catData.id);
+      
+      if (relevantCategoryIds) {
+        query = query.in("category_id", relevantCategoryIds);
       }
-      if (q) query = query.ilike("name", `%${q}%`);
+      
+      if (q) {
+        const terms = q.trim().split(/\s+/).filter(t => t.length > 1);
+        terms.forEach(term => {
+          query = query.or(`name.ilike.%${term}%,description.ilike.%${term}%,gtin.ilike.%${term}%`);
+        });
+      }
+      
       if (minPrice) query = query.gte("price", minPrice);
       if (maxPrice) query = query.lte("price", maxPrice);
+      
       if (aro) {
         const values = Array.isArray(aro) ? aro : [aro];
         query = query.filter('specs->>aro', 'in', `(${values.map(v => `"${v}"`).join(',')})`);
@@ -133,50 +168,39 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
       if (error) throw error;
       return data ?? [];
     },
+    enabled: !!categories || !category, // Wait for categories if we need to filter by them
   });
 
-  // Build facets from all products matching basic criteria
-  const { data: allFacetsData } = useQuery({
-    queryKey: ["all-facets", category, q],
-    queryFn: async () => {
-      let query = supabase.from("products").select("specs");
-      if (category) {
-        const { data: catData } = await supabase
-          .from("categories")
-          .select("id")
-          .eq("slug", category)
-          .single();
-        if (catData) query = query.eq("category_id", catData.id);
-      }
-      if (q) query = query.ilike("name", `%${q}%`);
-      const { data } = await query;
+  // Build facets from products matching current category and search
+  const facets = useMemo(() => {
+    const aros = new Set<string>();
+    const alturas = new Set<string>();
+    const larguras = new Set<string>();
+    const marcas = new Set<string>();
+    
+    (products ?? []).forEach((p: any) => {
+      const s = p.specs ?? {};
+      const m = parseMedida(s.medida, p.name);
       
-      const aros = new Set<string>();
-      const alturas = new Set<string>();
-      const larguras = new Set<string>();
-      const marcas = new Set<string>();
+      const aroVal = String(s.aro || m.aro || "").trim();
+      const alturaVal = String(s.altura || m.altura || "").trim();
+      const larguraVal = String(s.largura || m.largura || "").trim();
       
-      (data ?? []).forEach((p: any) => {
-        const s = p.specs ?? {};
-        const m = parseMedida(s.medida);
-        const aroVal = String(s.aro ?? m.aro ?? "").trim();
-        if (aroVal) aros.add(aroVal);
-        if (m.altura) alturas.add(m.altura);
-        if (m.largura) larguras.add(m.largura);
-        if (s.marca) marcas.add(String(s.marca));
-      });
-      
-      const num = (a: string, b: string) => Number(a) - Number(b);
-      return {
-        aros: [...aros].sort(num),
-        alturas: [...alturas].sort(num),
-        larguras: [...larguras].sort(num),
-        marcas: [...marcas].sort(),
-      };
-    }
-  });
-
-  const facets = allFacetsData ?? { aros: [], alturas: [], larguras: [], marcas: [] };
+      if (aroVal) aros.add(aroVal);
+      if (alturaVal) alturas.add(alturaVal);
+      if (larguraVal) larguras.add(larguraVal);
+      if (s.marca) marcas.add(String(s.marca));
+    });
+    
+    const numSort = (a: string, b: string) => parseFloat(a.replace(',', '.')) - parseFloat(b.replace(',', '.'));
+    
+    return {
+      aros: [...aros].sort(numSort),
+      alturas: [...alturas].sort(numSort),
+      larguras: [...larguras].sort(numSort),
+      marcas: [...marcas].sort(),
+    };
+  }, [products]);
 
   // We now filter mostly on server-side via useQuery above. 
   // Client-side filter remains for Marca/Runflat which are not handled by server query yet.
