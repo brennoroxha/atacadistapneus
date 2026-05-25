@@ -26,10 +26,10 @@ function About() {
           <div className="h-1 w-20 bg-safety-orange"></div>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
-              A ConstruMais nasceu do desejo de simplificar o acesso a materiais de construção de qualidade. Percebemos que o mercado tradicional era lento, burocrático e muitas vezes inacessível para quem precisava de agilidade.
+              A Atacadista Pneus nasceu do desejo de simplificar o acesso a pneus de qualidade com o melhor preço do mercado. Atuamos no atacado e varejo, atendendo lojistas, frotistas e consumidores finais com agilidade e atendimento especializado.
             </p>
             <p>
-              Fundada por engenheiros civis com décadas de experiência em campo, nossa empresa foi desenhada para resolver os gargalos logísticos e garantir que nenhum canteiro de obras pare por falta de material.
+              Com anos de experiência no setor de pneus, nossa empresa foi desenhada para resolver gargalos logísticos e garantir que nenhum cliente fique parado por falta de pneu.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-8 pt-8">

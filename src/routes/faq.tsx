@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      { name: "title", content: "FAQ - Perguntas Frequentes | ConstruMais" },
+      { name: "title", content: "FAQ - Perguntas Frequentes | Atacadista Pneus" },
       { name: "description", content: "Dúvidas sobre entregas, pagamentos e produtos? Confira nosso FAQ completo." },
     ],
     scripts: [
@@ -62,7 +62,7 @@ export const Route = createFileRoute("/faq")({
     <div className="container px-4 mx-auto py-24 space-y-12">
       <div className="space-y-4 text-center">
         <h1 className="text-4xl font-black  tracking-tighter text-industrial-blue">FAQ - Perguntas Frequentes</h1>
-        <p className="text-muted-foreground max-w-2xl mx-auto">Tire todas as suas dúvidas sobre suas compras, entregas e pagamentos na ConstruMais.</p>
+        <p className="text-muted-foreground max-w-2xl mx-auto">Tire todas as suas dúvidas sobre suas compras, entregas e pagamentos na Atacadista Pneus.</p>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
