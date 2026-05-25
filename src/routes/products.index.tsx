@@ -135,29 +135,48 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
     },
   });
 
-  // Build facets from products
-  const facets = useMemo(() => {
-    const aros = new Set<string>();
-    const alturas = new Set<string>();
-    const larguras = new Set<string>();
-    const marcas = new Set<string>();
-    (products ?? []).forEach((p: any) => {
-      const s = p.specs ?? {};
-      const m = parseMedida(s.medida);
-      const aroVal = String(s.aro ?? m.aro ?? "").trim();
-      if (aroVal) aros.add(aroVal);
-      if (m.altura) alturas.add(m.altura);
-      if (m.largura) larguras.add(m.largura);
-      if (s.marca) marcas.add(String(s.marca));
-    });
-    const num = (a: string, b: string) => Number(a) - Number(b);
-    return {
-      aros: [...aros].sort(num),
-      alturas: [...alturas].sort(num),
-      larguras: [...larguras].sort(num),
-      marcas: [...marcas].sort(),
-    };
-  }, [products]);
+  // Build facets from all products matching basic criteria
+  const { data: allFacetsData } = useQuery({
+    queryKey: ["all-facets", category, q],
+    queryFn: async () => {
+      let query = supabase.from("products").select("specs");
+      if (category) {
+        const { data: catData } = await supabase
+          .from("categories")
+          .select("id")
+          .eq("slug", category)
+          .single();
+        if (catData) query = query.eq("category_id", catData.id);
+      }
+      if (q) query = query.ilike("name", `%${q}%`);
+      const { data } = await query;
+      
+      const aros = new Set<string>();
+      const alturas = new Set<string>();
+      const larguras = new Set<string>();
+      const marcas = new Set<string>();
+      
+      (data ?? []).forEach((p: any) => {
+        const s = p.specs ?? {};
+        const m = parseMedida(s.medida);
+        const aroVal = String(s.aro ?? m.aro ?? "").trim();
+        if (aroVal) aros.add(aroVal);
+        if (m.altura) alturas.add(m.altura);
+        if (m.largura) larguras.add(m.largura);
+        if (s.marca) marcas.add(String(s.marca));
+      });
+      
+      const num = (a: string, b: string) => Number(a) - Number(b);
+      return {
+        aros: [...aros].sort(num),
+        alturas: [...alturas].sort(num),
+        larguras: [...larguras].sort(num),
+        marcas: [...marcas].sort(),
+      };
+    }
+  });
+
+  const facets = allFacetsData ?? { aros: [], alturas: [], larguras: [], marcas: [] };
 
   // Apply spec filters client-side
   const filtered = useMemo(() => {
