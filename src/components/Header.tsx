@@ -160,8 +160,17 @@ export function Header() {
 
       {/* Desktop categories bar */}
       <nav className="hidden md:block text-white shadow-md shadow-black/20" style={{ backgroundColor: "#072052" }}>
-        <div className="container flex items-center h-12">
+        <div className="container flex items-center gap-6 h-12">
           <DesktopMegaMenu />
+          <Link to="/products" search={{ category: "baterias" } as any} className="font-bold tracking-wide text-base text-white hover:text-safety-orange transition-colors">
+            Baterias
+          </Link>
+          <Link to="/products" search={{ category: "capacetes" } as any} className="font-bold tracking-wide text-base text-white hover:text-safety-orange transition-colors">
+            Capacetes
+          </Link>
+          <Link to="/products" search={{ category: "acessorios-para-moto" } as any} className="font-bold tracking-wide text-base text-white hover:text-safety-orange transition-colors">
+            Acessórios Moto
+          </Link>
         </div>
       </nav>
     </header>
