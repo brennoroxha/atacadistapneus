@@ -169,7 +169,7 @@ function ProductDetail() {
                     i === activeImage ? "border-industrial-blue" : "border-muted hover:border-industrial-blue/50"
                   }`}
                 >
-                  <img src={img} alt={`${product.name} ${i + 1}`} className="w-full h-full object-contain" />
+                  <img src={getProductImageUrl(img)} alt={`${product.name} ${i + 1}`} onError={onProductImageError} className="w-full h-full object-contain" />
                 </button>
               ))}
             </div>
