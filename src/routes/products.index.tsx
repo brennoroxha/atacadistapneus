@@ -116,6 +116,10 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
       if (q) query = query.ilike("name", `%${q}%`);
       if (minPrice) query = query.gte("price", minPrice);
       if (maxPrice) query = query.lte("price", maxPrice);
+      if (aro) query = query.contains("specs", { aro: Array.isArray(aro) ? aro[0] : aro });
+      if (altura) query = query.contains("specs", { altura: Array.isArray(altura) ? altura[0] : altura });
+      if (largura) query = query.contains("specs", { largura: Array.isArray(largura) ? largura[0] : largura });
+
       const { data, error } = await query;
       if (error) throw error;
       return data ?? [];
