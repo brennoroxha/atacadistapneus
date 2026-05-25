@@ -143,18 +143,18 @@ function ProductDetail() {
               src={getProductImageUrl(product.images?.[activeImage] ?? product.images?.[0])}
               alt={product.name}
               onError={onProductImageError}
-              className="h-full w-full object-contain"
+               className="h-full w-full object-contain" loading="eager" width="600" height="600"
             />
             {((specs as any).consumo || (specs as any).aderencia || (specs as any).ruido_db) && (
               <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
                 {(specs as any).consumo && (
-                  <EtiquetaBadge src="/etiquetas/consumo.webp" alt="Consumo" value={(specs as any).consumo} />
+                  <EtiquetaBadge src="/etiquetas/consumo.webp" alt="Consumo" value={(specs as any).consumo} width="48" height="64" />
                 )}
                 {(specs as any).aderencia && (
-                  <EtiquetaBadge src="/etiquetas/aderencia.webp" alt="Aderência" value={(specs as any).aderencia} />
+                  <EtiquetaBadge src="/etiquetas/aderencia.webp" alt="Aderência" value={(specs as any).aderencia} width="48" height="64" />
                 )}
                 {(specs as any).ruido_db && (
-                  <EtiquetaBadge src="/etiquetas/ruido-alto.webp" alt="Ruído" value={String((specs as any).ruido_db)} suffix="dB" />
+                  <EtiquetaBadge src="/etiquetas/ruido-alto.webp" alt="Ruído" value={String((specs as any).ruido_db)} suffix="dB" width="48" height="64" />
                 )}
               </div>
             )}
@@ -169,7 +169,7 @@ function ProductDetail() {
                     i === activeImage ? "border-industrial-blue" : "border-muted hover:border-industrial-blue/50"
                   }`}
                 >
-                  <img src={getProductImageUrl(img)} alt={`${product.name} ${i + 1}`} onError={onProductImageError} className="w-full h-full object-contain" />
+                  <img src={getProductImageUrl(img)} alt={`${product.name} ${i + 1}`} onError={onProductImageError} className="w-full h-full object-contain" loading="lazy" width="100" height="100" />
                 </button>
               ))}
             </div>
@@ -183,7 +183,7 @@ function ProductDetail() {
               src={getBrandLogo(product.name)!}
               alt="Marca"
               loading="lazy"
-              className="h-10 w-32 object-contain object-left self-start"
+              className="h-10 w-32 object-contain object-left self-start" loading="lazy" width="128" height="40"
               onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
             />
           )}
@@ -329,15 +329,19 @@ function EtiquetaBadge({
   alt,
   value,
   suffix,
+  width,
+  height,
 }: {
   src: string;
   alt: string;
   value?: string | number | null;
   suffix?: string;
+  width?: string;
+  height?: string;
 }) {
   return (
     <div className="relative w-12 sm:w-14 drop-shadow-md">
-      <img src={src} alt={alt} className="w-full h-auto" />
+      <img src={src} alt={alt} className="w-full h-auto" loading="lazy" width={width || "56"} height={height || "70"} />
       {value && (
         <span className="absolute inset-x-0 bottom-[6%] flex items-center justify-center text-white font-extrabold leading-none text-[11px] sm:text-[13px]">
           {value}

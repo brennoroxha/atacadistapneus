@@ -6,7 +6,7 @@ export function Newsletter() {
   return (
     <>
     <a href="#" className="block md:hidden">
-      <img src={bannerFreteMobile} alt="Frete grátis para todo Brasil" className="block w-full h-auto" loading="lazy" />
+      <img src={bannerFreteMobile} alt="Frete grátis para todo Brasil" className="block w-full h-auto" loading="lazy" width="640" height="200" />
     </a>
     <section className="bg-neutral-200 text-black border-b border-black/10">
       <div className="container px-4 mx-auto py-5 md:py-10">

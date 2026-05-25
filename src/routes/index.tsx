@@ -112,7 +112,7 @@ function HeroBannerCarousel() {
             <CarouselItem key={i} className="pl-0">
               <picture>
                 <source media="(max-width: 767px)" srcSet={b.srcMobile} />
-                <img src={b.src} alt={b.alt} className="block w-full h-auto" loading={i === 0 ? "eager" : "lazy"} />
+                <img src={b.src} alt={b.alt} className="block w-full h-auto" loading={i === 0 ? "eager" : "lazy"} width="1920" height="600" />
               </picture>
             </CarouselItem>
           ))}
@@ -331,8 +331,8 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
                 src={getBrandLogo(product.name)!}
                 alt="Marca"
                 loading="lazy"
-                className="w-full h-auto block"
-                onError={(e) => ((e.currentTarget.style.display = "none"))}
+                        className="w-full h-auto block" loading="lazy" width="200" height="50"
+                        onError={(e) => ((e.currentTarget.style.display = "none"))}
               />
             </div>
           )}
@@ -342,7 +342,8 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
               alt={product.name}
               loading="lazy" decoding="async"
               onError={onProductImageError}
-              className="h-full w-full object-contain scale-[1.15] transition-transform duration-500 group-hover:scale-[1.25]"
+                      className="h-full w-full object-contain scale-[1.15] transition-transform duration-500 group-hover:scale-[1.25]"
+                      width="400" height="400"
             />
             <div className="absolute right-1 top-2 flex flex-col gap-1 pointer-events-none z-10">
               {(product.specs?.consumo || product.specs?.aderencia || product.specs?.ruido_db) && (

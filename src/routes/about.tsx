@@ -44,7 +44,7 @@ function About() {
           </div>
         </div>
         <div className="rounded-2xl overflow-hidden shadow-2xl relative group">
-          <img src="https://images.unsplash.com/photo-1503387762-592dea58ef23?auto=format&fit=crop&q=80&w=1200" alt="Equipe" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <img src="https://images.unsplash.com/photo-1503387762-592dea58ef23?auto=format&fit=crop&q=80&w=1200" alt="Equipe" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" width="600" height="400" />
           <div className="absolute inset-0 border-[20px] border-white/10 m-8 pointer-events-none"></div>
         </div>
       </section>

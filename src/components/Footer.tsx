@@ -10,7 +10,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 mb-10 md:mb-16">
           <div className="space-y-6 text-center md:text-left">
             <Link to="/" className="inline-flex items-center justify-center md:justify-start w-full md:w-auto" aria-label="Atacadista Pneus">
-              <img src={logo} alt="Atacadista Pneus" className="h-[80px] md:h-[100px] w-auto" />
+              <img src={logo.replace(/\.png$/, '.webp')} alt="Atacadista Pneus" className="h-[80px] md:h-[100px] w-auto" loading="lazy" width="150" height="100" />
             </Link>
             <p className="text-black text-sm leading-relaxed">
               Sua loja especializada em pneus. Atacado e varejo com os melhores preços e entrega rápida.
@@ -50,7 +50,7 @@ export function Footer() {
             </ul>
             <div className="mt-6">
               <h4 className="font-bold text-sm tracking-wider mb-3">Formas de Pagamento</h4>
-              <img src={pagamentos} alt="Formas de pagamento aceitas" className="w-full max-w-[280px] h-auto" />
+              <img src={pagamentos} alt="Formas de pagamento aceitas" className="w-full max-w-[280px] h-auto" loading="lazy" width="280" height="40" />
             </div>
           </div>
 

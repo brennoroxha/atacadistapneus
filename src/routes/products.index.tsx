@@ -442,7 +442,7 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
                           <img
                             src={brandLogo}
                             alt="Marca"
-                            className="w-full h-auto block"
+                            className="w-full h-auto block" loading="lazy" width="200" height="50"
                             onError={(e) => ((e.currentTarget.style.display = "none"))}
                           />
                         </div>
@@ -459,6 +459,7 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
                           decoding="async"
                           onError={onProductImageError}
                           className="h-full w-full object-contain scale-[1.15] transition-transform duration-500 group-hover:scale-[1.25]"
+                          loading="lazy" width="400" height="400"
                         />
                         <div className="absolute right-1 top-2 flex flex-col gap-1 pointer-events-none z-10">
                           {(product.specs?.consumo || product.specs?.aderencia || product.specs?.ruido_db) && (
