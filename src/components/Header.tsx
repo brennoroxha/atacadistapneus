@@ -98,7 +98,7 @@ export function Header() {
             <SheetContent side="right" className="w-[85vw] sm:w-[400px] p-0 flex flex-col">
               <SheetHeader className="p-4 border-b">
                 <SheetTitle className="text-left">
-                  <img src={logo.replace(/\.png$/, '.webp')} alt="Logo Pneus" className="h-10 w-auto" loading="lazy" width="80" height="40" />
+                  <img src={logo} alt="Logo Pneus" className="h-10 w-auto" loading="lazy" width="80" height="40" />
                 </SheetTitle>
               </SheetHeader>
               <form onSubmit={submitSearch} className="p-4 border-b">
