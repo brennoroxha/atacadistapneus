@@ -838,11 +838,11 @@ function Checkout() {
       </div>
 
       <footer className="bg-[#02050b] text-white mt-10 py-6 px-4 text-center text-xs leading-relaxed">
-        © 2026 Becher Comercio de Ferragens e Ferramentas LTDA.
+        © 2026 R&A Atacadista Distribuidora e Recauchutadora de Pneus LTDA.
         <br />
-        CNPJ: 49.229.087/0001-62
+        CNPJ: 04.610.006/0004-84
         <br />
-        Rua Júlia Moreira de Souza, 795 — Gleba Ribeirão Maringá — Maringá/PR — CEP 87025-659
+        Avenida Jose Falcao, 75 A, Loja — Queimadinha — Feira de Santana/BA — CEP 44026-100
       </footer>
     </div>
   );

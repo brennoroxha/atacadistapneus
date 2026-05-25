@@ -4,7 +4,7 @@ import { LegalPage } from "@/components/LegalPage";
 export const Route = createFileRoute("/refund-policy")({
   head: () => ({
     meta: [
-      { title: "Política de Trocas e Devoluções | Comercial Ferragens" },
+      { title: "Política de Trocas e Devoluções | Atacadista Pneus" },
       { name: "description", content: "Procedimentos para troca, devolução e reembolso conforme o Código de Defesa do Consumidor." },
     ],
   }),
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/refund-policy")({
 function RefundPolicyPage() {
   return (
     <LegalPage title="Política de Trocas e Devoluções">
-      <p className="lead">A presente Política de Trocas e Devoluções da <strong>Becher Comercio de Ferragens e Ferramentas LTDA</strong> (CNPJ 49.229.087/0001-62) tem como objetivo informar os procedimentos para troca, devolução e reembolso, em total conformidade com o Código de Defesa do Consumidor (Lei nº 8.078/90).</p>
+      <p className="lead">A presente Política de Trocas e Devoluções da <strong>R&A Atacadista Distribuidora e Recauchutadora de Pneus LTDA</strong> (CNPJ 04.610.006/0004-84) tem como objetivo informar os procedimentos para troca, devolução e reembolso, em total conformidade com o Código de Defesa do Consumidor (Lei nº 8.078/90).</p>
 
       <h2>1. Direito de Arrependimento (Art. 49 do CDC)</h2>
       <p>O cliente tem o direito de desistir da compra no prazo de <strong>7 dias corridos</strong>, a contar do recebimento do produto, sem necessidade de justificativa. Esse direito aplica-se exclusivamente a compras realizadas pelo site, não se aplicando a compras presenciais.</p>

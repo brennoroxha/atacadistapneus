@@ -8,8 +8,8 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Fale Conosco | Comercial Ferragens" },
-      { name: "description", content: "Canais oficiais de atendimento da Comercial Ferragens. Email, WhatsApp e endereço físico em Maringá/PR." },
+      { title: "Fale Conosco | Atacadista Pneus" },
+      { name: "description", content: "Canais oficiais de atendimento da Atacadista Pneus. Email, WhatsApp e endereço físico em Feira de Santana/BA." },
     ],
   }),
   component: Contact,
@@ -102,7 +102,7 @@ function Contact() {
                 <MapPin className="h-6 w-6 text-safety-orange shrink-0" />
                 <div>
                   <h4 className="font-bold text-xs tracking-widest">ENDEREÇO</h4>
-                  <p className="text-sm text-muted-foreground">Rua Júlia Moreira de Souza, 795<br />Gleba Ribeirão Maringá - Maringá/PR<br />CEP 87025-659</p>
+                  <p className="text-sm text-muted-foreground">Avenida Jose Falcao, 75 A, Loja<br />Queimadinha - Feira de Santana/BA<br />CEP 44026-100</p>
                 </div>
               </div>
               <div className="flex gap-3 p-5 bg-muted/50 rounded-xl border sm:col-span-2">
@@ -124,8 +124,8 @@ function Contact() {
               <Building2 className="h-5 w-5 text-industrial-blue dark:text-primary" />
               <h4 className="font-bold text-sm tracking-wider text-industrial-blue dark:text-primary">DADOS DA EMPRESA</h4>
             </div>
-            <p className="text-xs text-muted-foreground"><strong className="text-foreground">Razão Social:</strong> Becher Comercio de Ferragens e Ferramentas LTDA</p>
-            <p className="text-xs text-muted-foreground"><strong className="text-foreground">CNPJ:</strong> 49.229.087/0001-62</p>
+            <p className="text-xs text-muted-foreground"><strong className="text-foreground">Razão Social:</strong> R&A Atacadista Distribuidora e Recauchutadora de Pneus LTDA</p>
+            <p className="text-xs text-muted-foreground"><strong className="text-foreground">CNPJ:</strong> 04.610.006/0004-84</p>
           </div>
         </div>
       </div>
