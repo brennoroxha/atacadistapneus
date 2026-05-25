@@ -1,13 +1,32 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import bannerFreteMobile from "@/assets/banner-frete-gratis-mobile.webp";
+import bannerFreteBrasil from "@/assets/banner-frete-gratis-brasil.webp";
+
 
 export function Newsletter() {
   return (
     <>
-    <a href="#" className="block md:hidden">
-      <img src={bannerFreteMobile} alt="Frete grátis para todo Brasil" className="block w-full h-auto" loading="lazy" width="640" height="200" />
-    </a>
+    <div className="w-full">
+      <img 
+        src={bannerFreteBrasil} 
+        alt="Frete grátis para todo o Brasil" 
+        className="hidden md:block w-full h-auto" 
+        loading="lazy" 
+        width="1920" 
+        height="150" 
+      />
+      <a href="/products" className="block md:hidden">
+        <img 
+          src="https://www.acheipneus.com.br/inmetro_mobile-8pe.png" 
+          alt="Informações Inmetro" 
+          className="block w-full h-auto" 
+          loading="lazy" 
+          width="640" 
+          height="200" 
+        />
+      </a>
+    </div>
     <section className="bg-neutral-200 text-black border-b border-black/10">
       <div className="container px-4 mx-auto py-5 md:py-10">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-6">
