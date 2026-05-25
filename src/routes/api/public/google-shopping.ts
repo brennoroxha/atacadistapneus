@@ -1,41 +1,85 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { supabase } from "@/lib/supabase";
 
+function escapeXml(unsafe: string) {
+  return unsafe.replace(/[<>&"']/g, (c) => {
+    switch (c) {
+      case "<": return "&lt;";
+      case ">": return "&gt;";
+      case "&": return "&amp;";
+      case "\"": return "&quot;";
+      case "'": return "&apos;";
+      default: return c;
+    }
+  });
+}
+
 export const Route = createFileRoute("/api/public/google-shopping")({
   server: {
     handlers: {
       GET: async () => {
-        const { data: products } = await supabase
-          .from("products")
-          .select("*, categories(name)");
+        const baseUrl = process.env.PUBLIC_URL || "https://atacadistapneus.com";
+        let allProducts: any[] = [];
+        let from = 0;
+        const limit = 1000;
+        
+        while (true) {
+          const { data, error } = await supabase
+            .from("products")
+            .select("*, categories(name)")
+            .range(from, from + limit - 1);
+            
+          if (error || !data || data.length === 0) break;
+          allProducts = [...allProducts, ...data];
+          if (data.length < limit) break;
+          from += limit;
+        }
 
-        if (!products) return new Response("No products", { status: 404 });
+        if (allProducts.length === 0) return new Response("No products", { status: 404 });
 
-        const baseUrl = process.env.PUBLIC_URL || "https://atacadistapneus.lovable.app";
-
-        let xml = `<?xml version="1.0"?>
+        let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
   <channel>
-    <title>Atacadista Pneus - Pneus com o Melhor Preço</title>
+    <title>Atacadista Pneus</title>
     <link>${baseUrl}</link>
     <description>Atacado e varejo de pneus para carro, moto, caminhão e mais.</description>`;
 
-        products.forEach((product) => {
+        allProducts.forEach((product) => {
+          const availability = (product.stock ?? 0) > 0 ? "in_stock" : "out_of_stock";
+          const title = escapeXml(product.name);
+          const description = escapeXml(product.description || "Pneu de alta qualidade");
+          const brand = escapeXml(product.specs?.marca || "R&A Atacadista");
+          const slug = product.slug ?? product.id;
+          
           xml += `
     <item>
       <g:id>${product.id}</g:id>
-      <g:title>${product.name}</g:title>
-      <g:description>${product.description || 'Pneu de alta qualidade'}</g:description>
-      <g:link>${baseUrl}/pneu/${product.slug ?? product.id}</g:link>
-      <g:image_link>${product.images?.[0]}</g:image_link>
+      <g:title>${title}</g:title>
+      <g:description>${description}</g:description>
+      <g:link>${baseUrl}/pneu/${slug}</g:link>
+      <g:image_link>${product.images?.[0] || ""}</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>${(product.stock ?? 0) > 0 ? 'in stock' : 'out of stock'}</g:availability>
-      <g:price>${product.price} BRL</g:price>
-      <g:google_product_category>Vehicles Hardware > Building Consumables Parts > Vehicle Parts Hardware > Building Consumables Accessories > Motor Vehicle Parts > Motor Vehicle Tires</g:google_product_category>
-      <g:product_type>${product.categories?.name}</g:product_type>
-      <g:brand>Atacadista Pneus</g:brand>
-      <g:mpn>${product.sku}</g:mpn>
-      <g:gtin>${product.gtin}</g:gtin>
+      <g:availability>${availability}</g:availability>
+      <g:price>${product.price.toFixed(2)} BRL</g:price>
+      <g:google_product_category>5613</g:google_product_category>
+      <g:brand>${brand}</g:brand>`;
+      
+          if (product.gtin) {
+            xml += `
+      <g:gtin>${escapeXml(product.gtin)}</g:gtin>`;
+          }
+          
+          if (product.sku) {
+            xml += `
+      <g:mpn>${escapeXml(product.sku)}</g:mpn>`;
+          }
+          
+          xml += `
+      <g:shipping>
+        <g:country>BR</g:country>
+        <g:service>Padrão</g:service>
+        <g:price>0.00 BRL</g:price>
+      </g:shipping>
     </item>`;
         });
 

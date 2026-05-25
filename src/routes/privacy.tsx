@@ -14,7 +14,7 @@ export const Route = createFileRoute("/privacy")({
 function PrivacyPage() {
   return (
     <LegalPage title="Política de Privacidade">
-      <p className="lead">A <strong>R&A Atacadista Distribuidora e Recauchutadora de Pneus LTDA</strong>, com sede na Avenida Jose Falcao, nº 75 A, Loja - Queimadinha - Feira de Santana/BA - CEP 44026-100, inscrita no CNPJ/MF sob o nº <strong>04.610.006/0004-84</strong> ("Lojista") leva a sua privacidade a sério e zela pela segurança e proteção de dados de todos os seus clientes, parceiros, fornecedores e usuários ("Usuários" ou "você") do site <strong>https://atacadistapneus.lovable.app</strong> e qualquer outro site, loja ou aplicativo operado pelo Lojista (aqui designados, simplesmente, "Loja").</p>
+      <p className="lead">A <strong>R&A Atacadista Distribuidora e Recauchutadora de Pneus LTDA</strong>, com sede na Avenida Jose Falcao, nº 75 A, Loja - Queimadinha - Feira de Santana/BA - CEP 44026-100, inscrita no CNPJ/MF sob o nº <strong>04.610.006/0004-84</strong> ("Lojista") leva a sua privacidade a sério e zela pela segurança e proteção de dados de todos os seus clientes, parceiros, fornecedores e usuários ("Usuários" ou "você") do site <strong>https://atacadistapneus.com</strong> e qualquer outro site, loja ou aplicativo operado pelo Lojista (aqui designados, simplesmente, "Loja").</p>
 
       <p>Esta Política de Privacidade ("Política de Privacidade") destina-se a informá-lo sobre o modo como nós utilizamos e divulgamos informações coletadas em suas visitas à nossa Loja e em mensagens que trocamos com você ("Comunicações"). Esta Política de Privacidade aplica-se somente a informações coletadas por meio da Loja.</p>
 

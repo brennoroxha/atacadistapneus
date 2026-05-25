@@ -40,12 +40,41 @@ export const Route = createFileRoute("/pneu/$productId")({
   loader: async ({ params }) => fetchProductByParam(params.productId),
   head: ({ loaderData }) => {
     if (!loaderData) return generateMetadata({ title: "Produto não encontrado", description: "" });
-    return generateMetadata({
+    const metadata = generateMetadata({
       title: loaderData.name,
       description: loaderData.description ?? "",
       image: loaderData.images?.[0] ?? undefined,
       url: `/pneu/${loaderData.slug ?? loaderData.id}`,
     });
+
+    const specs = (loaderData.specs ?? {}) as Record<string, any>;
+    const brandName = specs.marca || "R&A Atacadista";
+    const availability = (loaderData.stock ?? 0) > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock";
+
+    return {
+      ...metadata,
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": loaderData.name,
+            "image": loaderData.images?.[0],
+            "description": loaderData.description,
+            "sku": loaderData.sku,
+            "brand": { "@type": "Brand", "name": brandName },
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "BRL",
+              "price": loaderData.price,
+              "availability": availability,
+              "url": `https://atacadistapneus.com/pneu/${loaderData.slug ?? loaderData.id}`
+            }
+          })
+        }
+      ]
+    };
   },
   component: ProductDetail,
 });

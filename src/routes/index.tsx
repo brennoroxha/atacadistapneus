@@ -27,8 +27,8 @@ import { getBrandLogo } from "@/lib/brand-logo";
 export const Route = createFileRoute("/")({
   head: () => {
     const metadata = generateMetadata({
-      title: "Sua Obra Começa Aqui",
-      description: "Materiais de construção com o melhor preço e entrega rápida. Cimento, ferragens, tintas e elétrica.",
+      title: "Pneus com o Melhor Preço e Entrega Rápida",
+      description: "Distribuidora de pneus com os melhores preços do Brasil. Bridgestone, Firestone, Goodyear e mais. Entrega rápida e pagamento facilitado.",
     });
 
     return {
@@ -40,10 +40,10 @@ export const Route = createFileRoute("/")({
             "@context": "https://schema.org",
             "@type": "WebSite",
             "name": "Atacadista Pneus",
-            "url": "https://atacadistapneus.lovable.app",
+            "url": "https://atacadistapneus.com",
             "potentialAction": {
               "@type": "SearchAction",
-              "target": "https://atacadistapneus.lovable.app/products?q={search_term_string}",
+              "target": "https://atacadistapneus.com/products?q={search_term_string}",
               "query-input": "required name=search_term_string"
             }
           })
