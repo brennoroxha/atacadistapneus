@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState, useMemo } from "react";
 import { getFeaturedProducts, getCategories, getProductsByCategorySlug } from "@/lib/products.functions";
 import { supabase } from "@/lib/supabase";
+import { getProductImageUrl, onProductImageError } from "@/lib/product-image";
 import { TIRE_SIZES } from "@/lib/tire-sizes";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -366,9 +367,10 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel }: any
                   )}
                   <Link to="/pneu/$productId" params={{ productId: product.slug ?? product.id }} className="relative block aspect-square overflow-hidden bg-white p-2">
                     <img
-                      src={product.images?.[0]}
+                      src={getProductImageUrl(product.images?.[0])}
                       alt={product.name}
                       loading="lazy" decoding="async"
+                      onError={onProductImageError}
                       className="h-full w-full object-contain scale-[1.15] transition-transform duration-500 group-hover:scale-[1.25]"
                     />
                     <div className="absolute right-1 top-2 flex flex-col gap-1 pointer-events-none z-10">

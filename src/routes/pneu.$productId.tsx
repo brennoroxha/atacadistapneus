@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
+import { getProductImageUrl, onProductImageError } from "@/lib/product-image";
 import { Button } from "@/components/ui/button";
 import {
   ChevronRight,
@@ -139,8 +140,9 @@ function ProductDetail() {
         <div className="space-y-3">
           <div className="relative aspect-square bg-white rounded-2xl overflow-hidden p-6">
             <img
-              src={product.images?.[activeImage] ?? product.images?.[0]}
+              src={getProductImageUrl(product.images?.[activeImage] ?? product.images?.[0])}
               alt={product.name}
+              onError={onProductImageError}
               className="h-full w-full object-contain"
             />
             {((specs as any).consumo || (specs as any).aderencia || (specs as any).ruido_db) && (
@@ -167,7 +169,7 @@ function ProductDetail() {
                     i === activeImage ? "border-industrial-blue" : "border-muted hover:border-industrial-blue/50"
                   }`}
                 >
-                  <img src={img} alt={`${product.name} ${i + 1}`} className="w-full h-full object-contain" />
+                  <img src={getProductImageUrl(img)} alt={`${product.name} ${i + 1}`} onError={onProductImageError} className="w-full h-full object-contain" />
                 </button>
               ))}
             </div>
@@ -300,9 +302,10 @@ function ProductDetail() {
               >
                 <div className="aspect-square bg-white p-4">
                   <img
-                    src={p.images?.[0]}
+                    src={getProductImageUrl(p.images?.[0])}
                     alt={p.name}
                     loading="lazy" decoding="async"
+                    onError={onProductImageError}
                     className="w-full h-full object-contain transition-transform group-hover:scale-105"
                   />
                 </div>
