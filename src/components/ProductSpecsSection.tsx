@@ -170,8 +170,8 @@ export function AdditionalInfoSection({ texto }: { texto?: string }) {
   );
 }
 
-export function DescriptionSection({ children }: { children: React.ReactNode }) {
-  return <CollapsibleSection title="Descrição">{children}</CollapsibleSection>;
+export function DescriptionSection({ children, defaultOpen = false }: { children: React.ReactNode; defaultOpen?: boolean }) {
+  return <CollapsibleSection title="Descrição" defaultOpen={defaultOpen}>{children}</CollapsibleSection>;
 }
 
 function CollapsibleSection({
