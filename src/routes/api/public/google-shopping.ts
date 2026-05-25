@@ -73,6 +73,11 @@ export const Route = createFileRoute("/api/public/google-shopping")({
             xml += `
       <g:mpn>${escapeXml(product.sku)}</g:mpn>`;
           }
+
+          if (!product.gtin && !product.sku) {
+            xml += `
+      <g:identifier_exists>no</g:identifier_exists>`;
+          }
           
           xml += `
       <g:shipping>
