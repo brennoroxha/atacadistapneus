@@ -23,59 +23,58 @@ async function migrateImages() {
 
   console.log(`Found ${products.length} products to process`);
 
-  for (const product of products) {
-    const newImages = [];
-    let updated = false;
+  // Process products in batches of 5 to avoid overloading
+  const batchSize = 5;
+  for (let i = 0; i < products.length; i += batchSize) {
+    const batch = products.slice(i, i + batchSize);
+    console.log(`Processing batch ${i / batchSize + 1}...`);
+    
+    await Promise.all(batch.map(async (product) => {
+      const newImages = [];
+      let updated = false;
 
-    for (const imageUrl of product.images) {
-      if (imageUrl.includes('cdn.jsdelivr.net')) {
-        const fileName = imageUrl.split('/').pop();
-        console.log(`Processing ${fileName}...`);
+      for (const imageUrl of product.images) {
+        if (imageUrl.includes('cdn.jsdelivr.net')) {
+          const fileName = imageUrl.split('/').pop();
 
-        try {
-          // Download image
-          const response = await fetch(imageUrl);
-          if (!response.ok) throw new Error(`Failed to download: ${response.statusText}`);
-          const buffer = await response.arrayBuffer();
+          try {
+            const response = await fetch(imageUrl);
+            if (!response.ok) throw new Error(`Failed to download: ${response.statusText}`);
+            const buffer = await response.arrayBuffer();
 
-          // Upload to Supabase Storage
-          const { data: uploadData, error: uploadError } = await supabase.storage
-            .from('product-images')
-            .upload(fileName, buffer, {
-              upsert: true,
-              contentType: response.headers.get('content-type') || 'image/jpeg'
-            });
+            const { error: uploadError } = await supabase.storage
+              .from('product-images')
+              .upload(fileName, buffer, {
+                upsert: true,
+                contentType: response.headers.get('content-type') || 'image/jpeg'
+              });
 
-          if (uploadError) {
-            console.error(`Error uploading ${fileName}:`, uploadError);
-            newImages.push(imageUrl); // Keep original if upload fails
-          } else {
-            const newUrl = `${supabaseUrl}/storage/v1/object/public/product-images/${fileName}`;
-            newImages.push(newUrl);
-            updated = true;
+            if (uploadError) {
+              console.error(`Error uploading ${fileName}:`, uploadError);
+              newImages.push(imageUrl);
+            } else {
+              const newUrl = `${supabaseUrl}/storage/v1/object/public/product-images/${fileName}`;
+              newImages.push(newUrl);
+              updated = true;
+            }
+          } catch (e) {
+            console.error(`Failed to process ${imageUrl}:`, e);
+            newImages.push(imageUrl);
           }
-        } catch (e) {
-          console.error(`Failed to process ${imageUrl}:`, e);
+        } else {
           newImages.push(imageUrl);
         }
-      } else {
-        newImages.push(imageUrl);
       }
-    }
 
-    if (updated) {
-      const { error: updateError } = await supabase
-        .from('products')
-        .update({ images: newImages })
-        .eq('id', product.id);
-
-      if (updateError) {
-        console.error(`Error updating product ${product.gtin}:`, updateError);
-      } else {
-        console.log(`Successfully updated product ${product.gtin}`);
+      if (updated) {
+        await supabase
+          .from('products')
+          .update({ images: newImages })
+          .eq('id', product.id);
       }
-    }
+    }));
   }
+  console.log('Migration finished!');
 }
 
 migrateImages();
