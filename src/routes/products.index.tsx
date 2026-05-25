@@ -144,6 +144,9 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
       if (q) {
         const terms = q.trim().split(/\s+/).filter((t: string) => t.length > 1);
         terms.forEach((term: string) => {
+          // We can't directly use JSON path in .or() string with Supabase JS easily without specific syntax
+          // but we can search in name, description, and GTIN which usually cover most cases.
+          // To be safer, we add a check for the term in the name, description, or GTIN.
           query = query.or(`name.ilike.%${term}%,description.ilike.%${term}%,gtin.ilike.%${term}%`);
         });
       }
