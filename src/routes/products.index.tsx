@@ -175,7 +175,7 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
   const { data: allFacetsData } = useQuery({
     queryKey: ["all-facets", relevantCategoryIds, q],
     queryFn: async () => {
-      let query = supabase.from("products").select("name, specs");
+      let query = supabase.from("products").select("name, specs, gtin");
       
       if (relevantCategoryIds) {
         query = query.in("category_id", relevantCategoryIds);
@@ -206,7 +206,9 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
         if (aroVal) aros.add(aroVal);
         if (alturaVal) alturas.add(alturaVal);
         if (larguraVal) larguras.add(larguraVal);
-        if (s.marca) marcas.add(String(s.marca));
+        
+        const brandVal = s.marca || s.brand;
+        if (brandVal) marcas.add(String(brandVal));
       });
       
       const numSort = (a: string, b: string) => parseFloat(a.replace(',', '.')) - parseFloat(b.replace(',', '.'));
@@ -228,7 +230,8 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
   const filtered = useMemo(() => {
     const list = (products ?? []).filter((p: any) => {
       const s = p.specs ?? {};
-      if (marca?.length && !marca.includes(String(s.marca ?? ""))) return false;
+      const brandVal = s.marca || s.brand;
+      if (marca?.length && !marca.includes(String(brandVal ?? ""))) return false;
       if (runflat === "sim" && !s.runflat) return false;
       if (runflat === "nao" && s.runflat) return false;
       return true;
