@@ -158,18 +158,32 @@ export function ProductSpecsSection({ specs }: { specs: Specs }) {
           Informações Técnicas
         </h2>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-7">
-        {rows.map(({ key, label, svg, format }) => (
-          <div key={key} className="flex items-start gap-3">
-            <img src={specIcon(svg)} alt="" className="shrink-0 h-[40px] w-[40px] object-contain" loading="lazy" />
-            <div className="text-sm leading-tight pt-1">
-              <div className="text-muted-foreground">{label}:</div>
-              <div className="font-bold text-foreground">
-                {format ? format(specs[key]) : String(specs[key])}
+      <div className="lg:grid lg:grid-cols-[1fr_auto] lg:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-7">
+          {rows.map(({ key, label, svg, format }) => (
+            <div key={key} className="flex items-start gap-3">
+              <img src={specIcon(svg)} alt="" className="shrink-0 h-[40px] w-[40px] object-contain" loading="lazy" />
+              <div className="text-sm leading-tight pt-1">
+                <div className="text-muted-foreground">{label}:</div>
+                <div className="font-bold text-foreground">
+                  {format ? format(specs[key]) : String(specs[key])}
+                </div>
               </div>
             </div>
+          ))}
+        </div>
+        {(specs.consumo || specs.aderencia) && (
+          <div className="mt-8 pt-6 border-t lg:mt-0 lg:pt-0 lg:border-t-0 lg:pl-4 lg:w-[240px]">
+            <h3 className="font-black text-industrial-blue dark:text-primary text-sm uppercase tracking-wide mb-3">
+              Etiqueta Inmetro
+            </h3>
+            <InmetroLabel 
+              consumption={specs.consumo} 
+              grip={specs.aderencia} 
+              noise={Number(specs.ruido_db || 0)} 
+            />
           </div>
-        ))}
+        )}
       </div>
     </section>
   );
