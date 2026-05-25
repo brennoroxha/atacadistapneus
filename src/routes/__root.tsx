@@ -12,7 +12,7 @@ import React, { Suspense, lazy } from "react";
 const Header = lazy(() => import("@/components/Header").then(m => ({ default: m.Header })));
 const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
 const Newsletter = lazy(() => import("@/components/Newsletter").then(m => ({ default: m.Newsletter })));
-import bannerFreteBrasil from "@/assets/banner-frete-gratis-brasil.webp";
+
 import { Toaster } from "@/components/ui/sonner";
 import { CookieBanner } from "@/components/CookieBanner";
 import { MobileBottomNav } from "@/components/MobileBottomNav";
