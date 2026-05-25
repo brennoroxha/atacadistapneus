@@ -250,7 +250,7 @@ export function VehiclesSection({ veiculos }: { veiculos: any }) {
 
     <CollapsibleSection title="Veículos Compatíveis" id="veiculos-compativeis">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {veiculos.map((v) => {
+        {list.map((v) => {
           const logo = brandLogoUrl(v.marca);
           return (
             <div key={v.marca} className="rounded-lg border bg-card p-4">
