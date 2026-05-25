@@ -302,9 +302,10 @@ function ProductDetail() {
               >
                 <div className="aspect-square bg-white p-4">
                   <img
-                    src={p.images?.[0]}
+                    src={getProductImageUrl(p.images?.[0])}
                     alt={p.name}
                     loading="lazy" decoding="async"
+                    onError={onProductImageError}
                     className="w-full h-full object-contain transition-transform group-hover:scale-105"
                   />
                 </div>
