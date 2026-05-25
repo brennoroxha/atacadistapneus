@@ -47,8 +47,8 @@ export const Route = createFileRoute("/pneu/$productId")({
       url: `/pneu/${loaderData.slug ?? loaderData.id}`,
     });
 
-    const availability = (loaderData.stock ?? 0) > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock";
-    const brandName = loaderData.specs?.marca || "R&A Atacadista";
+    const specs = (loaderData.specs ?? {}) as Record<string, any>;
+    const brandName = specs.marca || "R&A Atacadista";
 
     return {
       ...metadata,
