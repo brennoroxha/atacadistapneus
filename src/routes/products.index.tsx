@@ -102,7 +102,7 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
   });
 
   const { data: products, isLoading } = useQuery({
-    queryKey: ["products-list", category, q, minPrice, maxPrice],
+    queryKey: ["products-list", category, q, minPrice, maxPrice, aro, altura, largura],
     queryFn: async () => {
       let query = supabase.from("products").select("*, categories(name, slug)");
       if (category) {
