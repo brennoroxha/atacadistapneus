@@ -77,9 +77,9 @@ function Arrow({
 
 function NoiseIcon({ db, x, y, w, h }: { db: number; x: number; y: number; w: number; h: number }) {
   const href =
-    db < 71
+    db <= 70
       ? "/icons/noise-low.png"
-      : db <= 74
+      : db <= 73
       ? "/icons/noise-medium.png"
       : "/icons/noise-high.png";
   return <image href={href} x={x} y={y} width={w} height={h} preserveAspectRatio="xMidYMid meet" />;
