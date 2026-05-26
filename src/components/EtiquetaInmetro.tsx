@@ -118,8 +118,7 @@ export function EtiquetaInmetro({
     <div
       ref={containerRef}
       className={`relative inline-block w-full ${className}`}
-      style={{ maxWidth: "400px" }}
-
+      style={{ maxWidth: "300px" }}
     >
       <img
         src={imageUrl}
@@ -139,7 +138,7 @@ export function EtiquetaInmetro({
       >
         <Arrow tipX={80} centerY={fuelY} letter={f} />
         <Arrow tipX={200} centerY={wetY} letter={w} />
-        <NoiseIcon db={db} x={70 - 42 / 2} y={305 - 36 / 2} w={42} h={36} />
+        <NoiseIcon db={db} x={70 - 56 / 2} y={305 - 48 / 2} w={56} h={48} />
         <text
           x={185}
           y={312}
