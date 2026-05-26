@@ -44,10 +44,8 @@ export const PRODUCT_CARD_IMAGE_CONTAINER_STYLE = {
 } as const;
 
 export const PRODUCT_CARD_IMAGE_STYLE = {
-  maxWidth: "100%",
-  maxHeight: "204px",
-  width: "auto",
-  height: "auto",
+  width: "100%",
+  height: "100%",
   objectFit: "contain",
   display: "block",
 } as const;
