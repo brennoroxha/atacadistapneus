@@ -84,7 +84,7 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
       <span
         style={{
           position: "absolute",
-          left: "62%",
+          left: "65%",
           top: "62%",
           transform: "translate(-50%, -50%)",
           fontWeight: 900,
