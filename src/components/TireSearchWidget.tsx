@@ -114,14 +114,6 @@ function MedidasTab() {
         O jeito mais fácil e rápido de achar o pneu perfeito para o seu veículo
       </p>
 
-      <div className="mt-6 w-full max-w-2xl mx-auto">
-        <img
-          src={tireMeasure}
-          alt="Medidas do pneu"
-          className="w-full max-w-lg mx-auto h-auto object-contain select-none pointer-events-none"
-          loading="lazy"
-        />
-      </div>
 
       <div className="w-full flex flex-col lg:flex-row items-stretch gap-3 mt-4">
         <div className="grid grid-cols-3 gap-2 md:gap-3 flex-1">
