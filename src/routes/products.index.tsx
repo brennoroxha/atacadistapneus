@@ -572,43 +572,53 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
                       <Link
                         to="/pneu/$productId"
                         params={{ productId: product.slug ?? product.id }}
-                        className="relative flex items-center justify-center w-full h-[180px] overflow-hidden bg-white p-2"
+                        className="block"
                       >
-                        <img
-                          src={getProductImageUrl(product.images?.[0], { width: 300, quality: 75 })}
-                          alt={product.name}
-                          loading="lazy"
-                          decoding="async"
-                          onError={onProductImageError}
+                        <div
                           style={{
-                            maxWidth: '100%',
-                            maxHeight: '160px',
-                            width: 'auto',
-                            height: 'auto',
-                            objectFit: 'contain',
-                            display: 'block'
+                            width: '100%',
+                            height: '180px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: '#ffffff',
+                            padding: '12px',
+                            boxSizing: 'border-box'
                           }}
-                          width="400"
-                          height="400"
-                          className="transition-transform duration-500 group-hover:scale-105"
-                        />
-                        <div className="absolute right-1 top-2 flex flex-col gap-1 pointer-events-none z-10">
-                          {(product.specs?.consumo || product.specs?.aderencia || product.specs?.ruido_db) && (
-                            <>
-                              {product.specs?.consumo && <EtiquetaBadge src="/etiquetas/consumo.webp" alt="Consumo" value={product.specs.consumo} />}
-                              {product.specs?.aderencia && <EtiquetaBadge src="/etiquetas/aderencia.webp" alt="Aderência" value={product.specs.aderencia} />}
-                              {product.specs?.ruido_db && (
-                                <EtiquetaBadge
-                                  src="/icons/noise-badge.png"
-                                  alt="Ruído"
-                                  value={`${product.specs.ruido_db}`}
-                                  suffix="dB"
-                                />
-                              )}
-                            </>
-                          )}
+                        >
+                          <img
+                            src={getProductImageUrl(product.images?.[0], { width: 300, quality: 75 })}
+                            alt={product.name}
+                            loading="lazy"
+                            decoding="async"
+                            onError={onProductImageError}
+                            style={{
+                              maxWidth: '100%',
+                              maxHeight: '156px',
+                              width: 'auto',
+                              height: 'auto',
+                              objectFit: 'contain',
+                              display: 'block'
+                            }}
+                            width="400"
+                            height="400"
+                          />
                         </div>
                       </Link>
+                      {(product.specs?.consumo || product.specs?.aderencia || product.specs?.ruido_db) && (
+                        <div className="flex flex-wrap items-center gap-1 px-3 pb-2">
+                          {product.specs?.consumo && <EtiquetaBadge src="/etiquetas/consumo.webp" alt="Consumo" value={product.specs.consumo} />}
+                          {product.specs?.aderencia && <EtiquetaBadge src="/etiquetas/aderencia.webp" alt="Aderência" value={product.specs.aderencia} />}
+                          {product.specs?.ruido_db && (
+                            <EtiquetaBadge
+                              src="/icons/noise-badge.png"
+                              alt="Ruído"
+                              value={`${product.specs.ruido_db}`}
+                              suffix="dB"
+                            />
+                          )}
+                        </div>
+                      )}
                     </div>
                     <div className="p-3 flex-1 flex flex-col gap-2 min-w-0">
                       <h3 className="font-medium text-sm leading-snug line-clamp-2 sm:min-h-[2.5rem]">
