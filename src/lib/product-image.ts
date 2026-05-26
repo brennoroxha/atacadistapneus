@@ -26,26 +26,26 @@ export const PRODUCT_IMAGE_FALLBACK =
 import { optimizeImage, type ImgOpts } from "./image-optimize";
 
 export const PRODUCT_CARD_IMAGE_OPTS: ImgOpts = {
-  width: 300,
-  height: 300,
-  quality: 75,
+  width: 400,
+  height: 400,
+  quality: 85,
   resize: "contain",
 };
 
 export const PRODUCT_CARD_IMAGE_CONTAINER_STYLE = {
   width: "100%",
-  height: "180px",
+  height: "220px",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   backgroundColor: "#ffffff",
-  padding: "12px",
+  padding: "8px",
   boxSizing: "border-box",
 } as const;
 
 export const PRODUCT_CARD_IMAGE_STYLE = {
   maxWidth: "100%",
-  maxHeight: "156px",
+  maxHeight: "204px",
   width: "auto",
   height: "auto",
   objectFit: "contain",
