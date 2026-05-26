@@ -16,9 +16,6 @@ import { generateMetadata } from "@/lib/seo";
 import bannerFreteHero from "@/assets/banner-frete-gratis-hero.webp";
 import bannerEconomize from "@/assets/banner-bridgestone-economize.webp";
 import bannerEcopia from "@/assets/banner-ep150-ecopia.webp";
-import bannerFreteHeroMobile from "@/assets/banner-frete-gratis-hero-mobile.webp";
-import bannerEconomizeMobile from "@/assets/banner-bridgestone-economize-mobile.webp";
-import bannerEcopiaMobile from "@/assets/banner-ep150-ecopia-mobile.webp";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useRef } from "react";
@@ -101,9 +98,9 @@ function Index() {
 function HeroBannerCarousel() {
   const autoplay = useRef(Autoplay({ delay: 5000, stopOnInteraction: false }));
   const banners = [
-    { src: bannerFreteHero, srcMobile: bannerFreteHeroMobile, alt: "Pneus Bridgestone e Firestone com Frete Grátis" },
-    { src: bannerEconomize, srcMobile: bannerEconomizeMobile, alt: "Compre 2 pneus Bridgestone e economize" },
-    { src: bannerEcopia, srcMobile: bannerEcopiaMobile, alt: "Bridgestone EP150 Ecopia 185/55R16 por R$ 519,90" },
+    { src: bannerFreteHero, alt: "Pneus Bridgestone e Firestone com Frete Grátis" },
+    { src: bannerEconomize, alt: "Compre 2 pneus Bridgestone e economize" },
+    { src: bannerEcopia, alt: "Bridgestone EP150 Ecopia 185/55R16 por R$ 519,90" },
   ];
   return (
     <div className="bg-white">
@@ -111,18 +108,15 @@ function HeroBannerCarousel() {
         <CarouselContent className="ml-0 bg-white">
           {banners.map((b, i) => (
             <CarouselItem key={i} className="pl-0">
-              <picture>
-                <source media="(min-width: 768px)" srcSet={b.src} />
-                <img
-                  src={b.srcMobile}
-                  alt={b.alt}
-                  className="w-full h-auto object-cover"
-                  loading={i === 0 ? "eager" : "lazy"}
-                  fetchPriority={i === 0 ? "high" : "auto"}
-                  width="1645"
-                  height="956"
-                />
-              </picture>
+              <img
+                src={b.src}
+                alt={b.alt}
+                className="w-full h-auto"
+                loading={i === 0 ? "eager" : "lazy"}
+                fetchPriority={i === 0 ? "high" : "auto"}
+                width="1920"
+                height="384"
+              />
             </CarouselItem>
 
           ))}
@@ -171,52 +165,58 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
               />
             </div>
           )}
-          <Link 
-            to="/pneu/$productId" 
-            params={{ productId: product.slug ?? product.id }} 
-            className="relative flex items-center justify-center w-full h-[180px] overflow-hidden bg-white p-2"
-          >
-            <img
-              src={getProductImageUrl(product.images?.[0], { width: 300, quality: 75 })}
-              alt={product.name}
-              loading="lazy"
-              decoding="async"
-              onError={onProductImageError}
+          <Link to="/pneu/$productId" params={{ productId: product.slug ?? product.id }} className="block">
+            <div
               style={{
-                maxWidth: '100%',
-                maxHeight: '160px',
-                width: 'auto',
-                height: 'auto',
-                objectFit: 'contain',
-                display: 'block'
+                width: '100%',
+                height: '180px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: '#ffffff',
+                padding: '12px',
+                boxSizing: 'border-box'
               }}
-              width="400"
-              height="400"
-              className="transition-transform duration-500 group-hover:scale-105"
-            />
-            <div className="absolute right-1 top-2 flex flex-col gap-1 pointer-events-none z-10">
-              {(product.specs?.consumo || product.specs?.aderencia || product.specs?.ruido_db) && (
-                <>
-                  {product.specs?.consumo && <EtiquetaBadge src="/etiquetas/consumo.webp" alt="Consumo" value={product.specs.consumo} />}
-                  {product.specs?.aderencia && <EtiquetaBadge src="/etiquetas/aderencia.webp" alt="Aderência" value={product.specs.aderencia} />}
-                  {product.specs?.ruido_db && (
-                    <EtiquetaBadge
-                      src={
-                        Number(product.specs.ruido_db) <= 69
-                          ? "/icons/noise-low.png"
-                          : Number(product.specs.ruido_db) <= 73
-                          ? "/icons/noise-medium.png"
-                          : "/icons/noise-high.png"
-                      }
-                      alt="Ruído"
-                      value={`${product.specs.ruido_db}`}
-                      suffix="dB"
-                    />
-                  )}
-                </>
-              )}
+            >
+              <img
+                src={getProductImageUrl(product.images?.[0], { width: 300, quality: 75 })}
+                alt={product.name}
+                loading="lazy"
+                decoding="async"
+                onError={onProductImageError}
+                style={{
+                  maxWidth: '100%',
+                  maxHeight: '156px',
+                  width: 'auto',
+                  height: 'auto',
+                  objectFit: 'contain',
+                  display: 'block'
+                }}
+                width="400"
+                height="400"
+              />
             </div>
           </Link>
+          {(product.specs?.consumo || product.specs?.aderencia || product.specs?.ruido_db) && (
+            <div className="flex flex-wrap items-center gap-1 px-3 pb-2">
+              {product.specs?.consumo && <EtiquetaBadge src="/etiquetas/consumo.webp" alt="Consumo" value={product.specs.consumo} />}
+              {product.specs?.aderencia && <EtiquetaBadge src="/etiquetas/aderencia.webp" alt="Aderência" value={product.specs.aderencia} />}
+              {product.specs?.ruido_db && (
+                <EtiquetaBadge
+                  src={
+                    Number(product.specs.ruido_db) <= 69
+                      ? "/icons/noise-low.png"
+                      : Number(product.specs.ruido_db) <= 73
+                      ? "/icons/noise-medium.png"
+                      : "/icons/noise-high.png"
+                  }
+                  alt="Ruído"
+                  value={`${product.specs.ruido_db}`}
+                  suffix="dB"
+                />
+              )}
+            </div>
+          )}
         </div>
         <div className="p-3 flex-1 flex flex-col gap-2 min-w-0">
           <h3 className="font-semibold text-sm leading-snug line-clamp-2 sm:min-h-[2.5rem]">
