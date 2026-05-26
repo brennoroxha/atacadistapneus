@@ -30,6 +30,7 @@ import { Route as ProductsProductIdRouteImport } from './routes/products.$produc
 import { Route as PneuProductIdRouteImport } from './routes/pneu.$productId'
 import { Route as TipoAroChar123aroChar125RouteImport } from './routes/$tipo.aro-{$aro}'
 import { Route as ApiPublicSitemapRouteImport } from './routes/api/public/sitemap'
+import { Route as ApiPublicIronpayWebhookRouteImport } from './routes/api/public/ironpay-webhook'
 import { Route as ApiPublicInmetroBackfillRouteImport } from './routes/api/public/inmetro-backfill'
 import { Route as ApiPublicGoogleShoppingRouteImport } from './routes/api/public/google-shopping'
 import { Route as ApiPublicFreepayWebhookRouteImport } from './routes/api/public/freepay-webhook'
@@ -142,6 +143,11 @@ const ApiPublicSitemapRoute = ApiPublicSitemapRouteImport.update({
   path: '/api/public/sitemap',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicIronpayWebhookRoute = ApiPublicIronpayWebhookRouteImport.update({
+  id: '/api/public/ironpay-webhook',
+  path: '/api/public/ironpay-webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicInmetroBackfillRoute =
   ApiPublicInmetroBackfillRouteImport.update({
     id: '/api/public/inmetro-backfill',
@@ -190,6 +196,7 @@ export interface FileRoutesByFullPath {
   '/api/public/freepay-webhook': typeof ApiPublicFreepayWebhookRoute
   '/api/public/google-shopping': typeof ApiPublicGoogleShoppingRoute
   '/api/public/inmetro-backfill': typeof ApiPublicInmetroBackfillRoute
+  '/api/public/ironpay-webhook': typeof ApiPublicIronpayWebhookRoute
   '/api/public/sitemap': typeof ApiPublicSitemapRoute
 }
 export interface FileRoutesByTo {
@@ -217,6 +224,7 @@ export interface FileRoutesByTo {
   '/api/public/freepay-webhook': typeof ApiPublicFreepayWebhookRoute
   '/api/public/google-shopping': typeof ApiPublicGoogleShoppingRoute
   '/api/public/inmetro-backfill': typeof ApiPublicInmetroBackfillRoute
+  '/api/public/ironpay-webhook': typeof ApiPublicIronpayWebhookRoute
   '/api/public/sitemap': typeof ApiPublicSitemapRoute
 }
 export interface FileRoutesById {
@@ -245,6 +253,7 @@ export interface FileRoutesById {
   '/api/public/freepay-webhook': typeof ApiPublicFreepayWebhookRoute
   '/api/public/google-shopping': typeof ApiPublicGoogleShoppingRoute
   '/api/public/inmetro-backfill': typeof ApiPublicInmetroBackfillRoute
+  '/api/public/ironpay-webhook': typeof ApiPublicIronpayWebhookRoute
   '/api/public/sitemap': typeof ApiPublicSitemapRoute
 }
 export interface FileRouteTypes {
@@ -274,6 +283,7 @@ export interface FileRouteTypes {
     | '/api/public/freepay-webhook'
     | '/api/public/google-shopping'
     | '/api/public/inmetro-backfill'
+    | '/api/public/ironpay-webhook'
     | '/api/public/sitemap'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -301,6 +311,7 @@ export interface FileRouteTypes {
     | '/api/public/freepay-webhook'
     | '/api/public/google-shopping'
     | '/api/public/inmetro-backfill'
+    | '/api/public/ironpay-webhook'
     | '/api/public/sitemap'
   id:
     | '__root__'
@@ -328,6 +339,7 @@ export interface FileRouteTypes {
     | '/api/public/freepay-webhook'
     | '/api/public/google-shopping'
     | '/api/public/inmetro-backfill'
+    | '/api/public/ironpay-webhook'
     | '/api/public/sitemap'
   fileRoutesById: FileRoutesById
 }
@@ -356,6 +368,7 @@ export interface RootRouteChildren {
   ApiPublicFreepayWebhookRoute: typeof ApiPublicFreepayWebhookRoute
   ApiPublicGoogleShoppingRoute: typeof ApiPublicGoogleShoppingRoute
   ApiPublicInmetroBackfillRoute: typeof ApiPublicInmetroBackfillRoute
+  ApiPublicIronpayWebhookRoute: typeof ApiPublicIronpayWebhookRoute
   ApiPublicSitemapRoute: typeof ApiPublicSitemapRoute
 }
 
@@ -508,6 +521,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicSitemapRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/ironpay-webhook': {
+      id: '/api/public/ironpay-webhook'
+      path: '/api/public/ironpay-webhook'
+      fullPath: '/api/public/ironpay-webhook'
+      preLoaderRoute: typeof ApiPublicIronpayWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/inmetro-backfill': {
       id: '/api/public/inmetro-backfill'
       path: '/api/public/inmetro-backfill'
@@ -564,8 +584,19 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicFreepayWebhookRoute: ApiPublicFreepayWebhookRoute,
   ApiPublicGoogleShoppingRoute: ApiPublicGoogleShoppingRoute,
   ApiPublicInmetroBackfillRoute: ApiPublicInmetroBackfillRoute,
+  ApiPublicIronpayWebhookRoute: ApiPublicIronpayWebhookRoute,
   ApiPublicSitemapRoute: ApiPublicSitemapRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

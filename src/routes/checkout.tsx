@@ -477,6 +477,9 @@ function Checkout() {
         binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
       }
       const b64 = btoa(binary);
+      const settings = await getSettings();
+      const gateway = settings.gateway || "blackout";
+      
       await uploadComp({
         data: {
           blackout_id: gateway === "blackout" ? pix.id : undefined,
