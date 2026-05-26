@@ -204,7 +204,20 @@ function ProductDetail() {
                   <EtiquetaBadge src="/etiquetas/aderencia.webp" alt="Aderência" value={aderencia} width="48" height="64" />
                 )}
                 {ruido_db && (
-                  <EtiquetaBadge src="/etiquetas/ruido-alto.webp" alt="Ruído" value={String(ruido_db)} suffix="dB" width="48" height="64" />
+                  <EtiquetaBadge
+                    src={
+                      Number(ruido_db) < 71
+                        ? "/icons/noise-low.png"
+                        : Number(ruido_db) <= 74
+                        ? "/icons/noise-medium.png"
+                        : "/icons/noise-high.png"
+                    }
+                    alt="Ruído"
+                    value={String(ruido_db)}
+                    suffix="dB"
+                    width="48"
+                    height="64"
+                  />
                 )}
               </div>
             )}

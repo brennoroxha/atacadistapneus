@@ -381,7 +381,20 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
                 <>
                   {product.specs?.consumo && <EtiquetaBadge src="/etiquetas/consumo.webp" alt="Consumo" value={product.specs.consumo} />}
                   {product.specs?.aderencia && <EtiquetaBadge src="/etiquetas/aderencia.webp" alt="Aderência" value={product.specs.aderencia} />}
-                  {product.specs?.ruido_db && <EtiquetaBadge src="/etiquetas/ruido-alto.webp" alt="Ruído" value={`${product.specs.ruido_db}`} suffix="dB" />}
+                  {product.specs?.ruido_db && (
+                    <EtiquetaBadge
+                      src={
+                        Number(product.specs.ruido_db) < 71
+                          ? "/icons/noise-low.png"
+                          : Number(product.specs.ruido_db) <= 74
+                          ? "/icons/noise-medium.png"
+                          : "/icons/noise-high.png"
+                      }
+                      alt="Ruído"
+                      value={`${product.specs.ruido_db}`}
+                      suffix="dB"
+                    />
+                  )}
                 </>
               )}
             </div>
