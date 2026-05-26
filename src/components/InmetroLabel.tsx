@@ -1,11 +1,11 @@
 const tops: Record<string, string> = {
-  A: "33.5%",
-  B: "38%",
-  C: "42.5%",
-  D: "47%",
-  E: "51.5%",
-  F: "56%",
-  G: "60.5%"
+  A: "30%",
+  B: "33.5%",
+  C: "37%",
+  D: "40.5%",
+  E: "44%",
+  F: "47.5%",
+  G: "51%",
 };
 
 interface InmetroLabelProps {
@@ -28,13 +28,12 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
         style={{ width: "100%", display: "block" }}
       />
 
-      {/* Seta eficiência */}
+      {/* Seta consumo (entre coluna de consumo e aderência) */}
       <div
         style={{
           position: "absolute",
-          left: "44.5%",
+          left: "42%",
           top: tops[fuelEfficiency] || tops["E"],
-          transform: "translateY(-50%)",
           pointerEvents: "none",
           zIndex: 10,
         }}
@@ -44,12 +43,12 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
             background: "#000",
             color: "#fff",
             fontWeight: 900,
-            fontSize: "12px",
-            padding: "2px 4px 2px 14px",
-            clipPath: "polygon(100% 0, 30% 0, 0 50%, 30% 100%, 100% 100%)",
+            fontSize: "13px",
+            padding: "3px 5px 3px 14px",
+            clipPath: "polygon(100% 0, 28% 0, 0 50%, 28% 100%, 100% 100%)",
             display: "inline-block",
             lineHeight: 1,
-            minWidth: "22px",
+            minWidth: "24px",
             textAlign: "center",
           }}
         >
@@ -57,13 +56,12 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
         </span>
       </div>
 
-      {/* Seta aderência */}
+      {/* Seta aderência (à direita da coluna de aderência) */}
       <div
         style={{
           position: "absolute",
-          left: "92.5%",
+          left: "80%",
           top: tops[wetGrip] || tops["E"],
-          transform: "translateY(-50%)",
           pointerEvents: "none",
           zIndex: 10,
         }}
@@ -73,12 +71,12 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
             background: "#000",
             color: "#fff",
             fontWeight: 900,
-            fontSize: "12px",
-            padding: "2px 4px 2px 14px",
-            clipPath: "polygon(100% 0, 30% 0, 0 50%, 30% 100%, 100% 100%)",
+            fontSize: "13px",
+            padding: "3px 5px 3px 14px",
+            clipPath: "polygon(100% 0, 28% 0, 0 50%, 28% 100%, 100% 100%)",
             display: "inline-block",
             lineHeight: 1,
-            minWidth: "22px",
+            minWidth: "24px",
             textAlign: "center",
           }}
         >
@@ -86,42 +84,32 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
         </span>
       </div>
 
-      {/* Ruído - texto sobre a seta preta */}
+      {/* Ruído - seta preta com dB na faixa de som */}
       <div
         style={{
           position: "absolute",
-          left: "53%",
-          top: "69.5%",
-          transform: "translateX(-50%)",
-          width: "37%",
-          height: "10%",
+          left: "62%",
+          top: "67.5%",
           pointerEvents: "none",
           zIndex: 10,
         }}
       >
-        <div
+        <span
           style={{
-            position: "absolute",
-            right: "0",
-            top: "50%",
-            transform: "translateY(-50%)",
             background: "#000",
             color: "#fff",
             fontWeight: 900,
             fontSize: "14px",
-            padding: "4px 8px 4px 18px",
-            clipPath: "polygon(100% 0, 20% 0, 0 50%, 20% 100%, 100% 100%)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            minWidth: "100%",
-            height: "100%",
-            boxSizing: "border-box",
+            padding: "5px 8px 5px 18px",
+            clipPath: "polygon(100% 0, 18% 0, 0 50%, 18% 100%, 100% 100%)",
+            display: "inline-block",
             lineHeight: 1,
+            minWidth: "60px",
+            textAlign: "center",
           }}
         >
-          {noiseDb}dB
-        </div>
+          {noiseDb} dB
+        </span>
       </div>
     </div>
   );
