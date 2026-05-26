@@ -376,17 +376,24 @@ function ProductDetail() {
                 params={{ productId: (p as any).slug ?? p.id }}
                 className="group bg-white dark:bg-card rounded-xl border overflow-hidden hover:shadow-lg transition"
               >
-                <div className="flex items-center justify-center aspect-square bg-white p-4">
+                <div className="flex items-center justify-center w-full h-[180px] overflow-hidden bg-white p-2">
                   <img
                     src={getProductImageUrl(p.images?.[0], { width: 300, quality: 75 })}
-
                     alt={p.name}
                     loading="lazy"
                     decoding="async"
                     onError={onProductImageError}
-                    className="max-h-full max-w-full w-auto h-auto object-contain transition-transform group-hover:scale-105"
+                    style={{
+                      maxWidth: '100%',
+                      maxHeight: '160px',
+                      width: 'auto',
+                      height: 'auto',
+                      objectFit: 'contain',
+                      display: 'block'
+                    }}
                     width="400"
                     height="400"
+                    className="transition-transform group-hover:scale-105"
                   />
                 </div>
                 <div className="p-4 space-y-2">
