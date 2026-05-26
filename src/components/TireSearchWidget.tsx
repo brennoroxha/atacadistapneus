@@ -27,7 +27,7 @@ export function TireSearchWidget() {
       <div className="flex border-b border-gray-200 bg-white">
         <button
           onClick={() => setTab("medidas")}
-          className={`flex-1 flex items-center justify-center gap-1.5 py-4 px-2 text-[13px] md:text-base font-bold transition-colors relative ${
+          className={`flex-1 flex items-center justify-center gap-1.5 py-4 px-1 text-xs md:text-base font-bold transition-colors relative ${
             tab === "medidas"
               ? "text-[#0a2a8a]"
               : "text-gray-400 hover:text-gray-600"
@@ -41,7 +41,7 @@ export function TireSearchWidget() {
         </button>
         <button
           onClick={() => setTab("inteligente")}
-          className={`flex-1 flex items-center justify-center gap-1.5 py-4 px-2 text-[13px] md:text-base font-bold transition-colors relative ${
+          className={`flex-1 flex items-center justify-center gap-1.5 py-4 px-1 text-xs md:text-base font-bold transition-colors relative ${
             tab === "inteligente"
               ? "text-[#0a2a8a]"
               : "text-gray-400 hover:text-gray-600"
