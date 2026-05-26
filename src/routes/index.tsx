@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import { getFeaturedProducts, getCategories, getProductsByCategorySlug } from "@/lib/products.functions";
 import { supabase } from "@/lib/supabase";
 import { getProductImageUrl, onProductImageError } from "@/lib/product-image";
-import { TIRE_SIZES } from "@/lib/tire-sizes";
+
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowRight, Truck, ShieldCheck, Clock, Star, MessageSquare, ShoppingCart, Search, Percent, CreditCard, Package } from "lucide-react";
@@ -23,6 +23,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext
 import Autoplay from "embla-carousel-autoplay";
 import { useRef } from "react";
 import { getBrandLogo } from "@/lib/brand-logo";
+import { TireSearchWidget } from "@/components/TireSearchWidget";
 
 export const Route = createFileRoute("/")({
   head: () => {
@@ -141,200 +142,12 @@ function HeroBannerCarousel() {
 }
 
 function TireSearchHero() {
-  const navigate = useNavigate();
-  const { data: categories } = useQuery({
-    queryKey: ["categories"],
-    queryFn: () => getCategories(),
-  });
-  const [category, setCategory] = useState<string>("");
-  const [query, setQuery] = useState<string>("");
-
-  const handleSearch = () => {
-    const search: any = {};
-    if (query.trim()) search.search = query.trim();
-    if (category) search.category = category;
-    navigate({ to: "/products", search });
-  };
-
-  const benefits = [
-    { icon: Truck, title: "Frete Grátis", desc: "Para todo o Brasil" },
-    { icon: Percent, title: "10% OFF", desc: "Pagamento à vista" },
-    { icon: CreditCard, title: "10x Sem Juros", desc: "No cartão de crédito" },
-    { icon: ShieldCheck, title: "Compra Segura", desc: "Ambiente protegido" },
-  ];
-
   return (
-    <section className="relative bg-white dark:bg-card shadow-[0_8px_16px_-8px_rgba(0,0,0,0.15)]">
-      <div className="container py-3 md:py-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-          <TireSearchByMeasure />
-          <TireSearchByRim />
-        </div>
+    <section className="relative bg-gray-50 dark:bg-card py-12 md:py-20 px-4">
+      <div className="container">
+        <TireSearchWidget />
       </div>
     </section>
-  );
-}
-
-const ALL_COMBOS: Array<{ largura: string; altura: string; aro: string }> =
-  TIRE_SIZES.map(([largura, altura, aro]) => ({ largura, altura, aro }));
-
-function useTireCombos() {
-  return { data: ALL_COMBOS };
-}
-
-const numSort = (a: string, b: string) => Number(a) - Number(b);
-const uniqSorted = (arr: string[]) => [...new Set(arr)].sort(numSort);
-
-function TireSearchByMeasure() {
-  const navigate = useNavigate();
-  const { data: combos = [] } = useTireCombos();
-  const [largura, setLargura] = useState("");
-  const [altura, setAltura] = useState("");
-  const [aro, setAro] = useState("");
-
-  const larguras = useMemo(() => uniqSorted(combos.map((c) => c.largura)), [combos]);
-  const alturas = useMemo(
-    () => uniqSorted(combos.filter((c) => !largura || c.largura === largura).map((c) => c.altura)),
-    [combos, largura],
-  );
-  const aros = useMemo(
-    () =>
-      uniqSorted(
-        combos
-          .filter((c) => (!largura || c.largura === largura) && (!altura || c.altura === altura))
-          .map((c) => c.aro),
-      ),
-    [combos, largura, altura],
-  );
-
-  const setLarguraReset = (v: string) => {
-    setLargura(v);
-    if (altura && !combos.some((c) => c.largura === v && c.altura === altura)) setAltura("");
-    if (aro && !combos.some((c) => c.largura === v && (!altura || c.altura === altura) && c.aro === aro)) setAro("");
-  };
-  const setAlturaReset = (v: string) => {
-    setAltura(v);
-    if (aro && !combos.some((c) => (!largura || c.largura === largura) && c.altura === v && c.aro === aro)) setAro("");
-  };
-
-  const handleSearch = () => {
-    navigate({
-      to: "/products",
-      search: {
-        largura: largura ? [largura] : undefined,
-        altura: altura ? [altura] : undefined,
-        aro: aro ? [aro] : undefined,
-      } as any,
-    });
-  };
-
-  return (
-    <div>
-      <h3 className="text-sm md:text-base font-medium tracking-wider text-muted-foreground mb-4">
-        PESQUISE PNEUS PELA <span className="font-bold text-industrial-blue dark:text-foreground">MEDIDA</span>
-      </h3>
-      <div className="flex flex-col md:flex-row md:items-end gap-3">
-        <div className="grid grid-cols-[1fr_1fr_90px] gap-2 md:gap-3 flex-1">
-          <div className="space-y-1.5">
-            <label className="text-[11px] md:text-xs font-bold tracking-wider text-muted-foreground">LARGURA</label>
-            <Select value={largura} onValueChange={setLarguraReset}>
-              <SelectTrigger className="rounded-full"><SelectValue placeholder="205" /></SelectTrigger>
-              <SelectContent>{larguras.map((v) => <SelectItem key={v} value={v}>{v}</SelectItem>)}</SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-[11px] md:text-xs font-bold tracking-wider text-muted-foreground">ALTURA</label>
-            <Select value={altura} onValueChange={setAlturaReset} disabled={alturas.length === 0}>
-              <SelectTrigger className="rounded-full"><SelectValue placeholder="55" /></SelectTrigger>
-              <SelectContent>{alturas.map((v) => <SelectItem key={v} value={v}>{v}</SelectItem>)}</SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-[11px] md:text-xs font-bold tracking-wider text-muted-foreground">ARO</label>
-            <Select value={aro} onValueChange={setAro} disabled={aros.length === 0}>
-              <SelectTrigger className="rounded-full"><SelectValue placeholder="16" /></SelectTrigger>
-              <SelectContent>{aros.map((v) => <SelectItem key={v} value={v}>{v}</SelectItem>)}</SelectContent>
-            </Select>
-          </div>
-        </div>
-        <Button
-          onClick={handleSearch}
-          className="w-full md:w-auto bg-[#072052] hover:bg-[#072052]/90 text-white font-bold h-10 px-6 rounded-full shrink-0"
-        >
-          PESQUISAR
-        </Button>
-      </div>
-    </div>
-  );
-}
-
-function TireSearchByRim() {
-  const navigate = useNavigate();
-  const { data: combos = [] } = useTireCombos();
-  const [aro, setAro] = useState("");
-  const [larguraAltura, setLarguraAltura] = useState("");
-
-  const aros = useMemo(() => uniqSorted(combos.map((c) => c.aro)), [combos]);
-  const combosLA = useMemo(() => {
-    const filtered = combos.filter((c) => !aro || c.aro === aro);
-    const set = new Set(filtered.map((c) => `${c.largura}/${c.altura}`));
-    return [...set].sort((a, b) => {
-      const [la, ha] = a.split("/").map(Number);
-      const [lb, hb] = b.split("/").map(Number);
-      return la - lb || ha - hb;
-    });
-  }, [combos, aro]);
-
-  const setAroReset = (v: string) => {
-    setAro(v);
-    if (larguraAltura) {
-      const [l, h] = larguraAltura.split("/");
-      if (!combos.some((c) => c.aro === v && c.largura === l && c.altura === h)) setLarguraAltura("");
-    }
-  };
-
-  const handleSearch = () => {
-    const [l, h] = larguraAltura.split("/");
-    navigate({
-      to: "/products",
-      search: {
-        aro: aro ? [aro] : undefined,
-        largura: l ? [l] : undefined,
-        altura: h ? [h] : undefined,
-      } as any,
-    });
-  };
-
-  return (
-    <div>
-      <h3 className="text-sm md:text-base font-medium tracking-wider text-muted-foreground mb-4">
-        PESQUISE PNEUS PELO <span className="font-bold text-industrial-blue dark:text-foreground">ARO</span>
-      </h3>
-      <div className="flex flex-col md:flex-row md:items-end gap-3">
-        <div className="grid grid-cols-[90px_1fr] gap-2 md:gap-3 flex-1">
-          <div className="space-y-1.5">
-            <label className="text-[11px] md:text-xs font-bold tracking-wider text-muted-foreground">ARO</label>
-            <Select value={aro} onValueChange={setAroReset}>
-              <SelectTrigger className="rounded-full"><SelectValue placeholder="16" /></SelectTrigger>
-              <SelectContent>{aros.map((v) => <SelectItem key={v} value={v}>{v}</SelectItem>)}</SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-[11px] md:text-xs font-bold tracking-wider text-muted-foreground">LARGURA/ALTURA</label>
-            <Select value={larguraAltura} onValueChange={setLarguraAltura} disabled={combosLA.length === 0}>
-              <SelectTrigger className="rounded-full"><SelectValue placeholder="205/55" /></SelectTrigger>
-              <SelectContent className="max-h-[300px]">{combosLA.map((v) => <SelectItem key={v} value={v}>{v}</SelectItem>)}</SelectContent>
-            </Select>
-          </div>
-        </div>
-        <Button
-          onClick={handleSearch}
-          className="w-full md:w-auto bg-[#072052] hover:bg-[#072052]/90 text-white font-bold h-10 px-6 rounded-full shrink-0"
-        >
-          PESQUISAR
-        </Button>
-      </div>
-    </div>
   );
 }
 
