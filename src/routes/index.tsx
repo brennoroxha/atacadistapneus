@@ -171,17 +171,28 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
               />
             </div>
           )}
-          <Link to="/pneu/$productId" params={{ productId: product.slug ?? product.id }} className="relative flex items-center justify-center aspect-square overflow-hidden bg-white p-2">
+          <Link 
+            to="/pneu/$productId" 
+            params={{ productId: product.slug ?? product.id }} 
+            className="relative flex items-center justify-center w-full h-[180px] overflow-hidden bg-white p-2"
+          >
             <img
               src={getProductImageUrl(product.images?.[0], { width: 300, quality: 75 })}
-
               alt={product.name}
               loading="lazy"
               decoding="async"
               onError={onProductImageError}
-              className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+              style={{
+                maxWidth: '100%',
+                maxHeight: '160px',
+                width: 'auto',
+                height: 'auto',
+                objectFit: 'contain',
+                display: 'block'
+              }}
               width="400"
               height="400"
+              className="transition-transform duration-500 group-hover:scale-105"
             />
             <div className="absolute right-1 top-2 flex flex-col gap-1 pointer-events-none z-10">
               {(product.specs?.consumo || product.specs?.aderencia || product.specs?.ruido_db) && (
