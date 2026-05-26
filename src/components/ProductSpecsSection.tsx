@@ -12,8 +12,9 @@ function specIcon(name: string) {
 }
 
 // Maps a free-form label keyword → local svg filename slug
-const LABEL_ICON_MAP: Array<{ match: RegExp; svg: string }> = [
+const LABEL_ICON_MAP: Array<{ match: RegExp; svg: string; ext?: string }> = [
   { match: /equipamento original|original/i, svg: "equipamento-original" },
+  { match: /passeio/i, svg: "passeio", ext: "png" },
   { match: /categoria|tipo de uso|consumo/i, svg: "tipo-de-uso" },
   { match: /terreno/i, svg: "terreno" },
   { match: /índice de carga|indice de carga|\bcarga\b/i, svg: "carga" },
@@ -33,9 +34,10 @@ const LABEL_ICON_MAP: Array<{ match: RegExp; svg: string }> = [
   { match: /sulco|ruído|ruido/i, svg: "sulco" },
 ];
 
-function iconForLabel(label: string): string | null {
-  const m = LABEL_ICON_MAP.find((r) => r.match.test(label));
-  return m ? specIcon(m.svg) : null;
+function iconForLabel(label: string, value?: string): string | null {
+  const haystack = `${label} ${value ?? ""}`;
+  const m = LABEL_ICON_MAP.find((r) => r.match.test(haystack));
+  return m ? `${ICON_BASE}/icon-${m.svg}.${m.ext ?? "svg"}` : null;
 }
 
 const SPEC_ROWS: Array<{ key: string; label: string; svg: string; format?: (v: any) => string }> = [
@@ -98,7 +100,7 @@ export function ProductSpecsSection({ specs }: { specs: Specs }) {
                 }
 
                 // Prefer a local svg matched by label; fall back to supplier-provided icone
-                const localSvg = iconForLabel(label);
+                const localSvg = iconForLabel(label, value);
                 const iconSrc = localSvg || icone;
 
                 return (
