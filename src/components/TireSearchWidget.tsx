@@ -18,6 +18,7 @@ export function TireSearchWidget() {
   const [largura, setLargura] = useState("");
   const [altura, setAltura] = useState("");
   const [aro, setAro] = useState("");
+  const [activeTab, setActiveTab] = useState("medida");
 
   const combos = ALL_COMBOS;
 
@@ -66,7 +67,7 @@ export function TireSearchWidget() {
         </h2>
       </div>
 
-      <Tabs defaultValue="medida" className="w-full">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <div className="bg-gray-50 border-b">
           <TabsList className="bg-transparent h-auto p-0 gap-0">
             <TabsTrigger 
@@ -94,7 +95,7 @@ export function TireSearchWidget() {
                   <label className="text-xs font-black text-[#072052] uppercase tracking-widest">Largura</label>
                   <Select value={largura} onValueChange={setLarguraReset}>
                     <SelectTrigger className="h-14 bg-white border-2 border-gray-200 focus:border-safety-orange rounded-lg text-lg font-bold text-[#072052]">
-                      <SelectValue placeholder="205" />
+                      <SelectValue placeholder="Selecione" />
                     </SelectTrigger>
                     <SelectContent>
                       {larguras.map((v) => (
@@ -110,7 +111,7 @@ export function TireSearchWidget() {
                   <label className="text-xs font-black text-[#072052] uppercase tracking-widest">Perfil</label>
                   <Select value={altura} onValueChange={setAlturaReset} disabled={alturas.length === 0}>
                     <SelectTrigger className="h-14 bg-white border-2 border-gray-200 focus:border-safety-orange rounded-lg text-lg font-bold text-[#072052]">
-                      <SelectValue placeholder="55" />
+                      <SelectValue placeholder="Selecione" />
                     </SelectTrigger>
                     <SelectContent>
                       {alturas.map((v) => (
@@ -126,7 +127,7 @@ export function TireSearchWidget() {
                   <label className="text-xs font-black text-[#072052] uppercase tracking-widest">Aro</label>
                   <Select value={aro} onValueChange={setAro} disabled={aros.length === 0}>
                     <SelectTrigger className="h-14 bg-white border-2 border-gray-200 focus:border-safety-orange rounded-lg text-lg font-bold text-[#072052]">
-                      <SelectValue placeholder="16" />
+                      <SelectValue placeholder="Selecione" />
                     </SelectTrigger>
                     <SelectContent>
                       {aros.map((v) => (
