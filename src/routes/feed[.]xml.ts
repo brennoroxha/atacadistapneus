@@ -27,23 +27,12 @@ export const Route = createFileRoute("/feed.xml")({
           const { data, error } = await supabase
             .from("products")
             .select("*, categories(name)")
-            .eq("featured", true)
             .range(from, from + limit - 1);
 
           if (error || !data || data.length === 0) break;
           allProducts = [...allProducts, ...data];
           if (data.length < limit) break;
           from += limit;
-        }
-
-        // Se nenhum produto em destaque, pega os 100 mais recentes para não ficar vazio
-        if (allProducts.length === 0) {
-          const { data } = await supabase
-            .from("products")
-            .select("*, categories(name)")
-            .order("created_at", { ascending: false })
-            .limit(100);
-          allProducts = data || [];
         }
 
         let xml = `<?xml version="1.0" encoding="UTF-8"?>
