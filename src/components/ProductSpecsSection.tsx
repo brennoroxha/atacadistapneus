@@ -129,11 +129,12 @@ export function ProductSpecsSection({ specs }: { specs: Specs }) {
                     />
                   </a>
                 ) : (
-                  <InmetroLabel 
-                    consumption={specs.consumo} 
-                    grip={specs.aderencia} 
-                    noise={Number(specs.ruido_db || 0)} 
+                  <EtiquetaInmetro
+                    fuel={String(specs.consumo || "E")}
+                    wet={String(specs.aderencia || "E")}
+                    db={Number(specs.ruido_db || 72)}
                   />
+
                 )}
               </div>
             )}
