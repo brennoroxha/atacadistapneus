@@ -575,7 +575,8 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
                         className="relative block aspect-square overflow-hidden bg-white p-2"
                       >
                         <img
-                          src={getProductImageUrl(product.images?.[0])}
+                          src={getProductImageUrl(product.images?.[0], { width: 300, quality: 75 })}
+
                           alt={product.name}
                           loading="lazy"
                           decoding="async"
@@ -705,7 +706,7 @@ function EtiquetaBadge({
 }) {
   return (
     <div className="relative w-10 sm:w-12">
-      <img src={src} alt={alt} className="w-full h-auto" />
+      <img src={src} alt={alt} className="w-full h-auto" loading="lazy" width="56" height="70" />
       {value && (
         <span className="absolute inset-x-0 bottom-[6%] flex items-center justify-center text-white font-extrabold leading-none text-[10px] sm:text-[11px]">
           {value}

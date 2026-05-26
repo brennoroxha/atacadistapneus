@@ -111,27 +111,20 @@ function HeroBannerCarousel() {
         <CarouselContent className="ml-0">
           {banners.map((b, i) => (
             <CarouselItem key={i} className="pl-0">
-              <div className="relative w-full hidden md:block" style={{ aspectRatio: "1920/400" }}>
-                <img
-                  src={b.src}
-                  alt={b.alt}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  loading={i === 0 ? "eager" : "lazy"}
-                  width="1920"
-                  height="400"
-                />
-              </div>
-              <div className="relative w-full block md:hidden" style={{ aspectRatio: "1645/956" }}>
+              <picture>
+                <source media="(min-width: 768px)" srcSet={b.src} />
                 <img
                   src={b.srcMobile}
                   alt={b.alt}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="w-full h-auto object-cover"
                   loading={i === 0 ? "eager" : "lazy"}
+                  fetchPriority={i === 0 ? "high" : "auto"}
                   width="1645"
                   height="956"
                 />
-              </div>
+              </picture>
             </CarouselItem>
+
           ))}
         </CarouselContent>
         <CarouselPrevious className="left-2 md:left-4 hidden md:flex" />
@@ -180,7 +173,8 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
           )}
           <Link to="/pneu/$productId" params={{ productId: product.slug ?? product.id }} className="relative block aspect-square overflow-hidden bg-white p-2">
             <img
-              src={getProductImageUrl(product.images?.[0])}
+              src={getProductImageUrl(product.images?.[0], { width: 300, quality: 75 })}
+
               alt={product.name}
               loading="lazy"
               decoding="async"
@@ -289,7 +283,7 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
 function EtiquetaBadge({ src, alt, value, suffix }: { src: string; alt: string; value?: string | number | null; suffix?: string }) {
   return (
     <div className="relative w-10 sm:w-12">
-      <img src={src} alt={alt} className="w-full h-auto" />
+      <img src={src} alt={alt} className="w-full h-auto" loading="lazy" width="56" height="70" />
       {value && (
         <span className="absolute inset-x-0 bottom-[6%] flex items-center justify-center text-white font-extrabold leading-none text-[10px] sm:text-[11px]">
           {value}

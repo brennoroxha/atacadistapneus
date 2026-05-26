@@ -23,12 +23,16 @@ export const PRODUCT_IMAGE_FALLBACK =
  * - Caminhos locais como `lider-local/produtos-cache/foo.jpg` ou apenas o
  *   nome do arquivo são convertidos para a URL RAW do GitHub.
  */
-export function getProductImageUrl(input?: string | null): string {
+import { optimizeImage, type ImgOpts } from "./image-optimize";
+
+export function getProductImageUrl(input?: string | null, opts?: ImgOpts): string {
   if (!input) return PRODUCT_IMAGE_FALLBACK;
-  if (/^(https?:|data:)/i.test(input)) return input;
-  const fileName = input.replace(/^.*[\\/]/, "");
-  return `${PRODUCT_IMAGE_BASE_URL}/${fileName}`;
+  const absolute = /^(https?:|data:)/i.test(input)
+    ? input
+    : `${PRODUCT_IMAGE_BASE_URL}/${input.replace(/^.*[\\/]/, "")}`;
+  return opts ? optimizeImage(absolute, opts) : absolute;
 }
+
 
 /** Handler de onError para <img> — troca por placeholder sem quebrar layout. */
 export function onProductImageError(
