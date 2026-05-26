@@ -37,19 +37,24 @@ async function fetchProductByParam(param: string) {
 }
 
 export const Route = createFileRoute("/pneu/$productId")({
-  loader: async ({ params }) => fetchProductByParam(params.productId),
+  loader: async ({ params }) => {
+    const product = await fetchProductByParam(params.productId);
+    if (product) return { product };
+    return { product: null };
+  },
   head: ({ loaderData }) => {
-    if (!loaderData) return generateMetadata({ title: "Produto não encontrado", description: "" });
+    const product = loaderData?.product;
+    if (!product) return generateMetadata({ title: "Produto não encontrado", description: "" });
     const metadata = generateMetadata({
-      title: loaderData.name,
-      description: loaderData.description ?? "",
-      image: loaderData.images?.[0] ?? undefined,
-      url: `/pneu/${loaderData.slug ?? loaderData.id}`,
+      title: product.name,
+      description: product.description ?? "",
+      image: product.images?.[0] ?? undefined,
+      url: `/pneu/${product.slug ?? product.id}`,
     });
 
-    const specs = (loaderData.specs ?? {}) as Record<string, any>;
-    const brandName = specs.marca || "R&A Atacadista";
-    const availability = (loaderData.stock ?? 0) > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock";
+    const specs = (product.specs ?? {}) as Record<string, any>;
+    const brandName = specs.brand || specs.marca || "R&A Atacadista";
+    const availability = (product.stock ?? 0) > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock";
 
     return {
       ...metadata,
@@ -59,17 +64,18 @@ export const Route = createFileRoute("/pneu/$productId")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Product",
-            "name": loaderData.name,
-            "image": loaderData.images?.[0],
-            "description": loaderData.description,
-            "sku": loaderData.sku,
+            "name": product.name,
+            "image": product.images?.[0],
+            "description": product.description,
+            "sku": product.sku,
+            "gtin": product.gtin,
             "brand": { "@type": "Brand", "name": brandName },
             "offers": {
               "@type": "Offer",
               "priceCurrency": "BRL",
-              "price": loaderData.price,
+              "price": product.price,
               "availability": availability,
-              "url": `https://atacadistapneus.com/pneu/${loaderData.slug ?? loaderData.id}`
+              "url": `https://atacadistapneus.com/pneu/${product.slug ?? product.id}`
             }
           })
         }
@@ -80,6 +86,7 @@ export const Route = createFileRoute("/pneu/$productId")({
 });
 
 function ProductDetail() {
+  const { product: initialProduct } = Route.useLoaderData();
   const { productId } = Route.useParams();
   const [quantity, setQuantity] = useState(4);
   const [activeImage, setActiveImage] = useState(0);
@@ -88,9 +95,10 @@ function ProductDetail() {
   
   const navigate = useNavigate();
 
-  const { data: product, isLoading } = useQuery({
+  const { data: product } = useQuery({
     queryKey: ["product", productId],
     queryFn: () => fetchProductByParam(productId),
+    initialData: initialProduct,
   });
 
   const { data: related = [] } = useQuery({

@@ -46,8 +46,25 @@ export const Route = createFileRoute("/feed.xml")({
           const availability = (product.stock ?? 0) > 0 ? "in_stock" : "out_of_stock";
           const title = escapeXml(product.name);
           const description = escapeXml(product.description || "Pneu de alta qualidade");
-          const brand = escapeXml(product.specs?.marca || "R&A Atacadista");
+          const brand = escapeXml(product.specs?.brand || product.specs?.marca || "R&A Atacadista");
           const slug = product.slug ?? product.id;
+          
+          let googleCategory = "5613"; // Default: Tires
+          const nameLower = product.name.toLowerCase();
+          if (nameLower.includes("bateria")) {
+            googleCategory = "2638";
+          } else if (nameLower.includes("capacete")) {
+            googleCategory = "990";
+          }
+
+          // Generate item_group_id based on product family
+          let itemGroupId = "";
+          if (nameLower.includes("cinturato p4")) itemGroupId = "pirelli-cinturato-p4";
+          else if (nameLower.includes("cinturato p7")) itemGroupId = "pirelli-cinturato-p7";
+          else if (nameLower.includes("f-600")) itemGroupId = "firestone-f-600";
+          else if (nameLower.includes("moura")) itemGroupId = "bateria-moura";
+          else if (nameLower.includes("heliar")) itemGroupId = "bateria-heliar";
+          else if (nameLower.includes("zetta")) itemGroupId = "bateria-zetta";
 
           xml += `
     <item>
@@ -59,8 +76,13 @@ export const Route = createFileRoute("/feed.xml")({
       <g:condition>new</g:condition>
       <g:availability>${availability}</g:availability>
       <g:price>${Number(product.price).toFixed(2)} BRL</g:price>
-      <g:google_product_category>5613</g:google_product_category>
+      <g:google_product_category>${googleCategory}</g:google_product_category>
       <g:brand>${brand}</g:brand>`;
+
+          if (itemGroupId) {
+            xml += `
+      <g:item_group_id>${itemGroupId}</g:item_group_id>`;
+          }
 
           if (product.gtin) {
             xml += `
