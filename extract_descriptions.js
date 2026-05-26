@@ -12,9 +12,11 @@ const items = jsonObj.rss.channel.item;
 const descriptionsMap = {};
 items.forEach(item => {
     const id = item['g:id'];
+    const gtin = item['g:gtin'];
     const description = item['g:description'];
-    if (id && description) {
-        descriptionsMap[id] = description;
+    if (description) {
+        if (id) descriptionsMap[`id:${id}`] = description;
+        if (gtin) descriptionsMap[`gtin:${gtin}`] = description;
     }
 });
 
