@@ -21,7 +21,7 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
   const noiseDb = noise || 72;
 
   return (
-    <div className={`relative inline-block ${className}`} style={{ width: "240px" }}>
+    <div className={`relative inline-block ${className}`} style={{ width: "240px", backgroundColor: "#fff" }}>
       <img
         alt="Etiqueta Inmetro"
         src="/inmetro-label.png"
