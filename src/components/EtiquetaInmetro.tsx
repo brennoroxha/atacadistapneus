@@ -23,7 +23,7 @@ const ROW_Y: Record<string, number> = {
   G: 227,
 };
 
-const DEFAULT_IMAGE = "https://qtbkvshbmqlszncxlcuc.supabase.co/storage/v1/object/public/dsl-uploads/P1BGVl6n13e77OYjLdHoAVwk1Nv2/93001742-02e6-4525-8472-0a5b999ad562.png";
+const DEFAULT_IMAGE = "/inmetro-label.png";
 
 function Arrow({
   tipX,
@@ -35,8 +35,8 @@ function Arrow({
   letter: string;
 }) {
   const len = 35;
-  const bodyH = 14;
-  const headH = 20;
+  const bodyH = 10;
+  const headH = 14;
   const bodyTop = centerY - bodyH / 2;
   const bodyBottom = centerY + bodyH / 2;
   const headTop = centerY - headH / 2;
@@ -136,7 +136,7 @@ export function EtiquetaInmetro({
           pointerEvents: "none",
         }}
       >
-        <Arrow tipX={88} centerY={fuelY} letter={f} />
+        <Arrow tipX={80} centerY={fuelY} letter={f} />
         <Arrow tipX={200} centerY={wetY} letter={w} />
         <NoiseIcon db={db} x={70 - 64 / 2} y={305 - 54 / 2} w={64} h={54} />
         <text
