@@ -118,7 +118,7 @@ export function EtiquetaInmetro({
     <div
       ref={containerRef}
       className={`relative inline-block w-full ${className}`}
-      style={{ maxWidth: "300px" }}
+      style={{ maxWidth: "220px" }}
     >
       <img
         src={imageUrl}
