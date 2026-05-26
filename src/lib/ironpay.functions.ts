@@ -113,7 +113,7 @@ export const getIronPayStatus = createServerFn({ method: "POST" })
       if (!res.ok) return { status: "pending" };
       const json = await res.json().catch(() => ({}));
       const tx = json.data || json;
-      return { status: String(tx.status || "pending").toLowerCase() };
+      return { status: String(tx.payment_status || tx.status || "pending").toLowerCase() };
     } catch {
       return { status: "pending" };
     }
