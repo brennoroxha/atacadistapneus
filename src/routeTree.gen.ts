@@ -32,6 +32,7 @@ import { Route as ApiPublicSitemapRouteImport } from './routes/api/public/sitema
 import { Route as ApiPublicInmetroBackfillRouteImport } from './routes/api/public/inmetro-backfill'
 import { Route as ApiPublicGoogleShoppingRouteImport } from './routes/api/public/google-shopping'
 import { Route as ApiPublicFreepayWebhookRouteImport } from './routes/api/public/freepay-webhook'
+import { Route as ApiPublicFeedDotxmlRouteImport } from './routes/api/public/feed[.]xml'
 import { Route as ApiPublicBlackoutWebhookRouteImport } from './routes/api/public/blackout-webhook'
 
 const TermsRoute = TermsRouteImport.update({
@@ -152,6 +153,11 @@ const ApiPublicFreepayWebhookRoute = ApiPublicFreepayWebhookRouteImport.update({
   path: '/api/public/freepay-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicFeedDotxmlRoute = ApiPublicFeedDotxmlRouteImport.update({
+  id: '/api/public/feed.xml',
+  path: '/api/public/feed.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicBlackoutWebhookRoute =
   ApiPublicBlackoutWebhookRouteImport.update({
     id: '/api/public/blackout-webhook',
@@ -180,6 +186,7 @@ export interface FileRoutesByFullPath {
   '/products/$productId': typeof ProductsProductIdRoute
   '/products/': typeof ProductsIndexRoute
   '/api/public/blackout-webhook': typeof ApiPublicBlackoutWebhookRoute
+  '/api/public/feed.xml': typeof ApiPublicFeedDotxmlRoute
   '/api/public/freepay-webhook': typeof ApiPublicFreepayWebhookRoute
   '/api/public/google-shopping': typeof ApiPublicGoogleShoppingRoute
   '/api/public/inmetro-backfill': typeof ApiPublicInmetroBackfillRoute
@@ -206,6 +213,7 @@ export interface FileRoutesByTo {
   '/products/$productId': typeof ProductsProductIdRoute
   '/products': typeof ProductsIndexRoute
   '/api/public/blackout-webhook': typeof ApiPublicBlackoutWebhookRoute
+  '/api/public/feed.xml': typeof ApiPublicFeedDotxmlRoute
   '/api/public/freepay-webhook': typeof ApiPublicFreepayWebhookRoute
   '/api/public/google-shopping': typeof ApiPublicGoogleShoppingRoute
   '/api/public/inmetro-backfill': typeof ApiPublicInmetroBackfillRoute
@@ -233,6 +241,7 @@ export interface FileRoutesById {
   '/products/$productId': typeof ProductsProductIdRoute
   '/products/': typeof ProductsIndexRoute
   '/api/public/blackout-webhook': typeof ApiPublicBlackoutWebhookRoute
+  '/api/public/feed.xml': typeof ApiPublicFeedDotxmlRoute
   '/api/public/freepay-webhook': typeof ApiPublicFreepayWebhookRoute
   '/api/public/google-shopping': typeof ApiPublicGoogleShoppingRoute
   '/api/public/inmetro-backfill': typeof ApiPublicInmetroBackfillRoute
@@ -261,6 +270,7 @@ export interface FileRouteTypes {
     | '/products/$productId'
     | '/products/'
     | '/api/public/blackout-webhook'
+    | '/api/public/feed.xml'
     | '/api/public/freepay-webhook'
     | '/api/public/google-shopping'
     | '/api/public/inmetro-backfill'
@@ -287,6 +297,7 @@ export interface FileRouteTypes {
     | '/products/$productId'
     | '/products'
     | '/api/public/blackout-webhook'
+    | '/api/public/feed.xml'
     | '/api/public/freepay-webhook'
     | '/api/public/google-shopping'
     | '/api/public/inmetro-backfill'
@@ -313,6 +324,7 @@ export interface FileRouteTypes {
     | '/products/$productId'
     | '/products/'
     | '/api/public/blackout-webhook'
+    | '/api/public/feed.xml'
     | '/api/public/freepay-webhook'
     | '/api/public/google-shopping'
     | '/api/public/inmetro-backfill'
@@ -340,6 +352,7 @@ export interface RootRouteChildren {
   ProductsProductIdRoute: typeof ProductsProductIdRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
   ApiPublicBlackoutWebhookRoute: typeof ApiPublicBlackoutWebhookRoute
+  ApiPublicFeedDotxmlRoute: typeof ApiPublicFeedDotxmlRoute
   ApiPublicFreepayWebhookRoute: typeof ApiPublicFreepayWebhookRoute
   ApiPublicGoogleShoppingRoute: typeof ApiPublicGoogleShoppingRoute
   ApiPublicInmetroBackfillRoute: typeof ApiPublicInmetroBackfillRoute
@@ -509,6 +522,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicFreepayWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/feed.xml': {
+      id: '/api/public/feed.xml'
+      path: '/api/public/feed.xml'
+      fullPath: '/api/public/feed.xml'
+      preLoaderRoute: typeof ApiPublicFeedDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/blackout-webhook': {
       id: '/api/public/blackout-webhook'
       path: '/api/public/blackout-webhook'
@@ -540,6 +560,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProductsProductIdRoute: ProductsProductIdRoute,
   ProductsIndexRoute: ProductsIndexRoute,
   ApiPublicBlackoutWebhookRoute: ApiPublicBlackoutWebhookRoute,
+  ApiPublicFeedDotxmlRoute: ApiPublicFeedDotxmlRoute,
   ApiPublicFreepayWebhookRoute: ApiPublicFreepayWebhookRoute,
   ApiPublicGoogleShoppingRoute: ApiPublicGoogleShoppingRoute,
   ApiPublicInmetroBackfillRoute: ApiPublicInmetroBackfillRoute,
@@ -548,3 +569,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
