@@ -36,82 +36,59 @@ export const Route = createFileRoute("/feed.xml")({
         }
 
         let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
-  <channel>
-    <title>Atacadista Pneus</title>
-    <link>${baseUrl}</link>
-    <description>Atacado e varejo de pneus para carro, moto, caminhão e mais.</description>`;
+<rss xmlns:g="http://base.google.com/ns/1.0" xmlns:c="http://base.google.com/cns/1.0" version="2.0">
+<channel>
+<title><![CDATA[Lider Auto Center]]></title>
+<link><![CDATA[${baseUrl}/]]></link>
+<description><![CDATA[Feed]]></description>`;
 
         allProducts.forEach((product) => {
-          const availability = (product.stock ?? 0) > 0 ? "in_stock" : "out_of_stock";
-          const title = escapeXml(product.name);
-          const description = escapeXml(product.description || "Pneu de alta qualidade");
-          const brand = escapeXml(product.specs?.brand || product.specs?.marca || "R&A Atacadista");
+          const title = product.name;
+          const description = product.description || "Pneu de alta qualidade";
+          const brand = product.specs?.brand || product.specs?.marca || "R&A Atacadista";
           const slug = product.slug ?? product.id;
-          
-          let googleCategory = "5613"; // Default: Tires
-          const nameLower = product.name.toLowerCase();
-          if (nameLower.includes("bateria")) {
-            googleCategory = "2638";
-          } else if (nameLower.includes("capacete")) {
-            googleCategory = "990";
-          } else if (nameLower.includes("baú") || nameLower.includes("bau ") || nameLower.startsWith("bau") || nameLower.includes("bauleto") || nameLower.includes("bagageiro")) {
-            googleCategory = "3400";
-          }
-
-          // Generate item_group_id based on product family
-          let itemGroupId = "";
-          if (nameLower.includes("cinturato p4")) itemGroupId = "pirelli-cinturato-p4";
-          else if (nameLower.includes("cinturato p7")) itemGroupId = "pirelli-cinturato-p7";
-          else if (nameLower.includes("f-600")) itemGroupId = "firestone-f-600";
-          else if (nameLower.includes("moura")) itemGroupId = "bateria-moura";
-          else if (nameLower.includes("heliar")) itemGroupId = "bateria-heliar";
-          else if (nameLower.includes("zetta")) itemGroupId = "bateria-zetta";
+          const mainImage = (product.images?.[0] || "").startsWith("http") 
+            ? product.images[0] 
+            : `${baseUrl}${product.images?.[0] || ""}`;
 
           xml += `
-    <item>
-      <g:id>${product.id}</g:id>
-      <g:title>${title}</g:title>
-      <g:description>${description}</g:description>
-      <g:link>${baseUrl}/pneu/${slug}</g:link>
-      <g:image_link>${(product.images?.[0] || "").startsWith("http") ? product.images[0] : `${baseUrl}${product.images?.[0] || ""}`}</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>${availability}</g:availability>
-      <g:price>${Number(product.price).toFixed(2)} BRL</g:price>
-      <g:google_product_category>${googleCategory}</g:google_product_category>
-      <g:brand>${brand}</g:brand>`;
-
-          if (itemGroupId) {
-            xml += `
-      <g:item_group_id>${itemGroupId}</g:item_group_id>`;
-          }
+<item>
+  <g:id>${product.id}</g:id>
+  <g:title><![CDATA[${title}]]></g:title>
+  <g:description><![CDATA[${description}]]></g:description>
+  <g:link>${baseUrl}/pneu/${slug}</g:link>
+  <g:image_link>${mainImage}</g:image_link>
+  <g:condition>new</g:condition>
+  <g:price>${Number(product.price).toFixed(2)} BRL</g:price>
+  <g:brand><![CDATA[${brand}]]></g:brand>`;
 
           if (product.gtin) {
             xml += `
-      <g:gtin>${escapeXml(product.gtin)}</g:gtin>`;
+  <g:gtin>${escapeXml(product.gtin)}</g:gtin>`;
           }
 
-          if (product.sku) {
-            xml += `
-      <g:mpn>${escapeXml(product.sku)}</g:mpn>`;
+          if (product.images && product.images.length > 1) {
+            product.images.slice(1, 10).forEach((img: string) => {
+              const additionalImage = img.startsWith("http") ? img : `${baseUrl}${img}`;
+              xml += `
+  <g:additional_image_link>${additionalImage}</g:additional_image_link>`;
+            });
           }
 
-          if (!product.gtin && !product.sku) {
+          if (product.gtin || product.sku) {
             xml += `
-      <g:identifier_exists>no</g:identifier_exists>`;
+  <g:identifier_exists>yes</g:identifier_exists>`;
+          } else {
+            xml += `
+  <g:identifier_exists>no</g:identifier_exists>`;
           }
 
           xml += `
-      <g:shipping>
-        <g:country>BR</g:country>
-        <g:service>Padrão</g:service>
-        <g:price>0.00 BRL</g:price>
-      </g:shipping>
-    </item>`;
+</item>`;
         });
 
         xml += `
-  </channel>
+</channel>
 </rss>`;
 
         return new Response(xml, {
