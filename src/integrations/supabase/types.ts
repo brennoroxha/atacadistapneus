@@ -150,6 +150,7 @@ export type Database = {
           flagged: string | null
           freepay_id: string | null
           id: string
+          ironpay_id: string | null
           items: Json
           notes: string | null
           status: string
@@ -168,6 +169,7 @@ export type Database = {
           flagged?: string | null
           freepay_id?: string | null
           id?: string
+          ironpay_id?: string | null
           items?: Json
           notes?: string | null
           status?: string
@@ -186,6 +188,7 @@ export type Database = {
           flagged?: string | null
           freepay_id?: string | null
           id?: string
+          ironpay_id?: string | null
           items?: Json
           notes?: string | null
           status?: string
