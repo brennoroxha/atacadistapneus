@@ -168,7 +168,7 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
       <div key={product.id} className={`group flex flex-col bg-white dark:bg-card rounded-lg border overflow-hidden shadow-sm transition-all hover:shadow-md h-full`}>
         <div className="relative shrink flex flex-col">
           {getBrandLogo(product.name) && (
-            <div className="w-full h-10 flex items-center justify-center bg-white px-2 pt-2 pb-1">
+            <div className="w-full h-14 flex items-center justify-center bg-[#FCD000] px-2 py-2">
               <img
                 src={getBrandLogo(product.name)!}
                 alt="Marca"
