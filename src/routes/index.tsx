@@ -106,7 +106,7 @@ function HeroBannerCarousel() {
     { src: bannerEcopia, srcMobile: bannerEcopiaMobile, alt: "Bridgestone EP150 Ecopia 185/55R16 por R$ 519,90" },
   ];
   return (
-    <div className="bg-black">
+    <div>
       <Carousel opts={{ loop: true }} plugins={[autoplay.current]} className="relative">
         <CarouselContent className="ml-0">
           {banners.map((b, i) => (
@@ -171,7 +171,7 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
               />
             </div>
           )}
-          <Link to="/pneu/$productId" params={{ productId: product.slug ?? product.id }} className="relative block aspect-square overflow-hidden bg-white p-2">
+          <Link to="/pneu/$productId" params={{ productId: product.slug ?? product.id }} className="relative flex items-center justify-center aspect-square overflow-hidden bg-white p-2">
             <img
               src={getProductImageUrl(product.images?.[0], { width: 300, quality: 75 })}
 
@@ -179,7 +179,7 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
               loading="lazy"
               decoding="async"
               onError={onProductImageError}
-              className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
+              className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
               width="400"
               height="400"
             />
