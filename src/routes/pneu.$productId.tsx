@@ -282,7 +282,7 @@ function ProductDetail() {
             <span className="font-bold text-sm md:text-base">Oferta válida para pagamento via Pix!</span>
           </div>
 
-          {/* Quantity selector + total */}
+          {/* Quantity selector */}
           <div className="flex items-center gap-4 flex-wrap">
             <Select value={String(quantity)} onValueChange={(v) => setQuantity(Number(v))}>
               <SelectTrigger className="w-[140px] h-11 rounded-full border-2 font-bold">
@@ -296,11 +296,11 @@ function ProductDetail() {
                 ))}
               </SelectContent>
             </Select>
-            <span className="text-base md:text-lg font-bold text-foreground">
-              R$ {(product.price * quantity).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              <span className="text-sm font-medium text-muted-foreground ml-1">à vista</span>
+            <span className="text-sm text-muted-foreground">
+              Subtotal: <span className="font-bold text-foreground">R$ {(product.price * quantity).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </span>
           </div>
+
 
           {/* Action */}
           <Button
