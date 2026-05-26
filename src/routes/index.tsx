@@ -263,9 +263,9 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
             <CarouselNext className="-right-4 md:-right-12 h-10 w-10 hidden md:flex" />
           </Carousel>
         ) : mobileCarousel ? (
-          <div className="flex gap-3 md:gap-6 overflow-x-auto snap-x snap-mandatory -mx-4 px-[12%] md:px-[18%] lg:px-[12.5%] scrollbar-hide">
+          <div className="flex gap-3 md:gap-6 overflow-x-auto snap-x snap-mandatory -mx-4 px-[18%] md:px-[18%] lg:px-[12.5%] scrollbar-hide">
             {products?.map((product: any) => (
-              <div key={product.id} className="snap-center shrink-0 w-[76%] md:w-[32%] lg:w-[24%]">
+              <div key={product.id} className="snap-center shrink-0 w-[64%] md:w-[32%] lg:w-[24%]">
                 {renderProduct(product)}
               </div>
             ))}
