@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Search, Ruler, HelpCircle, Loader2 } from "lucide-react";
-import tireMeasure from "@/assets/tire-measure.png";
+
 
 const ALL_COMBOS: Array<{ largura: string; altura: string; aro: string }> =
   TIRE_SIZES.map(([largura, altura, aro]) => ({ largura, altura, aro }));
