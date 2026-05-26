@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Search, Ruler, HelpCircle, Loader2 } from "lucide-react";
+import tireMeasureImg from "@/assets/tire-measure.png";
 
 
 const ALL_COMBOS: Array<{ largura: string; altura: string; aro: string }> =
@@ -113,6 +114,15 @@ function MedidasTab() {
       <p className="mt-2 text-sm md:text-base text-gray-500">
         O jeito mais fácil e rápido de achar o pneu perfeito para o seu veículo
       </p>
+
+      <img
+        src={tireMeasureImg}
+        alt="Como identificar a medida do pneu"
+        loading="lazy"
+        width={1024}
+        height={1024}
+        className="mt-4 w-full max-w-md h-auto object-contain"
+      />
 
 
       <div className="w-full flex flex-col lg:flex-row items-stretch gap-3 mt-4">
