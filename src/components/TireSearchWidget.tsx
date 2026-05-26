@@ -251,12 +251,15 @@ function InteligenteTab() {
                     >
                       <div className="w-9 h-9 rounded-full bg-green-50 border border-green-100 flex items-center justify-center overflow-hidden shrink-0">
                         <img
-                          src={getProductImageUrl(p.images?.[0])}
+                          src={getProductImageUrl(p.images?.[0], { width: 150, quality: 75 })}
                           alt=""
                           onError={onProductImageError}
                           className="w-full h-full object-contain"
                           loading="lazy"
+                          width="80"
+                          height="80"
                         />
+
                       </div>
                       <span className="text-sm md:text-base text-gray-800 font-medium truncate">
                         {p.name}

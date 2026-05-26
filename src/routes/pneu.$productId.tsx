@@ -196,11 +196,12 @@ function ProductDetail() {
         <div className="space-y-3">
           <div className="relative aspect-square bg-white rounded-2xl overflow-hidden p-6">
             <img
-              src={getProductImageUrl(product.images?.[activeImage] ?? product.images?.[0])}
+              src={getProductImageUrl(product.images?.[activeImage] ?? product.images?.[0], { width: 800, quality: 85 })}
               alt={product.name}
               onError={onProductImageError}
-               className="h-full w-full object-contain" loading="eager" width="600" height="600"
+               className="h-full w-full object-contain" loading="eager" fetchPriority="high" width="600" height="600"
             />
+
             {(consumo || aderencia || ruido_db) && (
               <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
                 {consumo && (
@@ -232,7 +233,7 @@ function ProductDetail() {
                     i === activeImage ? "border-industrial-blue" : "border-muted hover:border-industrial-blue/50"
                   }`}
                 >
-                  <img src={getProductImageUrl(img)} alt={`${product.name} ${i + 1}`} onError={onProductImageError} className="w-full h-full object-contain" loading="lazy" width="100" height="100" />
+                  <img src={getProductImageUrl(img, { width: 150, quality: 75 })} alt={`${product.name} ${i + 1}`} onError={onProductImageError} className="w-full h-full object-contain" loading="lazy" width="100" height="100" />
                 </button>
               ))}
             </div>
@@ -364,7 +365,8 @@ function ProductDetail() {
               >
                 <div className="aspect-square bg-white p-4">
                   <img
-                    src={getProductImageUrl(p.images?.[0])}
+                    src={getProductImageUrl(p.images?.[0], { width: 300, quality: 75 })}
+
                     alt={p.name}
                     loading="lazy"
                     decoding="async"

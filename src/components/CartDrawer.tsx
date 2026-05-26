@@ -59,7 +59,7 @@ export function CartDrawer() {
               {items.map((item) => (
                 <div key={item.id} className="flex gap-3 border rounded-lg p-3 bg-card">
                   <div className="h-20 w-20 rounded-md overflow-hidden bg-muted shrink-0 border">
-                    <img src={item.image} alt={item.name} className="h-full w-full object-contain" />
+                    <img src={item.image} alt={item.name} className="h-full w-full object-contain" loading="lazy" width="64" height="64" />
                   </div>
                   <div className="flex-1 min-w-0 flex flex-col justify-between">
                     <h3 className="text-sm font-semibold leading-snug line-clamp-2">{item.name}</h3>
