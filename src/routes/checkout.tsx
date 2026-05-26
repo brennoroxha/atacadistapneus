@@ -30,6 +30,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { createBlackoutPixPayment, getBlackoutStatus } from "@/lib/blackout.functions";
 import { createPixPayment, getPixStatus as getFreepayStatus } from "@/lib/freepay.functions";
 import { getPixGateway } from "@/lib/settings.functions";
+import { createIronPayPixPayment, getIronPayStatus } from "@/lib/ironpay.functions";
 import {
   registerPixOrder,
   getPixOrderStatus,
@@ -329,6 +330,8 @@ function Checkout() {
   const callBlackoutStatus = useServerFn(getBlackoutStatus);
   const callFreepayCreate = useServerFn(createPixPayment);
   const callFreepayStatus = useServerFn(getFreepayStatus);
+  const callIronPayCreate = useServerFn(createIronPayPixPayment);
+  const callIronPayStatus = useServerFn(getIronPayStatus);
   const getSettings = useServerFn(getPixGateway);
   
   const registerOrder = useServerFn(registerPixOrder);
@@ -382,6 +385,8 @@ function Checkout() {
         let res;
         if (gateway === "freepay") {
           res = await callFreepayCreate(payload);
+        } else if (gateway === "ironpay") {
+          res = await callIronPayCreate(payload);
         } else {
           res = await callBlackoutCreate(payload);
         }
@@ -391,6 +396,7 @@ function Checkout() {
           data: {
             blackout_id: gateway === "blackout" ? res.id : undefined,
             freepay_id: gateway === "freepay" ? res.id : undefined,
+            ironpay_id: gateway === "ironpay" ? res.id : undefined,
             amount_cents: Math.round(total * 100),
             customer: {
               name: personal.fullName,
@@ -426,6 +432,8 @@ function Checkout() {
         let statusRes;
         if (gateway === "freepay") {
           statusRes = await callFreepayStatus({ data: { id: pix.id } });
+        } else if (gateway === "ironpay") {
+          statusRes = await callIronPayStatus({ data: { id: pix.id } });
         } else {
           statusRes = await callBlackoutStatus({ data: { id: pix.id } });
         }
@@ -445,7 +453,7 @@ function Checkout() {
     return () => {
       if (pollRef.current) clearInterval(pollRef.current);
     };
-  }, [pix, paid, callBlackoutStatus, callFreepayStatus, getSettings, clearCart, navigate]);
+  }, [pix, paid, callBlackoutStatus, callFreepayStatus, callIronPayStatus, getSettings, clearCart, navigate]);
 
   const copyPix = async () => {
     if (!pix) return;
@@ -471,7 +479,9 @@ function Checkout() {
       const b64 = btoa(binary);
       await uploadComp({
         data: {
-          blackout_id: pix.id,
+          blackout_id: gateway === "blackout" ? pix.id : undefined,
+          freepay_id: gateway === "freepay" ? pix.id : undefined,
+          ironpay_id: gateway === "ironpay" ? pix.id : undefined,
           file_base64: b64,
           file_name: file.name,
           mime_type: file.type || "application/octet-stream",

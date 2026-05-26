@@ -300,6 +300,17 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
               >
                 FreePay
               </button>
+              <button
+                disabled={updatingGateway}
+                onClick={() => handleGatewayChange("ironpay")}
+                className={`px-4 py-1.5 text-xs font-bold rounded-md transition-all ${
+                  pixGateway === "ironpay" 
+                    ? "bg-white text-black shadow-sm" 
+                    : "text-muted-foreground hover:text-black"
+                }`}
+              >
+                IronPay
+              </button>
             </div>
           </div>
           {updatingGateway && (
