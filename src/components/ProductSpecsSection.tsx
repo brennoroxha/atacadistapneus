@@ -31,7 +31,8 @@ const LABEL_ICON_MAP: Array<{ match: RegExp; svg: string; ext?: string }> = [
   { match: /lonas?/i, svg: "quantidade-lonas" },
   { match: /montagem/i, svg: "montagem" },
   { match: /letra/i, svg: "letra" },
-  { match: /sulco|ruído|ruido/i, svg: "sulco" },
+  { match: /ruído|ruido|nível de ruído|nivel de ruido|emissão de ruído|emissao de ruido/i, svg: "ruido", ext: "png" },
+  { match: /sulco/i, svg: "sulco" },
 ];
 
 function iconForLabel(label: string, value?: string): string | null {
