@@ -55,6 +55,8 @@ export const Route = createFileRoute("/feed.xml")({
             googleCategory = "2638";
           } else if (nameLower.includes("capacete")) {
             googleCategory = "990";
+          } else if (nameLower.includes("baú") || nameLower.includes("bau ") || nameLower.startsWith("bau") || nameLower.includes("bauleto") || nameLower.includes("bagageiro")) {
+            googleCategory = "3400";
           }
 
           // Generate item_group_id based on product family
