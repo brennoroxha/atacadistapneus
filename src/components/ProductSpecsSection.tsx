@@ -115,7 +115,8 @@ export function ProductSpecsSection({ specs }: { specs: Specs }) {
               })}
             </div>
             {(inmetroUrl || (specs.consumo && specs.aderencia)) && (
-              <div className="mt-8 pt-6 border-t lg:mt-0 lg:pt-0 lg:border-t-0 lg:pl-4 lg:w-[240px]">
+              <div className="mt-8 pt-6 border-t lg:mt-0 lg:pt-0 lg:border-t-0 lg:pl-4 lg:w-[300px]">
+
                 <h3 className="font-black text-industrial-blue dark:text-primary text-sm uppercase tracking-wide mb-3">
                   Etiqueta Inmetro
                 </h3>
@@ -174,7 +175,7 @@ export function ProductSpecsSection({ specs }: { specs: Specs }) {
           ))}
         </div>
         {(specs.consumo || specs.aderencia) && (
-          <div className="mt-8 pt-6 border-t lg:mt-0 lg:pt-0 lg:border-t-0 lg:pl-4 lg:w-[240px]">
+          <div className="mt-8 pt-6 border-t lg:mt-0 lg:pt-0 lg:border-t-0 lg:pl-4 lg:w-[300px]">
             <h3 className="font-black text-industrial-blue dark:text-primary text-sm uppercase tracking-wide mb-3">
               Etiqueta Inmetro
             </h3>

@@ -139,12 +139,12 @@ export function EtiquetaInmetro({
       >
         <Arrow tipX={80} centerY={fuelY} letter={f} />
         <Arrow tipX={200} centerY={wetY} letter={w} />
-        <NoiseIcon db={db} x={70 - 32 / 2} y={305 - 28 / 2} w={32} h={28} />
+        <NoiseIcon db={db} x={70 - 42 / 2} y={305 - 36 / 2} w={42} h={36} />
         <text
           x={185}
           y={312}
           fill="#fff"
-          fontSize={34}
+          fontSize={38}
           fontWeight={900}
           textAnchor="middle"
           dominantBaseline="central"
