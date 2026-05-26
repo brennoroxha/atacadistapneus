@@ -32,7 +32,7 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
       <div
         style={{
           position: "absolute",
-          left: "41%",
+          left: "45%",
           top: tops[fuelEfficiency] || tops["E"],
           transform: "translateY(-50%)",
           pointerEvents: "none",
@@ -44,10 +44,12 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
             color: "#fff",
             fontWeight: 900,
             fontSize: "clamp(10px, 2.5vw, 13px)",
-            padding: "2px 4px 2px 12px",
-            clipPath: "polygon(100% 0, 25% 0, 0 50%, 25% 100%, 100% 100%)",
+            padding: "2px 4px 2px 14px",
+            clipPath: "polygon(100% 0, 30% 0, 0 50%, 30% 100%, 100% 100%)",
             display: "inline-block",
             lineHeight: 1,
+            minWidth: "22px",
+            textAlign: "center",
           }}
         >
           {fuelEfficiency}
@@ -58,7 +60,7 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
       <div
         style={{
           position: "absolute",
-          left: "88%",
+          left: "93%",
           top: tops[wetGrip] || tops["E"],
           transform: "translateY(-50%)",
           pointerEvents: "none",
@@ -70,10 +72,12 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
             color: "#fff",
             fontWeight: 900,
             fontSize: "clamp(10px, 2.5vw, 13px)",
-            padding: "2px 4px 2px 12px",
-            clipPath: "polygon(100% 0, 25% 0, 0 50%, 25% 100%, 100% 100%)",
+            padding: "2px 4px 2px 14px",
+            clipPath: "polygon(100% 0, 30% 0, 0 50%, 30% 100%, 100% 100%)",
             display: "inline-block",
             lineHeight: 1,
+            minWidth: "22px",
+            textAlign: "center",
           }}
         >
           {wetGrip}
@@ -81,20 +85,41 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
       </div>
 
       {/* Ruído - texto sobre a seta preta */}
-      <span
+      <div
         style={{
           position: "absolute",
-          left: "65%",
-          top: "62%",
-          transform: "translate(-50%, -50%)",
-          fontWeight: 900,
-          fontSize: "clamp(12px, 3.5vw, 18px)",
-          color: "#fff",
-          fontFamily: "Arial",
+          left: "50%",
+          top: "56.3%",
+          transform: "translateX(-50%)",
+          width: "74%",
+          height: "17.5%",
+          pointerEvents: "none",
         }}
       >
-        {noiseDb}dB
-      </span>
+        <div
+          style={{
+            position: "absolute",
+            right: "0",
+            top: "50%",
+            transform: "translateY(-50%)",
+            background: "#000",
+            color: "#fff",
+            fontWeight: 900,
+            fontSize: "clamp(12px, 3.5vw, 18px)",
+            padding: "8px 12px 8px 30px",
+            clipPath: "polygon(100% 0, 20% 0, 0 50%, 20% 100%, 100% 100%)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            minWidth: "60%",
+            height: "100%",
+            boxSizing: "border-box",
+            lineHeight: 1,
+          }}
+        >
+          {noiseDb}dB
+        </div>
+      </div>
     </div>
   );
 }
