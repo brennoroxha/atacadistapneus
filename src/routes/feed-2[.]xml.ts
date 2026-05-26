@@ -61,6 +61,7 @@ export const Route = createFileRoute("/feed-2.xml")({
   <g:link>${baseUrl}/pneu/${slug}</g:link>
   <g:image_link>${mainImage}</g:image_link>
   <g:condition>new</g:condition>
+  <g:availability>in stock</g:availability>
   <g:price>${Number(product.price).toFixed(2)} BRL</g:price>
   <g:brand><![CDATA[${brand}]]></g:brand>`;
 
