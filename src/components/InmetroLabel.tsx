@@ -1,11 +1,11 @@
 const tops: Record<string, string> = {
-  A: "33.5%",
-  B: "38%",
-  C: "42.5%",
-  D: "47%",
-  E: "51.5%",
-  F: "56%",
-  G: "60.5%"
+  A: "18.5%",
+  B: "22.5%",
+  C: "26.5%",
+  D: "30.5%",
+  E: "34.5%",
+  F: "38.5%",
+  G: "42.5%"
 };
 
 interface InmetroLabelProps {
@@ -32,7 +32,7 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
       <div
         style={{
           position: "absolute",
-          left: "45%",
+          left: "44.5%",
           top: tops[fuelEfficiency] || tops["E"],
           transform: "translateY(-50%)",
           pointerEvents: "none",
@@ -61,7 +61,7 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
       <div
         style={{
           position: "absolute",
-          left: "93%",
+          left: "92.5%",
           top: tops[wetGrip] || tops["E"],
           transform: "translateY(-50%)",
           pointerEvents: "none",
@@ -90,8 +90,8 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
       <div
         style={{
           position: "absolute",
-          left: "52%",
-          top: "69.5%",
+          left: "53%",
+          top: "62.5%",
           transform: "translateX(-50%)",
           width: "37%",
           height: "10%",
