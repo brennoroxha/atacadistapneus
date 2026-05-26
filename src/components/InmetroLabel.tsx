@@ -89,10 +89,10 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
         style={{
           position: "absolute",
           left: "50%",
-          top: "56.5%",
+          top: "56.3%",
           transform: "translateX(-50%)",
           width: "74%",
-          height: "17%",
+          height: "17.5%",
           pointerEvents: "none",
         }}
       >
@@ -114,6 +114,7 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
             minWidth: "60%",
             height: "100%",
             boxSizing: "border-box",
+            lineHeight: 1,
           }}
         >
           {noiseDb}dB
