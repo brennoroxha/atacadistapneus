@@ -1,7 +1,12 @@
 import { createFileRoute, Link, useSearch, useNavigate, useLocation } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
-import { getProductImageUrl, onProductImageError } from "@/lib/product-image";
+import {
+  getProductCardImageUrl,
+  onProductImageError,
+  PRODUCT_CARD_IMAGE_CONTAINER_STYLE,
+  PRODUCT_CARD_IMAGE_STYLE,
+} from "@/lib/product-image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -574,32 +579,14 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
                         params={{ productId: product.slug ?? product.id }}
                         className="block"
                       >
-                        <div
-                          style={{
-                            width: '100%',
-                            height: '180px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            backgroundColor: '#ffffff',
-                            padding: '12px',
-                            boxSizing: 'border-box'
-                          }}
-                        >
+                        <div style={PRODUCT_CARD_IMAGE_CONTAINER_STYLE}>
                           <img
-                            src={getProductImageUrl(product.images?.[0], { width: 300, height: 300, quality: 75, resize: "contain" })}
+                            src={getProductCardImageUrl(product.images?.[0])}
                             alt={product.name}
                             loading="lazy"
                             decoding="async"
                             onError={onProductImageError}
-                            style={{
-                              maxWidth: '100%',
-                              maxHeight: '156px',
-                              width: 'auto',
-                              height: 'auto',
-                              objectFit: 'contain',
-                              display: 'block'
-                            }}
+                            style={PRODUCT_CARD_IMAGE_STYLE}
                             width="400"
                             height="400"
                           />
