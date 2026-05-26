@@ -168,11 +168,11 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
       <div key={product.id} className={`group flex flex-col bg-white dark:bg-card rounded-lg border overflow-hidden shadow-sm transition-all hover:shadow-md h-full`}>
         <div className="relative shrink flex flex-col">
           {getBrandLogo(product.name) && (
-            <div className="w-full h-14 flex items-center justify-center bg-[#FCD000] px-2 py-2">
+            <div className="w-full h-16 flex items-center justify-center px-3 py-3">
               <img
                 src={getBrandLogo(product.name)!}
                 alt="Marca"
-                className="max-h-full max-w-full object-contain"
+                className="h-full w-auto object-contain"
                 loading="lazy"
                 onError={(e) => ((e.currentTarget.parentElement!.style.display = "none"))}
               />
