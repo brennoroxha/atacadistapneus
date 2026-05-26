@@ -581,7 +581,7 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
                           loading="lazy"
                           decoding="async"
                           onError={onProductImageError}
-                          className="h-full w-full object-contain scale-[1.15] transition-transform duration-500 group-hover:scale-[1.25]"
+                          className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
                           width="400"
                           height="400"
                         />
