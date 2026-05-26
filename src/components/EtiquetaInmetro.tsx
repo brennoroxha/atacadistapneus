@@ -77,9 +77,9 @@ function Arrow({
 
 function NoiseIcon({ db, x, y, w, h }: { db: number; x: number; y: number; w: number; h: number }) {
   const href =
-    db <= 69
+    db <= 71
       ? "/icons/noise-low.png"
-      : db <= 72
+      : db <= 74
       ? "/icons/noise-medium.png"
       : "/icons/noise-high.png";
   return <image href={href} x={x} y={y} width={w} height={h} preserveAspectRatio="xMidYMid meet" />;
@@ -118,7 +118,7 @@ export function EtiquetaInmetro({
     <div
       ref={containerRef}
       className={`relative inline-block w-full ${className}`}
-      style={{ maxWidth: "320px" }}
+      style={{ maxWidth: "400px" }}
 
     >
       <img
