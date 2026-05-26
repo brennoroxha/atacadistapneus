@@ -14,8 +14,10 @@ const SUPABASE_OBJECT = "/storage/v1/object/public/";
 const SUPABASE_RENDER = "/storage/v1/render/image/public/";
 
 export interface ImgOpts {
+  height?: number;
   width?: number;
   quality?: number;
+  resize?: "contain" | "cover" | "fill";
 }
 
 export function optimizeImage(url?: string | null, opts: ImgOpts = {}): string {
@@ -26,7 +28,9 @@ export function optimizeImage(url?: string | null, opts: ImgOpts = {}): string {
   const rewritten = url.replace(SUPABASE_OBJECT, SUPABASE_RENDER);
   const params = new URLSearchParams();
   if (opts.width) params.set("width", String(opts.width));
+  if (opts.height) params.set("height", String(opts.height));
   if (opts.quality) params.set("quality", String(opts.quality));
+  if (opts.resize) params.set("resize", opts.resize);
   const qs = params.toString();
   return qs ? `${rewritten}?${qs}` : rewritten;
 }
