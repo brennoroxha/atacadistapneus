@@ -74,7 +74,7 @@ export const Route = createFileRoute("/feed.xml")({
       <g:title>${title}</g:title>
       <g:description>${description}</g:description>
       <g:link>${baseUrl}/pneu/${slug}</g:link>
-      <g:image_link>${(product.images?.[0] || "").startsWith("http") ? (product.images[0].includes("supabase.co") ? `${baseUrl}/proxy-image?url=${encodeURIComponent(product.images[0])}` : product.images[0]) : `${baseUrl}${product.images?.[0] || ""}`}</g:image_link>
+      <g:image_link>${(product.images?.[0] || "").startsWith("http") ? product.images[0] : `${baseUrl}${product.images?.[0] || ""}`}</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>${availability}</g:availability>
       <g:price>${Number(product.price).toFixed(2)} BRL</g:price>
