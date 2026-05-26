@@ -107,7 +107,7 @@ function MedidasTab() {
 
   return (
     <div className="flex flex-col items-center text-center">
-      <h2 className="text-base md:text-4xl font-black text-gray-900 tracking-tight whitespace-nowrap">
+      <h2 className="text-[14px] md:text-4xl font-black text-gray-900 tracking-tighter whitespace-nowrap">
         Encontre o pneu informando as medidas
       </h2>
       <p className="mt-2 text-sm md:text-base text-gray-500">
