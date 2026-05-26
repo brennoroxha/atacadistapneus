@@ -38,7 +38,7 @@ export const Route = createFileRoute("/feed.xml")({
         let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:g="http://base.google.com/ns/1.0" xmlns:c="http://base.google.com/cns/1.0" version="2.0">
 <channel>
-<title><![CDATA[Lider Auto Center]]></title>
+<title><![CDATA[Atacadista Pneus]]></title>
 <link><![CDATA[${baseUrl}/]]></link>
 <description><![CDATA[Feed]]></description>`;
 
