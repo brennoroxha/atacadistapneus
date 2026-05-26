@@ -409,6 +409,13 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
   // Compute page title and breadcrumb label
   const pageTitle = (() => {
     if (q) return `Busca: "${q}"`;
+    const lg = Array.isArray(largura) ? largura[0] : undefined;
+    const al = Array.isArray(altura) ? altura[0] : undefined;
+    const ar = Array.isArray(aro) ? aro[0] : undefined;
+    if (lg || al || ar) {
+      const medida = `${lg ?? "—"}/${al ?? "—"}R${ar ?? "—"}`;
+      return `Pneus ${medida}`;
+    }
     if (currentCategoryInfo) {
       if (currentCategoryInfo.isTire) {
         return parsedCategory?.aro ? `Pneus Aro ${parsedCategory.aro}` : `Pneus ${parsedCategory?.tipo ?? ""}`.trim();
