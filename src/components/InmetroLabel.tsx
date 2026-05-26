@@ -1,11 +1,11 @@
 const tops: Record<string, string> = {
-  A: "20.5%",
-  B: "24.5%",
-  C: "28.5%",
-  D: "32.5%",
-  E: "36.5%",
-  F: "40.5%",
-  G: "44.5%"
+  A: "40.5%",
+  B: "44.5%",
+  C: "48.5%",
+  D: "52.5%",
+  E: "56.5%",
+  F: "60.5%",
+  G: "64.5%"
 };
 
 interface InmetroLabelProps {
@@ -32,7 +32,7 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
       <div
         style={{
           position: "absolute",
-          left: "45%",
+          left: "44.5%",
           top: tops[fuelEfficiency] || tops["E"],
           transform: "translateY(-50%)",
           pointerEvents: "none",
@@ -60,7 +60,7 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
       <div
         style={{
           position: "absolute",
-          left: "93%",
+          left: "92.5%",
           top: tops[wetGrip] || tops["E"],
           transform: "translateY(-50%)",
           pointerEvents: "none",
@@ -88,11 +88,11 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
       <div
         style={{
           position: "absolute",
-          left: "50%",
-          top: "56.3%",
+          left: "53%",
+          top: "69.5%",
           transform: "translateX(-50%)",
-          width: "74%",
-          height: "17.5%",
+          width: "37%",
+          height: "10%",
           pointerEvents: "none",
         }}
       >
@@ -105,13 +105,13 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
             background: "#000",
             color: "#fff",
             fontWeight: 900,
-            fontSize: "clamp(12px, 3.5vw, 18px)",
-            padding: "8px 12px 8px 30px",
+            fontSize: "clamp(10px, 2.5vw, 15px)",
+            padding: "4px 8px 4px 20px",
             clipPath: "polygon(100% 0, 20% 0, 0 50%, 20% 100%, 100% 100%)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            minWidth: "60%",
+            minWidth: "100%",
             height: "100%",
             boxSizing: "border-box",
             lineHeight: 1,
