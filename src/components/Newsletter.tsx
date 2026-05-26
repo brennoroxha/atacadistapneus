@@ -16,16 +16,12 @@ export function Newsletter() {
         width="1920" 
         height="150" 
       />
-      <a href="/products" className="block md:hidden">
-        <img 
-          src="https://www.acheipneus.com.br/inmetro_mobile-8pe.png" 
-          alt="Informações Inmetro" 
-          className="block w-full h-auto" 
-          loading="lazy" 
-          width="640" 
-          height="200" 
-        />
-      </a>
+      <img 
+        src={bannerFreteMobile} 
+        alt="Frete grátis para todo o Brasil" 
+        className="block md:hidden w-full h-auto" 
+        loading="lazy" 
+      />
     </div>
     <section className="bg-neutral-200 text-black border-b border-black/10">
       <div className="container px-4 mx-auto py-5 md:py-10">
