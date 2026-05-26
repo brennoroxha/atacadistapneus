@@ -1,11 +1,11 @@
 const tops: Record<string, string> = {
-  A: "40.5%",
-  B: "44.5%",
-  C: "48.5%",
-  D: "52.5%",
-  E: "56.5%",
-  F: "60.5%",
-  G: "64.5%"
+  A: "33.5%",
+  B: "38%",
+  C: "42.5%",
+  D: "47%",
+  E: "51.5%",
+  F: "56%",
+  G: "60.5%"
 };
 
 interface InmetroLabelProps {
@@ -21,7 +21,7 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
   const noiseDb = noise || 72;
 
   return (
-    <div className={`relative inline-block ${className}`} style={{ maxWidth: "300px" }}>
+    <div className={`relative inline-block ${className}`} style={{ width: "240px" }}>
       <img
         alt="Etiqueta Inmetro"
         src="/inmetro-label.png"
@@ -32,10 +32,11 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
       <div
         style={{
           position: "absolute",
-          left: "44.5%",
+          left: "45%",
           top: tops[fuelEfficiency] || tops["E"],
           transform: "translateY(-50%)",
           pointerEvents: "none",
+          zIndex: 10,
         }}
       >
         <span
@@ -43,7 +44,7 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
             background: "#000",
             color: "#fff",
             fontWeight: 900,
-            fontSize: "clamp(10px, 2.5vw, 13px)",
+            fontSize: "12px",
             padding: "2px 4px 2px 14px",
             clipPath: "polygon(100% 0, 30% 0, 0 50%, 30% 100%, 100% 100%)",
             display: "inline-block",
@@ -60,10 +61,11 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
       <div
         style={{
           position: "absolute",
-          left: "92.5%",
+          left: "93%",
           top: tops[wetGrip] || tops["E"],
           transform: "translateY(-50%)",
           pointerEvents: "none",
+          zIndex: 10,
         }}
       >
         <span
@@ -71,7 +73,7 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
             background: "#000",
             color: "#fff",
             fontWeight: 900,
-            fontSize: "clamp(10px, 2.5vw, 13px)",
+            fontSize: "12px",
             padding: "2px 4px 2px 14px",
             clipPath: "polygon(100% 0, 30% 0, 0 50%, 30% 100%, 100% 100%)",
             display: "inline-block",
@@ -88,12 +90,13 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
       <div
         style={{
           position: "absolute",
-          left: "53%",
+          left: "52%",
           top: "69.5%",
           transform: "translateX(-50%)",
           width: "37%",
           height: "10%",
           pointerEvents: "none",
+          zIndex: 10,
         }}
       >
         <div
@@ -105,8 +108,8 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
             background: "#000",
             color: "#fff",
             fontWeight: 900,
-            fontSize: "clamp(10px, 2.5vw, 15px)",
-            padding: "4px 8px 4px 20px",
+            fontSize: "14px",
+            padding: "4px 8px 4px 18px",
             clipPath: "polygon(100% 0, 20% 0, 0 50%, 20% 100%, 100% 100%)",
             display: "flex",
             alignItems: "center",
