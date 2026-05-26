@@ -85,20 +85,40 @@ export function InmetroLabel({ consumption = "E", grip = "E", noise = 72, classN
       </div>
 
       {/* Ruído - texto sobre a seta preta */}
-      <span
+      <div
         style={{
           position: "absolute",
-          left: "65%",
-          top: "62%",
-          transform: "translate(-50%, -50%)",
-          fontWeight: 900,
-          fontSize: "clamp(12px, 3.5vw, 18px)",
-          color: "#fff",
-          fontFamily: "Arial",
+          left: "50%",
+          top: "56.5%",
+          transform: "translateX(-50%)",
+          width: "74%",
+          height: "17%",
+          pointerEvents: "none",
         }}
       >
-        {noiseDb}dB
-      </span>
+        <div
+          style={{
+            position: "absolute",
+            right: "0",
+            top: "50%",
+            transform: "translateY(-50%)",
+            background: "#000",
+            color: "#fff",
+            fontWeight: 900,
+            fontSize: "clamp(12px, 3.5vw, 18px)",
+            padding: "8px 12px 8px 30px",
+            clipPath: "polygon(100% 0, 20% 0, 0 50%, 20% 100%, 100% 100%)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            minWidth: "60%",
+            height: "100%",
+            boxSizing: "border-box",
+          }}
+        >
+          {noiseDb}dB
+        </div>
+      </div>
     </div>
   );
 }
