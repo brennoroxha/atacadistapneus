@@ -572,7 +572,7 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
                       <Link
                         to="/pneu/$productId"
                         params={{ productId: product.slug ?? product.id }}
-                        className="relative block aspect-square overflow-hidden bg-white p-2"
+                        className="relative flex items-center justify-center aspect-square overflow-hidden bg-white p-2"
                       >
                         <img
                           src={getProductImageUrl(product.images?.[0], { width: 300, quality: 75 })}
@@ -581,7 +581,7 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
                           loading="lazy"
                           decoding="async"
                           onError={onProductImageError}
-                          className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
+                          className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                           width="400"
                           height="400"
                         />

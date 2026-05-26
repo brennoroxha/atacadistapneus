@@ -376,7 +376,7 @@ function ProductDetail() {
                 params={{ productId: (p as any).slug ?? p.id }}
                 className="group bg-white dark:bg-card rounded-xl border overflow-hidden hover:shadow-lg transition"
               >
-                <div className="aspect-square bg-white p-4">
+                <div className="flex items-center justify-center aspect-square bg-white p-4">
                   <img
                     src={getProductImageUrl(p.images?.[0], { width: 300, quality: 75 })}
 
@@ -384,7 +384,7 @@ function ProductDetail() {
                     loading="lazy"
                     decoding="async"
                     onError={onProductImageError}
-                    className="w-full h-full object-contain transition-transform group-hover:scale-105"
+                    className="max-h-full max-w-full w-auto h-auto object-contain transition-transform group-hover:scale-105"
                     width="400"
                     height="400"
                   />
