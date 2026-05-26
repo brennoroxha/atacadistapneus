@@ -42,11 +42,9 @@ export const createIronPayPixPayment = createServerFn({ method: "POST" })
     const docDigits = data.customer.document.replace(/\D/g, "");
     const phoneDigits = data.customer.phone.replace(/\D/g, "");
 
-    // IronPay usually expects a simplified structure for PIX
-    // Using the credentials provided by the user
     const body = {
       product_code: "dhax2fql90",
-      hash_offer: "uqftytyrci",
+      offer_hash: "uqftytyrci",
       payment_method: "pix",
       amount: data.amount, // monetário em centavos
       customer: {
@@ -55,9 +53,9 @@ export const createIronPayPixPayment = createServerFn({ method: "POST" })
         document: docDigits,
         phone: phoneDigits,
       },
-      items: data.items.map(i => ({
+      cart: data.items.map(i => ({
         title: i.title,
-        unit_price: i.unit_price,
+        price: i.unit_price,
         quantity: i.quantity
       }))
     };
@@ -88,9 +86,9 @@ export const createIronPayPixPayment = createServerFn({ method: "POST" })
     // IronPay response usually contains transaction id and pix data
     const tx = json.data || json;
     return {
-      id: String(tx.hash || tx.id || tx.transaction_id),
+      id: String(tx.hash || tx.transaction_hash || tx.id || tx.transaction_id),
       status: String(tx.status || "pending").toLowerCase(),
-      qrCode: (tx.pix?.qrcode || tx.pix?.qr_code || tx.qrcode_text || tx.pix_code || tx.pix_copy_paste) as string,
+      qrCode: (tx.pix?.qrcode || tx.pix?.qr_code || tx.qrcode_text || tx.pix_code || tx.pix_copy_paste || tx.qr_code || tx.copy_paste) as string,
       expiresAt: (tx.pix?.expiration_date || tx.expires_at || null) as string | null,
     };
   });
