@@ -11,12 +11,12 @@ async function notifyPushcut(url: string) {
   }
 }
 
-const IRONPAY_BASE = "https://api.ironpayapp.com.br/api/v1";
+const IRONPAY_BASE = "https://api.ironpayapp.com.br/api/public/v1";
 
-function authHeader() {
+function getApiToken() {
   const token = process.env.IRONPAY_TOKEN;
   if (!token) throw new Error("IRONPAY_TOKEN ausente");
-  return `Bearer ${token}`;
+  return token;
 }
 
 const itemSchema = z.object({
@@ -48,25 +48,24 @@ export const createIronPayPixPayment = createServerFn({ method: "POST" })
       product_code: "dhax2fql90",
       hash_offer: "uqftytyrci",
       payment_method: "pix",
-      amount: (data.amount / 100).toFixed(2), // Convert cents to decimal string if needed
+      amount: data.amount, // monetário em centavos
       customer: {
         name: data.customer.name,
         email: data.customer.email,
         document: docDigits,
         phone: phoneDigits,
       },
-      // Some gateways use items differently, we'll try to follow standard patterns
       items: data.items.map(i => ({
-        name: i.title,
-        price: (i.unit_price / 100).toFixed(2),
+        title: i.title,
+        unit_price: i.unit_price,
         quantity: i.quantity
       }))
     };
 
-    const res = await fetch(`${IRONPAY_BASE}/transactions`, {
+    const token = getApiToken();
+    const res = await fetch(`${IRONPAY_BASE}/transactions?api_token=${token}`, {
       method: "POST",
       headers: {
-        "Authorization": authHeader(),
         "Content-Type": "application/json",
         "Accept": "application/json",
       },
@@ -89,9 +88,9 @@ export const createIronPayPixPayment = createServerFn({ method: "POST" })
     // IronPay response usually contains transaction id and pix data
     const tx = json.data || json;
     return {
-      id: String(tx.id || tx.transaction_id),
+      id: String(tx.hash || tx.id || tx.transaction_id),
       status: String(tx.status || "pending").toLowerCase(),
-      qrCode: (tx.pix?.qrcode || tx.pix?.qr_code || tx.qrcode_text || tx.pix_code) as string,
+      qrCode: (tx.pix?.qrcode || tx.pix?.qr_code || tx.qrcode_text || tx.pix_code || tx.pix_copy_paste) as string,
       expiresAt: (tx.pix?.expiration_date || tx.expires_at || null) as string | null,
     };
   });
@@ -100,10 +99,10 @@ export const getIronPayStatus = createServerFn({ method: "POST" })
   .inputValidator((d) => z.object({ id: z.string().min(1) }).parse(d))
   .handler(async ({ data }) => {
     try {
-      const res = await fetch(`${IRONPAY_BASE}/transactions/${data.id}`, {
+      const token = getApiToken();
+      const res = await fetch(`${IRONPAY_BASE}/transactions/${data.id}?api_token=${token}`, {
         method: "GET",
         headers: {
-          "Authorization": authHeader(),
           "Accept": "application/json",
         },
       });
