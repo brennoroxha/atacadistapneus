@@ -574,38 +574,40 @@ export function ProductsListing({ categorySlugOverride }: { categorySlugOverride
                           />
                         </div>
                       )}
-                      <Link
-                        to="/pneu/$productId"
-                        params={{ productId: product.slug ?? product.id }}
-                        className="block"
-                      >
-                        <div style={PRODUCT_CARD_IMAGE_CONTAINER_STYLE}>
-                          <img
-                            src={getProductCardImageUrl(product.images?.[0])}
-                            alt={product.name}
-                            loading="lazy"
-                            decoding="async"
-                            onError={onProductImageError}
-                            style={PRODUCT_CARD_IMAGE_STYLE}
-                            width="400"
-                            height="400"
-                          />
-                        </div>
-                      </Link>
-                      {(product.specs?.consumo || product.specs?.aderencia || product.specs?.ruido_db) && (
-                        <div className="flex flex-wrap items-center gap-1 px-3 pb-2">
-                          {product.specs?.consumo && <EtiquetaBadge src="/etiquetas/consumo.webp" alt="Consumo" value={product.specs.consumo} />}
-                          {product.specs?.aderencia && <EtiquetaBadge src="/etiquetas/aderencia.webp" alt="Aderência" value={product.specs.aderencia} />}
-                          {product.specs?.ruido_db && (
-                            <EtiquetaBadge
-                              src="/icons/noise-badge.png"
-                              alt="Ruído"
-                              value={`${product.specs.ruido_db}`}
-                              suffix="dB"
+                      <div className="relative">
+                        <Link
+                          to="/pneu/$productId"
+                          params={{ productId: product.slug ?? product.id }}
+                          className="block"
+                        >
+                          <div style={PRODUCT_CARD_IMAGE_CONTAINER_STYLE}>
+                            <img
+                              src={getProductCardImageUrl(product.images?.[0])}
+                              alt={product.name}
+                              loading="lazy"
+                              decoding="async"
+                              onError={onProductImageError}
+                              style={PRODUCT_CARD_IMAGE_STYLE}
+                              width="400"
+                              height="400"
                             />
-                          )}
-                        </div>
-                      )}
+                          </div>
+                        </Link>
+                        {(product.specs?.consumo || product.specs?.aderencia || product.specs?.ruido_db) && (
+                          <div className="absolute right-2 bottom-2 flex flex-col items-end gap-1 pointer-events-none">
+                            {product.specs?.consumo && <EtiquetaBadge src="/etiquetas/consumo.webp" alt="Consumo" value={product.specs.consumo} />}
+                            {product.specs?.aderencia && <EtiquetaBadge src="/etiquetas/aderencia.webp" alt="Aderência" value={product.specs.aderencia} />}
+                            {product.specs?.ruido_db && (
+                              <EtiquetaBadge
+                                src="/icons/noise-badge.png"
+                                alt="Ruído"
+                                value={`${product.specs.ruido_db}`}
+                                suffix="dB"
+                              />
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
                     <div className="p-3 flex-1 flex flex-col gap-2 min-w-0">
                       <h3 className="font-medium text-sm leading-snug line-clamp-2 sm:min-h-[2.5rem]">
