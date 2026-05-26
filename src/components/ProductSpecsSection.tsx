@@ -81,7 +81,7 @@ export function ProductSpecsSection({ specs }: { specs: Specs }) {
                 if (item.texto) l = item.texto.split(":")[0];
                 else if (item.label) l = item.label;
                 const normalized = l.trim().toLowerCase();
-                const excluded = ["perfil", "aro", "marca", "modelo"];
+                const excluded = ["perfil", "aro", "marca", "modelo", "consumo"];
                 return !excluded.includes(normalized);
               }).map((item, idx) => {
                 let label = "";
