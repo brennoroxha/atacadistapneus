@@ -78,44 +78,15 @@ function Arrow({
 }
 
 function NoiseIcon({ db, x, y, w, h }: { db: number; x: number; y: number; w: number; h: number }) {
-  // 1 = quiet, 2 = medium, 3 = loud
-  const level = db <= 69 ? 1 : db <= 72 ? 2 : 3;
-  const cx = x + w / 2;
-  const cy = y + h / 2;
-  // Speaker body
-  const speakerW = w * 0.35;
-  const speakerH = h * 0.5;
-  const sx = x;
-  const sy = cy - speakerH / 2;
-
-  const wavesActive = level; // 1, 2, or 3
-  const waveColor = "#000";
-
-  return (
-    <g>
-      {/* speaker */}
-      <polygon
-        points={`${sx},${sy + speakerH * 0.3} ${sx + speakerW * 0.5},${sy + speakerH * 0.3} ${sx + speakerW},${sy} ${sx + speakerW},${sy + speakerH} ${sx + speakerW * 0.5},${sy + speakerH * 0.7} ${sx},${sy + speakerH * 0.7}`}
-        fill="#000"
-      />
-      {/* waves */}
-      {[1, 2, 3].map((i) => {
-        const active = i <= wavesActive;
-        const r = speakerW + i * (w * 0.18);
-        return (
-          <path
-            key={i}
-            d={`M ${sx + speakerW + i * (w * 0.12)} ${cy - r * 0.4} A ${r * 0.5} ${r * 0.5} 0 0 1 ${sx + speakerW + i * (w * 0.12)} ${cy + r * 0.4}`}
-            stroke={waveColor}
-            strokeWidth={1.4}
-            fill="none"
-            opacity={active ? 1 : 0.18}
-          />
-        );
-      })}
-    </g>
-  );
+  const href =
+    db <= 69
+      ? "/icons/noise-low.png"
+      : db <= 72
+      ? "/icons/noise-medium.png"
+      : "/icons/noise-high.png";
+  return <image href={href} x={x} y={y} width={w} height={h} preserveAspectRatio="xMidYMid meet" />;
 }
+
 
 export function EtiquetaInmetro({
   fuel,
