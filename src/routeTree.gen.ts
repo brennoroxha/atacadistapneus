@@ -17,6 +17,8 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PaymentMethodsRouteImport } from './routes/payment-methods'
 import { Route as Google9e338cbf9702c676DothtmlRouteImport } from './routes/google9e338cbf9702c676[.]html'
 import { Route as FeedDotxmlRouteImport } from './routes/feed[.]xml'
+import { Route as Feed2DotxmlRouteImport } from './routes/feed-2[.]xml'
+import { Route as Feed1DotxmlRouteImport } from './routes/feed-1[.]xml'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ExchangesRouteImport } from './routes/exchanges'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -76,6 +78,16 @@ const Google9e338cbf9702c676DothtmlRoute =
 const FeedDotxmlRoute = FeedDotxmlRouteImport.update({
   id: '/feed.xml',
   path: '/feed.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Feed2DotxmlRoute = Feed2DotxmlRouteImport.update({
+  id: '/feed-2.xml',
+  path: '/feed-2.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Feed1DotxmlRoute = Feed1DotxmlRouteImport.update({
+  id: '/feed-1.xml',
+  path: '/feed-1.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -187,6 +199,8 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/exchanges': typeof ExchangesRoute
   '/faq': typeof FaqRoute
+  '/feed-1.xml': typeof Feed1DotxmlRoute
+  '/feed-2.xml': typeof Feed2DotxmlRoute
   '/feed.xml': typeof FeedDotxmlRoute
   '/google9e338cbf9702c676.html': typeof Google9e338cbf9702c676DothtmlRoute
   '/payment-methods': typeof PaymentMethodsRoute
@@ -216,6 +230,8 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/exchanges': typeof ExchangesRoute
   '/faq': typeof FaqRoute
+  '/feed-1.xml': typeof Feed1DotxmlRoute
+  '/feed-2.xml': typeof Feed2DotxmlRoute
   '/feed.xml': typeof FeedDotxmlRoute
   '/google9e338cbf9702c676.html': typeof Google9e338cbf9702c676DothtmlRoute
   '/payment-methods': typeof PaymentMethodsRoute
@@ -246,6 +262,8 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/exchanges': typeof ExchangesRoute
   '/faq': typeof FaqRoute
+  '/feed-1.xml': typeof Feed1DotxmlRoute
+  '/feed-2.xml': typeof Feed2DotxmlRoute
   '/feed.xml': typeof FeedDotxmlRoute
   '/google9e338cbf9702c676.html': typeof Google9e338cbf9702c676DothtmlRoute
   '/payment-methods': typeof PaymentMethodsRoute
@@ -277,6 +295,8 @@ export interface FileRouteTypes {
     | '/contact'
     | '/exchanges'
     | '/faq'
+    | '/feed-1.xml'
+    | '/feed-2.xml'
     | '/feed.xml'
     | '/google9e338cbf9702c676.html'
     | '/payment-methods'
@@ -306,6 +326,8 @@ export interface FileRouteTypes {
     | '/contact'
     | '/exchanges'
     | '/faq'
+    | '/feed-1.xml'
+    | '/feed-2.xml'
     | '/feed.xml'
     | '/google9e338cbf9702c676.html'
     | '/payment-methods'
@@ -335,6 +357,8 @@ export interface FileRouteTypes {
     | '/contact'
     | '/exchanges'
     | '/faq'
+    | '/feed-1.xml'
+    | '/feed-2.xml'
     | '/feed.xml'
     | '/google9e338cbf9702c676.html'
     | '/payment-methods'
@@ -365,6 +389,8 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   ExchangesRoute: typeof ExchangesRoute
   FaqRoute: typeof FaqRoute
+  Feed1DotxmlRoute: typeof Feed1DotxmlRoute
+  Feed2DotxmlRoute: typeof Feed2DotxmlRoute
   FeedDotxmlRoute: typeof FeedDotxmlRoute
   Google9e338cbf9702c676DothtmlRoute: typeof Google9e338cbf9702c676DothtmlRoute
   PaymentMethodsRoute: typeof PaymentMethodsRoute
@@ -441,6 +467,20 @@ declare module '@tanstack/react-router' {
       path: '/feed.xml'
       fullPath: '/feed.xml'
       preLoaderRoute: typeof FeedDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/feed-2.xml': {
+      id: '/feed-2.xml'
+      path: '/feed-2.xml'
+      fullPath: '/feed-2.xml'
+      preLoaderRoute: typeof Feed2DotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/feed-1.xml': {
+      id: '/feed-1.xml'
+      path: '/feed-1.xml'
+      fullPath: '/feed-1.xml'
+      preLoaderRoute: typeof Feed1DotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -589,6 +629,8 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   ExchangesRoute: ExchangesRoute,
   FaqRoute: FaqRoute,
+  Feed1DotxmlRoute: Feed1DotxmlRoute,
+  Feed2DotxmlRoute: Feed2DotxmlRoute,
   FeedDotxmlRoute: FeedDotxmlRoute,
   Google9e338cbf9702c676DothtmlRoute: Google9e338cbf9702c676DothtmlRoute,
   PaymentMethodsRoute: PaymentMethodsRoute,
