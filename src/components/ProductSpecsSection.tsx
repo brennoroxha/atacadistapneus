@@ -76,7 +76,14 @@ export function ProductSpecsSection({ specs }: { specs: Specs }) {
           </div>
           <div className="lg:grid lg:grid-cols-[1fr_auto] lg:gap-8">
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-7">
-              {info.map((item, idx) => {
+              {info.filter(item => {
+                let l = "";
+                if (item.texto) l = item.texto.split(":")[0];
+                else if (item.label) l = item.label;
+                const normalized = l.trim().toLowerCase();
+                const excluded = ["perfil", "aro", "marca", "modelo"];
+                return !excluded.includes(normalized);
+              }).map((item, idx) => {
                 let label = "";
                 let value = "";
                 let icone = item.icone;
@@ -408,10 +415,7 @@ export function EspecificacoesTable({
   const gtin = product.gtin || specs.gtin || specs.ean || "";
 
   const rows: Array<[string, string | number]> = [];
-  if (marca) rows.push(["Marca", marca]);
   if (largura) rows.push(["Largura", String(largura)]);
-  if (perfil) rows.push(["Perfil", String(perfil)]);
-  if (aro) rows.push(["Aro", `${aro}"`]);
   if (categoria) rows.push(["Categoria", categoria]);
   if (gtin) rows.push(["GTIN/EAN", String(gtin)]);
 
