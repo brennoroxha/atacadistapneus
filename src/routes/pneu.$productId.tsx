@@ -205,13 +205,7 @@ function ProductDetail() {
                 )}
                 {ruido_db && (
                   <EtiquetaBadge
-                    src={
-                      Number(ruido_db) < 71
-                        ? "/icons/noise-low.png"
-                        : Number(ruido_db) <= 74
-                        ? "/icons/noise-medium.png"
-                        : "/icons/noise-high.png"
-                    }
+                    src="/icons/noise-badge.png"
                     alt="Ruído"
                     value={String(ruido_db)}
                     suffix="dB"
