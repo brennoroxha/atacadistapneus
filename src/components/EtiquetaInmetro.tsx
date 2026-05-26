@@ -34,18 +34,16 @@ function Arrow({
   centerY: number;
   letter: string;
 }) {
-  const len = 28;
-  const bodyH = 7;
-  const headH = 11;
+  const len = 35;
+  const bodyH = 10;
+  const headH = 14;
   const bodyTop = centerY - bodyH / 2;
   const bodyBottom = centerY + bodyH / 2;
   const headTop = centerY - headH / 2;
   const headBottom = centerY + headH / 2;
   const bodyRight = tipX + len;
-  const headRight = tipX + headH; // diagonal length for the arrowhead
+  const headRight = tipX + headH;
 
-  // Points: start at tip, go up to head top, then to body top, across to right,
-  // down to body bottom, back to head bottom, close to tip.
   const points = [
     `${tipX},${centerY}`,
     `${headRight},${headTop}`,
@@ -65,7 +63,7 @@ function Arrow({
         x={textX}
         y={centerY}
         fill="#fff"
-        fontSize={10}
+        fontSize={14}
         fontWeight={900}
         textAnchor="middle"
         dominantBaseline="central"
@@ -120,7 +118,8 @@ export function EtiquetaInmetro({
     <div
       ref={containerRef}
       className={`relative inline-block w-full ${className}`}
-      style={{ maxWidth: "266px" }}
+      style={{ maxWidth: "320px" }}
+
     >
       <img
         src={imageUrl}
@@ -140,12 +139,12 @@ export function EtiquetaInmetro({
       >
         <Arrow tipX={80} centerY={fuelY} letter={f} />
         <Arrow tipX={200} centerY={wetY} letter={w} />
-        <NoiseIcon db={db} x={70 - 19 / 2} y={305 - 17 / 2} w={19} h={17} />
+        <NoiseIcon db={db} x={70 - 32 / 2} y={305 - 28 / 2} w={32} h={28} />
         <text
           x={185}
           y={312}
           fill="#fff"
-          fontSize={28}
+          fontSize={34}
           fontWeight={900}
           textAnchor="middle"
           dominantBaseline="central"
