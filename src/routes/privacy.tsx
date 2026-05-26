@@ -121,7 +121,7 @@ function PrivacyPage() {
         <p><strong>CNPJ:</strong> 04.610.006/0004-84</p>
         <p><strong>Endereço:</strong> Avenida Jose Falcao, nº 75 A, Loja - Queimadinha - Feira de Santana/BA - CEP 44026-100</p>
         <p><strong>E-mail:</strong> contato@atacadistapneus.com.br</p>
-        <p><strong>Telefone:</strong> 75 99999-9999</p>
+        <p><strong>Telefone:</strong> 49 99847-8577</p>
       </div>
     </LegalPage>
   );
