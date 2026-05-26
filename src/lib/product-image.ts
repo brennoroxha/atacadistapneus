@@ -25,12 +25,43 @@ export const PRODUCT_IMAGE_FALLBACK =
  */
 import { optimizeImage, type ImgOpts } from "./image-optimize";
 
+export const PRODUCT_CARD_IMAGE_OPTS: ImgOpts = {
+  width: 300,
+  height: 300,
+  quality: 75,
+  resize: "contain",
+};
+
+export const PRODUCT_CARD_IMAGE_CONTAINER_STYLE = {
+  width: "100%",
+  height: "180px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: "#ffffff",
+  padding: "12px",
+  boxSizing: "border-box",
+} as const;
+
+export const PRODUCT_CARD_IMAGE_STYLE = {
+  maxWidth: "100%",
+  maxHeight: "156px",
+  width: "auto",
+  height: "auto",
+  objectFit: "contain",
+  display: "block",
+} as const;
+
 export function getProductImageUrl(input?: string | null, opts?: ImgOpts): string {
   if (!input) return PRODUCT_IMAGE_FALLBACK;
   const absolute = /^(https?:|data:)/i.test(input)
     ? input
     : `${PRODUCT_IMAGE_BASE_URL}/${input.replace(/^.*[\\/]/, "")}`;
   return opts ? optimizeImage(absolute, opts) : absolute;
+}
+
+export function getProductCardImageUrl(input?: string | null): string {
+  return getProductImageUrl(input, PRODUCT_CARD_IMAGE_OPTS);
 }
 
 

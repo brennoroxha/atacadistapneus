@@ -1,7 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
-import { getProductImageUrl, onProductImageError } from "@/lib/product-image";
+import {
+  getProductCardImageUrl,
+  getProductImageUrl,
+  onProductImageError,
+  PRODUCT_CARD_IMAGE_CONTAINER_STYLE,
+  PRODUCT_CARD_IMAGE_STYLE,
+} from "@/lib/product-image";
 import { Button } from "@/components/ui/button";
 import {
   ChevronRight,
@@ -376,21 +382,14 @@ function ProductDetail() {
                 params={{ productId: (p as any).slug ?? p.id }}
                 className="group bg-white dark:bg-card rounded-xl border overflow-hidden hover:shadow-lg transition"
               >
-                <div className="flex items-center justify-center w-full h-[180px] overflow-hidden bg-white p-2">
+                <div style={PRODUCT_CARD_IMAGE_CONTAINER_STYLE}>
                   <img
-                    src={getProductImageUrl(p.images?.[0], { width: 300, quality: 75 })}
+                    src={getProductCardImageUrl(p.images?.[0])}
                     alt={p.name}
                     loading="lazy"
                     decoding="async"
                     onError={onProductImageError}
-                    style={{
-                      maxWidth: '100%',
-                      maxHeight: '160px',
-                      width: 'auto',
-                      height: 'auto',
-                      objectFit: 'contain',
-                      display: 'block'
-                    }}
+                    style={PRODUCT_CARD_IMAGE_STYLE}
                     width="400"
                     height="400"
                     className="transition-transform group-hover:scale-105"
