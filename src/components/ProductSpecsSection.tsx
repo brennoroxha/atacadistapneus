@@ -1,6 +1,6 @@
 import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
-import { InmetroLabel } from "./InmetroLabel";
+import { EtiquetaInmetro } from "./EtiquetaInmetro";
 
 
 type Specs = Record<string, any>;
