@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ShippingPolicyRouteImport } from './routes/shipping-policy'
 import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
+import { Route as ProxyImageRouteImport } from './routes/proxy-image'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PaymentMethodsRouteImport } from './routes/payment-methods'
 import { Route as Google9e338cbf9702c676DothtmlRouteImport } from './routes/google9e338cbf9702c676[.]html'
@@ -49,6 +50,11 @@ const ShippingPolicyRoute = ShippingPolicyRouteImport.update({
 const RefundPolicyRoute = RefundPolicyRouteImport.update({
   id: '/refund-policy',
   path: '/refund-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProxyImageRoute = ProxyImageRouteImport.update({
+  id: '/proxy-image',
+  path: '/proxy-image',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -185,6 +191,7 @@ export interface FileRoutesByFullPath {
   '/google9e338cbf9702c676.html': typeof Google9e338cbf9702c676DothtmlRoute
   '/payment-methods': typeof PaymentMethodsRoute
   '/privacy': typeof PrivacyRoute
+  '/proxy-image': typeof ProxyImageRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/shipping-policy': typeof ShippingPolicyRoute
   '/terms': typeof TermsRoute
@@ -213,6 +220,7 @@ export interface FileRoutesByTo {
   '/google9e338cbf9702c676.html': typeof Google9e338cbf9702c676DothtmlRoute
   '/payment-methods': typeof PaymentMethodsRoute
   '/privacy': typeof PrivacyRoute
+  '/proxy-image': typeof ProxyImageRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/shipping-policy': typeof ShippingPolicyRoute
   '/terms': typeof TermsRoute
@@ -242,6 +250,7 @@ export interface FileRoutesById {
   '/google9e338cbf9702c676.html': typeof Google9e338cbf9702c676DothtmlRoute
   '/payment-methods': typeof PaymentMethodsRoute
   '/privacy': typeof PrivacyRoute
+  '/proxy-image': typeof ProxyImageRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/shipping-policy': typeof ShippingPolicyRoute
   '/terms': typeof TermsRoute
@@ -272,6 +281,7 @@ export interface FileRouteTypes {
     | '/google9e338cbf9702c676.html'
     | '/payment-methods'
     | '/privacy'
+    | '/proxy-image'
     | '/refund-policy'
     | '/shipping-policy'
     | '/terms'
@@ -300,6 +310,7 @@ export interface FileRouteTypes {
     | '/google9e338cbf9702c676.html'
     | '/payment-methods'
     | '/privacy'
+    | '/proxy-image'
     | '/refund-policy'
     | '/shipping-policy'
     | '/terms'
@@ -328,6 +339,7 @@ export interface FileRouteTypes {
     | '/google9e338cbf9702c676.html'
     | '/payment-methods'
     | '/privacy'
+    | '/proxy-image'
     | '/refund-policy'
     | '/shipping-policy'
     | '/terms'
@@ -357,6 +369,7 @@ export interface RootRouteChildren {
   Google9e338cbf9702c676DothtmlRoute: typeof Google9e338cbf9702c676DothtmlRoute
   PaymentMethodsRoute: typeof PaymentMethodsRoute
   PrivacyRoute: typeof PrivacyRoute
+  ProxyImageRoute: typeof ProxyImageRoute
   RefundPolicyRoute: typeof RefundPolicyRoute
   ShippingPolicyRoute: typeof ShippingPolicyRoute
   TermsRoute: typeof TermsRoute
@@ -393,6 +406,13 @@ declare module '@tanstack/react-router' {
       path: '/refund-policy'
       fullPath: '/refund-policy'
       preLoaderRoute: typeof RefundPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/proxy-image': {
+      id: '/proxy-image'
+      path: '/proxy-image'
+      fullPath: '/proxy-image'
+      preLoaderRoute: typeof ProxyImageRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -573,6 +593,7 @@ const rootRouteChildren: RootRouteChildren = {
   Google9e338cbf9702c676DothtmlRoute: Google9e338cbf9702c676DothtmlRoute,
   PaymentMethodsRoute: PaymentMethodsRoute,
   PrivacyRoute: PrivacyRoute,
+  ProxyImageRoute: ProxyImageRoute,
   RefundPolicyRoute: RefundPolicyRoute,
   ShippingPolicyRoute: ShippingPolicyRoute,
   TermsRoute: TermsRoute,
@@ -590,3 +611,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
