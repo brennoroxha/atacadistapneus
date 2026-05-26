@@ -143,8 +143,8 @@ function HeroBannerCarousel() {
 
 function TireSearchHero() {
   return (
-    <section className="relative bg-gray-50 dark:bg-card py-12 md:py-20 px-4">
-      <div className="container">
+    <section className="relative bg-gray-50 dark:bg-card py-0 md:py-20 px-0 md:px-4">
+      <div className="md:container">
         <TireSearchWidget />
       </div>
     </section>
