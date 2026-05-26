@@ -114,8 +114,8 @@ function HeroBannerCarousel() {
                 className="w-full h-auto"
                 loading={i === 0 ? "eager" : "lazy"}
                 fetchPriority={i === 0 ? "high" : "auto"}
-                width="1645"
-                height="956"
+                width="1920"
+                height="384"
               />
             </CarouselItem>
 
