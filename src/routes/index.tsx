@@ -247,20 +247,20 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
         ) : carousel ? (
           <Carousel
             opts={{
-              align: "start",
+              align: "center",
               loop: true,
             }}
-            className="w-full relative px-10 md:px-0"
+            className="w-full relative md:px-0"
           >
             <CarouselContent className="-ml-2 md:-ml-4">
               {products?.map((product: any) => (
-                <CarouselItem key={product.id} className="pl-2 md:pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4">
+                <CarouselItem key={product.id} className="pl-2 md:pl-4 basis-[75%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
                   {renderProduct(product)}
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="-left-4 md:-left-12 h-10 w-10" />
-            <CarouselNext className="-right-4 md:-right-12 h-10 w-10" />
+            <CarouselPrevious className="-left-4 md:-left-12 h-10 w-10 hidden md:flex" />
+            <CarouselNext className="-right-4 md:-right-12 h-10 w-10 hidden md:flex" />
           </Carousel>
         ) : mobileCarousel ? (
           <div className="flex gap-3 md:gap-6 overflow-x-auto snap-x snap-mandatory -mx-4 px-[12%] md:px-[18%] lg:px-[12.5%] scrollbar-hide">
