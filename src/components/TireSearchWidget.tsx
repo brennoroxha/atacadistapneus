@@ -27,28 +27,28 @@ export function TireSearchWidget() {
       <div className="flex border-b border-gray-200 bg-white">
         <button
           onClick={() => setTab("medidas")}
-          className={`flex-1 flex items-center justify-center gap-2 py-4 px-4 text-sm md:text-base font-semibold transition-colors relative ${
+          className={`flex-1 flex items-center justify-center gap-1.5 py-4 px-2 text-[13px] md:text-base font-bold transition-colors relative ${
             tab === "medidas"
               ? "text-[#0a2a8a]"
               : "text-gray-400 hover:text-gray-600"
           }`}
         >
-          <Ruler className="w-4 h-4 md:w-5 md:h-5" />
-          <span>Procurar por medidas</span>
+          <Ruler className="w-3.5 h-3.5 md:w-5 md:h-5" />
+          <span className="whitespace-nowrap">Procurar por medidas</span>
           {tab === "medidas" && (
             <span className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#0a2a8a] rounded-t" />
           )}
         </button>
         <button
           onClick={() => setTab("inteligente")}
-          className={`flex-1 flex items-center justify-center gap-2 py-4 px-4 text-sm md:text-base font-semibold transition-colors relative ${
+          className={`flex-1 flex items-center justify-center gap-1.5 py-4 px-2 text-[13px] md:text-base font-bold transition-colors relative ${
             tab === "inteligente"
               ? "text-[#0a2a8a]"
               : "text-gray-400 hover:text-gray-600"
           }`}
         >
-          <Search className="w-4 h-4 md:w-5 md:h-5" />
-          <span>Busca inteligente</span>
+          <Search className="w-3.5 h-3.5 md:w-5 md:h-5" />
+          <span className="whitespace-nowrap">Busca inteligente</span>
           {tab === "inteligente" && (
             <span className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#0a2a8a] rounded-t" />
           )}
