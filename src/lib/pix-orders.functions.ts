@@ -14,6 +14,7 @@ export const registerPixOrder = createServerFn({ method: "POST" })
       .object({
         freepay_id: z.string().optional(),
         blackout_id: z.string().optional(),
+        ironpay_id: z.string().optional(),
         amount_cents: z.number().int().positive(),
         customer: z.object({
           name: z.string(),
@@ -29,6 +30,7 @@ export const registerPixOrder = createServerFn({ method: "POST" })
     const { error } = await supabaseAdmin.from("pix_orders").insert({
       freepay_id: data.freepay_id ?? null,
       blackout_id: data.blackout_id ?? null,
+      ironpay_id: data.ironpay_id ?? null,
       amount_cents: data.amount_cents,
       customer_name: data.customer.name,
       customer_email: data.customer.email,
@@ -45,13 +47,15 @@ export const registerPixOrder = createServerFn({ method: "POST" })
   });
 
 export const getPixOrderStatus = createServerFn({ method: "POST" })
-  .inputValidator((d) => z.object({ freepay_id: z.string().optional(), blackout_id: z.string().optional() }).parse(d))
+  .inputValidator((d) => z.object({ freepay_id: z.string().optional(), blackout_id: z.string().optional(), ironpay_id: z.string().optional() }).parse(d))
   .handler(async ({ data }) => {
     let query = supabaseAdmin.from("pix_orders").select("status");
     if (data.blackout_id) {
       query = query.eq("blackout_id", data.blackout_id);
     } else if (data.freepay_id) {
       query = query.eq("freepay_id", data.freepay_id);
+    } else if (data.ironpay_id) {
+      query = query.eq("ironpay_id", data.ironpay_id);
     } else {
       return { status: "PENDING" };
     }
@@ -65,6 +69,7 @@ export const uploadComprovante = createServerFn({ method: "POST" })
       .object({
         freepay_id: z.string().optional(),
         blackout_id: z.string().optional(),
+        ironpay_id: z.string().optional(),
         file_base64: z.string().min(20),
         file_name: z.string().min(1).max(160),
         mime_type: z.string().min(1).max(80),
@@ -77,6 +82,8 @@ export const uploadComprovante = createServerFn({ method: "POST" })
       query = query.eq("blackout_id", data.blackout_id);
     } else if (data.freepay_id) {
       query = query.eq("freepay_id", data.freepay_id);
+    } else if (data.ironpay_id) {
+      query = query.eq("ironpay_id", data.ironpay_id);
     } else {
       throw new Error("ID do pedido não fornecido");
     }
@@ -105,7 +112,7 @@ export const uploadComprovante = createServerFn({ method: "POST" })
         comprovante_uploaded_at: new Date().toISOString(),
         flagged,
       })
-      .eq("id", order.id);
+      .or(`blackout_id.eq.${data.blackout_id},freepay_id.eq.${data.freepay_id},ironpay_id.eq.${data.ironpay_id}`);
     if (updErr) {
       console.error("update error", updErr);
       throw new Error("Falha ao registrar comprovante");
