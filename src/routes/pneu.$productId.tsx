@@ -115,8 +115,6 @@ function ProductDetail() {
     },
   });
 
-  if (isLoading)
-    return <div className="container py-20 px-4 mx-auto animate-pulse h-[600px] bg-muted rounded-xl"></div>;
   if (!product)
     return <div className="container py-20 px-4 mx-auto text-center">Produto não encontrado.</div>;
 
