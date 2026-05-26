@@ -378,7 +378,7 @@ function ProductDetail() {
               >
                 <div className="flex items-center justify-center w-full h-[180px] overflow-hidden bg-white p-2">
                   <img
-                    src={getProductImageUrl(p.images?.[0], { width: 300, quality: 75 })}
+                    src={getProductImageUrl(p.images?.[0], { width: 300, height: 300, quality: 75, resize: "contain" })}
                     alt={p.name}
                     loading="lazy"
                     decoding="async"

@@ -179,7 +179,7 @@ function ProductSection({ title, products, loading, onAdd, mobileCarousel, carou
               }}
             >
               <img
-                src={getProductImageUrl(product.images?.[0], { width: 300, quality: 75 })}
+                src={getProductImageUrl(product.images?.[0], { width: 300, height: 300, quality: 75, resize: "contain" })}
                 alt={product.name}
                 loading="lazy"
                 decoding="async"
