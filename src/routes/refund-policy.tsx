@@ -77,7 +77,7 @@ function RefundPolicyPage() {
       <div className="info-box">
         <p><strong>Atendimento ao Cliente</strong></p>
         <p>E-mail: contato@atacadistapneus.com.br</p>
-        <p>Telefone/WhatsApp: 75 99999-9999</p>
+        <p>Telefone/WhatsApp: 49 99847-8577</p>
         <p>Horário: Segunda a Sexta, das 9h às 18h</p>
       </div>
     </LegalPage>
