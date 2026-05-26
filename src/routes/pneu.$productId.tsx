@@ -342,10 +342,23 @@ function ProductDetail() {
 
       <EspecificacoesTable product={product} specs={specs} />
 
+      {product.description && (
+        <section className="mt-12">
+          <div className="border-b mb-6">
+            <h2 className="inline-block pb-3 border-b-4 border-safety-orange font-black text-lg text-industrial-blue dark:text-primary">
+              Descrição do produto
+            </h2>
+          </div>
+          <div className="prose prose-sm md:prose-base max-w-none text-foreground/90 whitespace-pre-line leading-relaxed">
+            {product.description}
+          </div>
+        </section>
+      )}
 
       <AdditionalInfoSection texto={(specs as any).informacaoAdicional} />
       <VehiclesSection veiculos={(specs as any).veiculos} />
       <WarrantySection garantia={(specs as any).garantia} />
+
 
       {/* Related products */}
       {related.length > 0 && (
