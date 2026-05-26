@@ -88,7 +88,7 @@ export const Route = createFileRoute("/pneu/$productId")({
 function ProductDetail() {
   const { product: initialProduct } = Route.useLoaderData();
   const { productId } = Route.useParams();
-  const [quantity, setQuantity] = useState(4);
+  const [quantity, setQuantity] = useState(1);
   const [activeImage, setActiveImage] = useState(0);
   const addItem = useCart((state) => state.addItem);
   const openCart = useCart((state) => state.openCart);
@@ -296,9 +296,6 @@ function ProductDetail() {
                 ))}
               </SelectContent>
             </Select>
-            <span className="text-sm text-muted-foreground">
-              Subtotal: <span className="font-bold text-foreground">R$ {(product.price * quantity).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-            </span>
           </div>
 
 
