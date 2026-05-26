@@ -22,7 +22,7 @@ export function TireSearchWidget() {
   const [tab, setTab] = useState<Tab>("medidas");
 
   return (
-    <div className="w-full max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+    <div className="w-full max-w-5xl mx-auto bg-white md:rounded-2xl md:shadow-xl overflow-hidden border-0 md:border md:border-gray-100">
       {/* Tabs */}
       <div className="flex border-b border-gray-200 bg-white">
         <button
