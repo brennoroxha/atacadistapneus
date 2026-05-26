@@ -11,7 +11,7 @@ async function notifyPushcut(url: string) {
   }
 }
 
-const IRONPAY_BASE = "https://api.ironpay.com.br/api/v1";
+const IRONPAY_BASE = "https://api.ironpayapp.com.br/api/v1";
 
 function authHeader() {
   const token = process.env.IRONPAY_TOKEN;
