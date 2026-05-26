@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { XMLParser } from 'fast-xml-parser';
 
-const xmlData = fs.readFileSync('5668bb2e-a50e-4d80-b276-ae3381798e58', 'utf-8');
+const xmlData = fs.readFileSync('/tmp/feed.xml', 'utf-8');
 const parser = new XMLParser({
     ignoreAttributes: false,
     attributeNamePrefix: "@_"
